@@ -14,7 +14,7 @@
   <th>Email</th>
   <th>Address</th>
   <th>City</th>
-  <th>Country</th>
+  <th>Suburb</th>
   <th>Postcode</th>
   <th>Phone</th>
   <th>Delete</th>
@@ -32,7 +32,7 @@
   <td><?php echo $order['email']; ?></td>
   <td><?php echo $order['address']; ?></td>
   <td><?php echo $order['city']; ?></td>
-  <td><?php echo $order['country']; ?></td>
+  <td><?php echo $order['suburb']; ?></td>
   <td><?php echo $order['postcode']; ?></td>
   <td><?php echo $order['phone']; ?></td>
   <td><a href="<?php echo base_url(); ?>admin/home/delete_order/<?php echo $order['order_id'] ?>" onclick="return myConfirm();"><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>

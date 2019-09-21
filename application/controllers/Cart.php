@@ -88,7 +88,7 @@ public function update(){
     $this->form_validation->set_rules("last_name", "Last name ", 'required');
     $this->form_validation->set_rules("address", "Address ", 'required');
     $this->form_validation->set_rules("city", "City", 'required');
-    $this->form_validation->set_rules("country", "Country ", 'required');
+    $this->form_validation->set_rules("suburb", "Suburb ", 'required');
     $this->form_validation->set_rules("postcode", "Postcode/zip", 'required');
     $this->form_validation->set_rules("email", "Email ", 'required');
     $this->form_validation->set_rules("phone", "contact number", 'required');
@@ -100,17 +100,17 @@ public function update(){
     'last_name' => $this->input->post('last_name'),
     'address' => $this->input->post('address'),
     'city' => $this->input->post('city'),
-    'country' => $this->input->post('country'),
+    'suburb' => $this->input->post('suburb'),
     'postcode' => $this->input->post('postcode'),
     'email' => $this->input->post('email'),
     'phone' => $this->input->post('phone'),
-    'product_id' => implode(", ",$this->input->post('product_id')),
+    'product_id' => implode(", ", $this->input->post('product_id')),
     'product_title' => implode(", ", $this->input->post('product_title')),
     'qty' => implode(", ", $this->input->post('p_qty')),
     'item_price' => implode(", ", $this->input->post('item_price')),
     'price' => $this->input->post('price'),
 
-  );                                   // prd($data);
+  );                                    //prd($data);
     $this->mdl_home->order($data);
     $this->ordered();
 

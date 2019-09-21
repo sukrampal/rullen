@@ -20,59 +20,59 @@
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>First Name </label>
-										<input type="text" name="first_name" placeholder="" />
-										<span class="text-danger"><?php echo form_error("first_name"); ?></span>
+										<input type="text" name="first_name" value="<?php echo set_value('first_name'); ?>" placeholder="Enter First Name" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("first_name"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Last Name</label>
-										<input type="text" name="last_name" placeholder="" />
-										<span class="text-danger"><?php echo form_error("last_name"); ?></span>
+										<input type="text" name="last_name" value="<?php echo set_value('last_name'); ?>" placeholder="Enter Last Name" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("last_name"); ?></span>
 									</div>
 								</div>
 
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>Address</label>
-										<input type="text" name="address" placeholder="Street address" />
-										<span class="text-danger"><?php echo form_error("address"); ?></span>
+										<input type="text" name="address" value="<?php echo set_value('address'); ?>" placeholder="Street address" />
+										<span class="text-danger"><p style="color:red;" <?php echo form_error("address"); ?> </span>
 									</div>
 								</div>
 
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>City <span class="required">*</span></label>
-										<input type="text" name="city" placeholder="Town / City" />
-										<span class="text-danger"><?php echo form_error("city"); ?></span>
+										<input type="text" name="city" value="<?php echo set_value('city'); ?>" placeholder="Town / City" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("city"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
-										<label>County <span class="required">*</span></label>
-										<input type="text" name="country" placeholder="New Zealand" />
-										<span class="text-danger"><?php echo form_error("country"); ?></span>
+										<label>Suburb <span class="required">*</span></label>
+										<input type="text" value="<?php echo set_value('suburb'); ?>" name="suburb" placeholder="Suburb" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("suburb"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Postcode / Zip <span class="required">*</span></label>
-										<input type="text" name="postcode" placeholder="Postcode / Zip" />
-										<span class="text-danger"><?php echo form_error("postcode"); ?></span>
+										<input type="text" name="postcode" value="<?php echo set_value('postcode'); ?>" placeholder="Postcode / Zip" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("postcode"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Email Address <span class="required">*</span></label>
-										<input type="email" name="email" placeholder="" />
-										<span class="text-danger"><?php echo form_error("email"); ?></span>
+										<input type="email" name="email" value="<?php echo set_value('email'); ?>" placeholder="Enter Email Address" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("email"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Phone  <span class="required">*</span></label>
-										<input type="text" name="phone" placeholder="Mobile number" />
-										<span class="text-danger"><?php echo form_error("phone"); ?></span>
+										<input type="text" name="phone" value="<?php echo set_value('phone'); ?>" placeholder="Enter Mobile Number" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("phone"); ?></span>
 									</div>
 								</div>
 

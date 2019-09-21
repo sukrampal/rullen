@@ -66,7 +66,7 @@
 									<div class="form-group contuct_f">
 										<label for="exampleInputPassword1">Phone Number</label>
 										<input type="text" name="phone" value="<?php echo set_value('phone'); ?>" class="form-control"  placeholder="Phone Number" autocomplete="off"></input>
-                    <span class="error"><p style="color:red" <?php echo form_error('phone'); ?></span>
+                    <span class="text-danger"><p style="color:red" <?php echo form_error('phone'); ?></span>
                   </div>
 									<div class="form-group contuct_f">
 										<label for="exampleInputPassword1">What is on your mind? <span>*</span></label>
