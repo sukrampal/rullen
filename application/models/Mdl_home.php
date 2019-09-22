@@ -1,6 +1,17 @@
 <?php
  class Mdl_home extends CI_Model
  {
+        public function can_login($email, $password){
+          $this->db->where('email', $email);
+          $this->db->where('password', $password);
+          $query = $this->db->get('user');
+          if($query->num_rows() == 1 ){
+            return $query->row();
+            // return true;
+          }else{
+            return false;
+          }
+        }
         public function get_new_products(){
         $result = $this->db->where('new_product', 1)->get('products')->result_array();
         //  $this->db->where('product_id', 1);

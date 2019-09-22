@@ -66,7 +66,7 @@ public function update(){
     $data[$i]['qty'] = $p[0];
     $data[$i]['qty_price'] = $p[1];
     $i++;
-  }
+  }              //prd($p);
 
   $this->cart->update($data);
   redirect('cart');
@@ -94,7 +94,13 @@ public function update(){
     $this->form_validation->set_rules("phone", "contact number", 'required');
     if($this->form_validation->run()){
     $this->load->model('mdl_home');
-    // prd($_POST);
+    if($this->input->post('cash')){
+      $payment_method = 'cash on delivery';
+      // $data['payment_method'] = 'cash on delivery';
+    }else{
+      $payment_method = "Online";
+    }
+    // prd($data);
     $data = array(
     'first_name' => $this->input->post('first_name'),
     'last_name' => $this->input->post('last_name'),
@@ -109,6 +115,7 @@ public function update(){
     'qty' => implode(", ", $this->input->post('p_qty')),
     'item_price' => implode(", ", $this->input->post('item_price')),
     'price' => $this->input->post('price'),
+    'payment_method'=> $payment_method,
 
   );                                    //prd($data);
     $this->mdl_home->order($data);

@@ -141,7 +141,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="top-interesting-active">
+					<div class="top-interesting-active">  
 						<?php foreach($sukram as $s){ ?>
 						<div class="col-lg-12">
 
@@ -319,6 +319,5 @@
         width: 90% !important;
         height: 100% !important;
     }
-
 
 			</style>

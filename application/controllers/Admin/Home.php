@@ -4,7 +4,17 @@
 class Home extends CI_Controller {
       public function index()
       {
-      $this->load->view("Admin/login");
+        if($this->session->userdata('username') != '')
+          {
+            redirect (base_url() . 'admin/home/dashboard');
+               // echo '<p class="text-success">Welcome - '.$this->session->userdata('username').'</p>';
+               // echo '<label><a href="'.base_url().'Admin/home/logout">Logout</a></label>';
+          }
+          else
+          {
+               $this->load->view("Admin/login");
+          }
+      // $this->load->view("Admin/login");
       }
       function login_validation()
       {

@@ -16,7 +16,7 @@
               <span>Phone: </span> +64 21770211
             </li>
             <li>
-              <span>Email:</span> <a href="mailto:Sukramror0001@gmail.com">admin@rullen.com</a>
+              <span>Email:</span> <a href="mailto:Sukramror0001@gmail.com">info@rullenantiques.co.nz</a>
             </li>
           </ul>
           <ul class="footer-social">

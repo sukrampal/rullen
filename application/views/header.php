@@ -67,7 +67,7 @@
 								<div class="header-bottom-text">
 									<h3>SUPPORT 24/7</h3>
 									<p>+64 21770211</p>
-                <a href="mailto:Sukramror0001@gmail.com">admin@rullen.com</a>
+                <a href="mailto:Sukramror0001@gmail.com">info@rullenantiques.co.nz</a>
 								</div>
 							</div>
 						</div>
@@ -130,24 +130,34 @@
 
 									</li>
 									<li class="<?php if($uri == "gallery" || $uri == "shop") { ?>active <?php } ?>"><a href="<?php echo base_url();?>home/gallery">Products</a>
-										<!-- <div class="megamenu">
-											<span>
-												<a href="#" class="megatitle">Products</a>
-												<a href="#">Antiques and colectibles</a>
-												<a href="#">Antique doors and Gates</a>
-												<a href="#">Rugs</a>
-
-											</span>
-
-										</div> -->
 									</li>
-
 									<li class="<?php if($uri == "about") { ?>active <?php } ?>"><a href="<?php echo base_url(); ?>home/about">About Us</a>
 
 									</li>
 
 									<li class="<?php if($uri == "contact") { ?>active <?php } ?>"><a href="<?php echo base_url(); ?>home/contact">contact us</a></li>
 
+                  <?php if($this->session->userdata('authenticated')){ ?>
+                  <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('first_name'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
+										<ul class="click_menu_show">
+											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
+											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
+                      <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
+                      <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
+
+										</ul>
+									</li>
+                <?php }else{ ?>
+                  <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
+										<ul class="click_menu_show">
+											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
+											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
+                      <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
+                      <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li>
+
+										</ul>
+									</li>
+                <?php } ?>
 								</ul>
 							</nav>
 						</div>
@@ -186,6 +196,27 @@
 
 									<li><a href="<?php echo base_url(); ?>home/contact">contact Us</a></li>
                   <li><a href="<?php echo base_url(); ?>home/about">About Us</a>
+                    <?php if($this->session->userdata('authenticated')){ ?>
+                    <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('first_name'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
+  										<ul class="click_menu_show">
+  											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
+  											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
+                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
+
+  										</ul>
+  									</li>
+                  <?php }else{ ?>
+                    <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
+  										<ul class="click_menu_show">
+  											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
+  											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
+                        <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li>
+
+  										</ul>
+  									</li>
+                  <?php } ?>
 								</ul>
 							</nav>
 						</div>

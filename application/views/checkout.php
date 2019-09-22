@@ -184,6 +184,8 @@
 										</div>
 									</div>
 								</div>
+								  <input type="checkbox" name="cash" placeholder="" autocomplete="off" >
+									<label class="text-success"><b>Cash On Delivery</b> </label>
 								<div class="order-button-payment">
 									<input type="submit" value="Place order" />
 									<!-- onclick="printDiv('printMe')" -->

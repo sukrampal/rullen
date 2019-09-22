@@ -3,6 +3,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+   public function login(){
+     if($this->session->userdata('authenticated')){
+       redirect (base_url() . 'home/index');
+     }else{
+     $this->navbar();
+     $this->load->view('login');
+     $this->footer();
+    }
+   }
+   public function can_login(){
+     $this->load->library('form_validation');
+       $this->form_validation->set_rules('email', 'Email', 'required');
+       $this->form_validation->set_rules('password', 'Password', 'required');
+
+       if($this->form_validation->run()){
+         $email = $this->security->xss_clean($this->input->post('email'));
+         $password = $this->security->xss_clean($this->input->post('password'));
+         $this->load->model('mdl_home');
+        $user =  $this->mdl_home->can_login($email, $password);
+        if($user){
+          $userdata = array(
+            'id' => $user->id,
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'authenticated' => TRUE
+          );
+          $this->session->set_userdata($userdata);
+          redirect (base_url() . 'home/index');
+        }else{
+          $this->session->set_flashdata('error_msg', 'invalid Email or Password');
+          // redirect (base_url() . 'home/login');
+          redirect (base_url() . 'home/login');
+        }
+      }else{
+        $this->login();
+      }
+     }
+          public function logout(){
+            $this->session->sess_destroy();
+            redirect (base_url() .'home/login');
+          }
+
     public function index(){
       //prd($this->cart->contents());
         $this->load->model('mdl_home');
@@ -71,7 +114,7 @@ class Home extends CI_Controller {
         $this->load->model('mdl_home');
         // $data['var_product'] = $this->mdl_home->get_new_product_details();
         $data['var_product'] = $this->mdl_home->get_product_details();
-        $data['var_shop'] = $this->mdl_home->get_related_product();
+          $data['var_shop'] = $this->mdl_home->get_related_product();
         $this->navbar();
         $this->load->view('product-details', $data);
         $this->footer();
