@@ -22,12 +22,12 @@ class Home extends CI_Controller {
          $password = $this->security->xss_clean($this->input->post('password'));
          $this->load->model('mdl_home');
         $user =  $this->mdl_home->can_login($email, $password);
+
         if($user){
           $userdata = array(
-            'id' => $user->id,
+            'id' => $user->user_id,
             'email' => $user->email,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
+            'username' => $user->username,
             'authenticated' => TRUE
           );
           $this->session->set_userdata($userdata);
@@ -45,6 +45,81 @@ class Home extends CI_Controller {
             $this->session->sess_destroy();
             redirect (base_url() .'home/login');
           }
+          public function signup(){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('uname', 'Username', 'trim|required|alpha');
+            $this->form_validation->set_rules('mail', 'Email', 'trim|required|valid_email|is_unique[user.email]');
+            $this->form_validation->set_rules('pass', 'Password', 'trim|required|alpha_numeric|min_length[5]');
+            $this->form_validation->set_rules('c_password', 'Confirm Password', 'required|matches[pass]');
+            if($this->form_validation->run()){
+              $this->load->model('mdl_home');
+              $data = array(
+                'username' => $this->input->post('uname'),
+                'email' => $this->input->post('mail'),
+                'password' =>$this->input->post('pass'),
+              );
+              $this->mdl_home->sign_up($data);
+              if($this->input->post('subscribe')){
+                $this->load->model('mdl_home');
+                $data1 = array(
+                'email' =>  $this->input->post('mail'),
+                 );
+                $this->mdl_home->subscribe($data1);
+              }
+
+            $to = 'sukramror0001@gmail.com';
+            // $to = $this->input->post('mail');
+            $subject = 'Rullen-Furniture';
+            $from = 'sukramror0001@gmail.com';
+            $emailContent ='Hi..' .$this->input->post('uname').', you are successfully signed up at Rullen-Furniture having'.'<br>'.'<b>Email id:</b> '.$this->input->post('mail').'<br>'.'<b>Password:</b> '.$this->input->post('pass').'<br>'.'Please visit our website rullenantiques.co.nz for latest furniture-items';
+
+            $config['protocol']    = 'smtp';
+            $config['smtp_host']    = 'ssl://smtp.gmail.com';
+            $config['smtp_port']    = '465';
+            $config['smtp_timeout'] = '60';
+            $config['smtp_user']    = 'sukramror0001@gmail.com';
+            $config['smtp_pass']    = 'Sukram@123';
+            $config['charset']    = 'utf-8';
+            $config['newline']    = "\r\n";
+            $config['mailtype'] = 'html';
+            $config['validation'] = TRUE;
+
+            $this->email->initialize($config);
+            $this->email->set_mailtype("html");
+            $this->email->from($from);
+            $this->email->to($to);
+            $this->email->subject($subject);
+            $this->email->message($emailContent);
+
+            // return redirect('email_send');
+            if($this->email->send())
+                 {
+                 }
+                 else
+                 {
+                     show_error($this->email->print_debugger());
+                 }
+
+                 $email = $this->security->xss_clean($this->input->post('mail'));
+                 $password = $this->security->xss_clean($this->input->post('pass'));
+                 $this->load->model('mdl_home');
+                $user =  $this->mdl_home->can_login($email, $password);
+                if($user){
+                  $userdata = array(
+                    'id' => $user->user_id,
+                    'email' => $user->email,
+                    'username' => $user->username,
+                    // 'last_name' => $user->last_name,
+                    'authenticated' => TRUE
+                  );
+                  $this->session->set_userdata($userdata);
+                  redirect (base_url() . 'home/index');
+                }
+  }else{
+    $this->login();
+  }
+          }
+
 
     public function index(){
       //prd($this->cart->contents());
@@ -132,12 +207,13 @@ class Home extends CI_Controller {
         $this->footer();
       }
 
+
       public function gallery(){
         $this->load->model('mdl_home');
         $this->load->library('pagination');
         $config = [
           'base_url'         => base_url('home/gallery'),
-          'per_page'         => 15,
+          'per_page'         => 20,
           'total_rows'       => $this->mdl_home->num_rows(),
           'full_tag_open'    =>"<ul class='pagination'>",
           'full_tag_close'   =>"</ul>",
@@ -222,5 +298,139 @@ class Home extends CI_Controller {
         }else{
           $this->contact();
         }
+      }
+        public function forget_password(){
+          $this->navbar();
+          $this->load->view('forget_password');
+          $this->footer();
+        }
+        public function retrieve_password(){
+          $this->load->library('form_validation');
+          $this->form_validation->set_rules('email', 'Email', 'required');
+          if($this->form_validation->run()){
+        $emailto = $this->input->post('email');
+        $this->load->model('mdl_home');
+        $pass['pass']= $this->mdl_home->retrieve_password($emailto); //prd($password);
+         if(!empty($pass)){
+        $to = 'sukramror0001@gmail.com';
+        $subject = 'Rullen-Furniture';
+        $from = 'sukramror0001@gmail.com';
+        foreach($pass as $p){
+        $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
+        $emailContent  .='Email id: '. $p['email'].'<br>';
+        $emailContent  .='Password: '. $p['password'];
+
+}
+        // $emailContent .=$this->input->post('name');
+
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+        $config['smtp_timeout'] = '60';
+        $config['smtp_user']    = 'sukramror0001@gmail.com';
+        $config['smtp_pass']    = 'Sukram@123';
+        $config['charset']    = 'utf-8';
+        $config['newline']    = "\r\n";
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->from($from);
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($emailContent);
+
+        // return redirect('email_send');
+        if($this->email->send())
+             {
+                 // echo 'Your email sent...!!!! ';
+                 $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
+                 $this->session->set_flashdata('msg_class','alert-success');
+                     return redirect('home/forget_password');
+
+             }
+             else
+             {
+                 show_error($this->email->print_debugger());
+             }
+              }else{
+              echo 'sorry';
+              }
+              }else{
+              // redirect ('home/forget_password');
+              $this->forget_password();
+              }
+        }
+        public function subscribe(){
+          $this->load->library('form_validation');
+          $this->form_validation->set_rules('email', 'Email', 'required|is_unique[subscribe.email]');
+          if($this->form_validation->run()){
+          $this->load->model('mdl_home');
+          $data = array(
+            'email' => $this->input->post('email'),
+          );
+          $this->mdl_home->subscribe($data);
+
+         $this->session->set_flashdata('subscribe', 'You have been successfully subscribed to our newsletter');
+         // $this->session->set_flashdata('.sg')
+            return  redirect ($_SERVER["HTTP_REFERER"]);
+        }
+        else{
+          $this->session->set_flashdata('error', 'You are already subscribed');
+            redirect ($_SERVER["HTTP_REFERER"]);
+        }
+      }
+      public function password_change(){
+        if($this->session->userdata('authenticated')){
+          $this->navbar();
+          $this->load->view('password_change');
+          $this->footer();
+
+        }else{
+        redirect (base_url() . 'home/login');
+      }
+    }
+      public function change_password(){
+         if($this->session->userdata('authenticated')){
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('old_pass', 'Old Password', 'trim|required');
+        $this->form_validation->set_rules('new_pass', 'New Password', 'trim|required');
+        $this->form_validation->set_rules('c_pass', 'Confirm Password', 'trim|required|matches[new_pass]');
+        if($this->form_validation->run()){
+          $this->load->model('mdl_home');
+        $old_pass = $this->input->post('old_pass');
+        $user_id = $this->input->post('user_id');
+        $result = $this->mdl_home->check_old_password($user_id, $old_pass);
+        if($result == true){
+         $data = array(
+           'password' => $this->input->post('new_pass'),
+           // $user_id =>$this->input->post('user_id'),
+         );
+         $this->mdl_home->update_password($data, $user_id);
+         $this->session->set_flashdata('msg1', ', Your password has been changed successfully');
+         return redirect ('home/password_change');
+        }else{
+          $this->session->set_flashdata('msg', 'Old password does not match');
+          return redirect ('home/password_change');
+        }
+
+        }else{
+          $this->password_change();
+        }
+      }else{
+        redirect (base_url(). 'home/login');
+      }
+    }
+      public function my_order(){
+        if($this->session->userdata('authenticated')){
+          $this->load->model('mdl_home');
+          $data['my_order'] = $this->mdl_home->my_order();
+        $this->navbar();
+        $this->load->view('my_order', $data);
+        $this->footer();
+      }else{
+        redirect (base_url(). 'home/login');
+      }
 }
 }

@@ -8,6 +8,12 @@
 							<h3>Billing Details</h3>
 							<div class="row">
 								<div class="col-lg-12">
+									<?php if ($error = $this->session->flashdata('order_msg')) { ?>
+										<p style="color: green; padding-bottom:10px;"> <?php echo  $error; ?><p>
+										<?php } ?>
+							<?php if($error = $this->session->flashdata('msg')) {  ?>
+								<p style="color: red; padding-bottom:10px;"> <?php echo  $error; ?><p>
+								<?php } ?>
 									<!-- <div class="country-select">
 										<label>Country <span class="required">*</span></label>
 										<select>
@@ -17,18 +23,11 @@
 										</select>
 									</div> -->
 								</div>
-								<div class="col-lg-6">
+								<div class="col-lg-12">
 									<div class="checkout-form-list">
-										<label>First Name </label>
-										<input type="text" name="first_name" value="<?php echo set_value('first_name'); ?>" placeholder="Enter First Name" />
-										<span class="text-danger"><p style="color:red" <?php echo form_error("first_name"); ?></span>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="checkout-form-list">
-										<label>Last Name</label>
-										<input type="text" name="last_name" value="<?php echo set_value('last_name'); ?>" placeholder="Enter Last Name" />
-										<span class="text-danger"><p style="color:red" <?php echo form_error("last_name"); ?></span>
+										<label>Your Name </label>
+										<input type="text" name="username" value="<?php echo $user = $this->session->userdata('username');  ?>" placeholder="Enter First Name" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("username"); ?></span>
 									</div>
 								</div>
 
@@ -39,14 +38,15 @@
 										<span class="text-danger"><p style="color:red;" <?php echo form_error("address"); ?> </span>
 									</div>
 								</div>
-
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
-										<label>City <span class="required">*</span></label>
-										<input type="text" name="city" value="<?php echo set_value('city'); ?>" placeholder="Town / City" />
-										<span class="text-danger"><p style="color:red" <?php echo form_error("city"); ?></span>
+										<label>Email Address <span class="required">*</span></label>
+										<input type="email" name="email" value="<?php echo set_value('email'); ?>" placeholder="Enter Email Address" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("email"); ?></span>
 									</div>
 								</div>
+
+
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Suburb <span class="required">*</span></label>
@@ -63,9 +63,9 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
-										<label>Email Address <span class="required">*</span></label>
-										<input type="email" name="email" value="<?php echo set_value('email'); ?>" placeholder="Enter Email Address" />
-										<span class="text-danger"><p style="color:red" <?php echo form_error("email"); ?></span>
+										<label>City <span class="required">*</span></label>
+										<input type="text" name="city" value="<?php echo set_value('city'); ?>" placeholder="Town / City" />
+										<span class="text-danger"><p style="color:red" <?php echo form_error("city"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
@@ -103,7 +103,9 @@
 												<input type ="hidden" name= "p_qty[]" value="<?php echo $items['qty']; ?>" />
 												<input type ="hidden" name= "product_id[]" value="<?php echo $items['product_id']; ?>" />
 												<input type ="hidden" name= "item_price[]" value="<?php echo $items['item_price']; ?>" />
-													<input type ="hidden" name= "price[]" value="<?php echo $items['price']; ?>" />
+												<input type ="hidden" name= "price[]" value="<?php echo $items['price']; ?>" />
+										  	<input type="hidden" name="user_id" value="<?php echo $user = $this->session->userdata('id');  ?>" />
+												<input type="hidden" name="username" value="<?php echo $user = $this->session->userdata('username');  ?>" />
 											</td>
 											<td class="product-total">
 												<span class="amount">$<?php echo $items['qty_price']; ?></span>
@@ -184,10 +186,10 @@
 										</div>
 									</div>
 								</div>
-								  <input type="checkbox" name="cash" placeholder="" autocomplete="off" >
-									<label class="text-success"><b>Cash On Delivery</b> </label>
+
 								<div class="order-button-payment">
-									<input type="submit" value="Place order" />
+									<input type="submit" name="cash" value="Cash On Delivery" />
+									<input type="submit" value="Pay Online" />
 									<!-- onclick="printDiv('printMe')" -->
 								</div>
 							</div>

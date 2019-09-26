@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-  <div class="col-md-4">
+  <div class="col-md-4 col-md-offset-3">
     <h1><b> Rullen Furniture </h1>
     <h3>Admin Panel</b></h3>
  <!-- Tabs Titles -->
@@ -32,13 +32,14 @@
                </div>
           </form>
      </div>
+   </div>
 </body>
 </html>
 
 <style>
 .container {
   text-align: center;
-  float: right;
+  /* float: right; */
 }
 h1{
   color: green;

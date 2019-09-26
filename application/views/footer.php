@@ -1,3 +1,33 @@
+<!-- contact-area-start -->
+<div class="contact-area ptb-40">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mar_b-30">
+        <div class="contuct-info text-center">
+          <h4>Sign up for news & offers!</h4>
+          <p>You may safely unsubscribe at any time</p>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-7 offset-lg-1">
+        <div class="search-box">
+          <form action="<?php echo base_url(); ?>home/subscribe" method="post">
+            <input type="email" name ="email" placeholder="Enter your email address" required/>
+            <span class="text-danger"><?php echo form_error('email'); ?></span>
+            <button><span class="lnr lnr-envelope"></span></button>
+          </form>
+          <?php if($error = $this->session->flashdata('subscribe')) { ?>
+            <p class="text-success" style="padding:10px;"><strong>Congratulations, </strong><?php echo $error; ?></p>
+          <?php } ?>
+          <?php if($error = $this->session->flashdata('error')) { ?>
+            <p class="text-success" style="padding:10px;"><strong>Congratulations, </strong><?php echo $error; ?></p>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- contact-area-end -->
+
 <!-- footer-area-start -->
 <div class="footer-area ptb-80">
   <div class="container">

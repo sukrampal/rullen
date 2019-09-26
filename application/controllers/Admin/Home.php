@@ -393,5 +393,45 @@ class Home extends CI_Controller {
                             public function banner_updated(){
                               $this->banner();
                             }
+                            public function password_change(){
+                              $this-> navbar();
+                              //$this->load->view('admin/header');
+                              $this->load->view('admin/password_change');
+                              $this->load->view('admin/footer');
+                            }
 
+                          public function change_password(){
+                            $this->load->library('form_validation');
+                            $this->form_validation->set_rules('uname', 'Username', 'trim|required|alpha');
+                            $this->form_validation->set_rules('old_pass', 'Old Password', 'trim|required');
+                            $this->form_validation->set_rules('new_pass', 'New Password', 'trim|required');
+                            $this->form_validation->set_rules('c_pass', 'Confirm Password', 'trim|required|matches[new_pass]');
+                            if($this->form_validation->run()){
+                            $this->load->model('admin/mdl_admin');
+                            $uname = $this->input->post('uname');
+                            $old_pass = $this->input->post('old_pass');
+                            $result = $this->mdl_admin->check_old_password($uname, $old_pass);
+                            if($result == true){
+                             $data = array(
+                               'password' => $this->input->post('new_pass'),
+                               // $user_id =>$this->input->post('user_id'),
+                             );
+                             $this->mdl_admin->update_password($data, $uname);
+                             $this->session->set_flashdata('msg1', ', Your password has been changed successfully');
+                             return redirect ('admin/home/password_change');
+                            }else{
+                              $this->session->set_flashdata('msg', 'Old password does not match');
+                              return redirect ('admin/home/password_change');
+                            }
                           }
+                          $this->password_change();
+                          }
+
+                          public function deliver(){
+                            $id  = $this->uri->segment(4);
+                            $this->load->model('admin/mdl_admin');
+                            $data['delivery_status'] = Delivered;
+                            $this->mdl_admin->delivery_status($data, $id);
+                            redirect ('admin/home/dashboard');
+                          }
+}

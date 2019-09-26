@@ -131,6 +131,7 @@
 		<!-- banner-area-end -->
 		<!-- top-interesting-area-start -->
 		<div class="top-interesting-area dotted-style2">
+			<div class ="sukrampal">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
@@ -141,7 +142,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="top-interesting-active">  
+					<div class="top-interesting-active">
 						<?php foreach($sukram as $s){ ?>
 						<div class="col-lg-12">
 
@@ -174,8 +175,47 @@
 				</div>
 			</div>
 		</div>
+		</div>
 		<!-- top-interesting-area-end -->
 		<!-- static-slider-area-start -->
+		<!-- feature -->
+		<div class="feature-preduct-area dotted-style4 home-page-2 feature-area-2 pb-50">
+			<div class="sukram">
+		<div class="container">
+				<div class="row">
+
+					<div class="col-lg-3">
+						<div class="section-title">
+							<h2>New Products</h2>
+
+						</div>
+<?php foreach($sukram as $s) { ?>
+						<div class="feature-home-2-active">
+							<div class="single-product-items">
+								<div class="single-new-product">
+									<div class="product-img">
+										<a href="<?php echo base_url(); ?>home/product_details/<?php echo $s['product_cat']; ?>/<?php echo $s['product_title']; ?>/<?php echo $s['product_id']; ?>">
+											<img src="<?php echo base_url(); ?>assets/img/<?php echo $s['product_image']; ?>" class="first_img" alt="" />
+										</a>
+									</div>
+									<div class="product-content text-center">
+										<a href="<?php echo base_url(); ?>home/product_details/<?php echo $s['product_cat']; ?>/<?php echo $s['product_title']; ?>/<?php echo $s['product_id']; ?>"><h3 style="color:#c2a773; font-family:raleway; "><?php echo $s['product_title']; ?></h3></a>
+
+										<h4><b>Price: $<?php echo $s['product_price']; ?></b></h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php } ?>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+		<!-- end -->
 
 		<!-- services -->
 
@@ -319,5 +359,19 @@
         width: 90% !important;
         height: 100% !important;
     }
+		@media screen and (min-width: 600px) {
+   .sukram {
+     visibility: hidden;
+
+     display: none;
+   }
+ }
+ @media screen and (max-width: 600px) {
+.sukrampal {
+	visibility: hidden;
+
+	display: none;
+}
+}
 
 			</style>

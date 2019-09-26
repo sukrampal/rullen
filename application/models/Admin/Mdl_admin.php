@@ -48,9 +48,9 @@
      public function insert_product($data){
        $this->db->insert('products', $data);
      }
-     public function add_n_product($data){
-       $this->db->insert('new_products', $data);
-     }
+     // public function add_n_product($data){
+     //   $this->db->insert('new_products', $data);
+     // }
      public function get_product_cat($id){
        $result= $this->db->where('product_id', $id)->get('products')->result_array();
        return $result;
@@ -83,5 +83,24 @@
     public function update_banner($data, $id){
       $this->db->where('id', $id);
       $this->db->update('banner', $data);
+    }
+    public function check_old_password($uname, $old_pass){
+      $this->db->where('username', $uname);
+      $this->db->where('password', $old_pass);
+      $query = $this->db->get('admin');
+      if($query->num_rows() == 1 ){
+        return $query->row();
+        // return true;
+      }else{
+        return false;
+      }
+    }
+    public function update_password($data, $uname){
+      $this->db->where('username', $uname);
+      $this->db->update('admin', $data);
+    }
+    public function delivery_status($data, $id){
+      $this->db->where('order_id', $id);
+      $this->db->update('orders', $data);
     }
  }

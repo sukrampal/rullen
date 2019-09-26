@@ -78,14 +78,19 @@ public function update(){
     redirect('cart');
   }
   public function checkout(){
-    $this->navbar();
-    $this->load->view('checkout');
-    $this->footer();
-  }
+    if($this->session->userdata('authenticated')){
+      $this->navbar();
+      $this->load->view('checkout');
+      $this->footer();
+
+    }else{
+    redirect (base_url() . 'home/login');
+  }}
   public function order(){
+    if($this->input->post('cash')){
+      if(!empty($this->input->post('product_id'))){
     $this->load->library('form_validation');
-    $this->form_validation->set_rules("first_name", "First name ", 'required');
-    $this->form_validation->set_rules("last_name", "Last name ", 'required');
+    $this->form_validation->set_rules("username", "Username ", 'required');
     $this->form_validation->set_rules("address", "Address ", 'required');
     $this->form_validation->set_rules("city", "City", 'required');
     $this->form_validation->set_rules("suburb", "Suburb ", 'required');
@@ -94,16 +99,10 @@ public function update(){
     $this->form_validation->set_rules("phone", "contact number", 'required');
     if($this->form_validation->run()){
     $this->load->model('mdl_home');
-    if($this->input->post('cash')){
-      $payment_method = 'cash on delivery';
-      // $data['payment_method'] = 'cash on delivery';
-    }else{
-      $payment_method = "Online";
-    }
+
     // prd($data);
     $data = array(
-    'first_name' => $this->input->post('first_name'),
-    'last_name' => $this->input->post('last_name'),
+    'username' => $this->input->post('username'),
     'address' => $this->input->post('address'),
     'city' => $this->input->post('city'),
     'suburb' => $this->input->post('suburb'),
@@ -115,20 +114,101 @@ public function update(){
     'qty' => implode(", ", $this->input->post('p_qty')),
     'item_price' => implode(", ", $this->input->post('item_price')),
     'price' => $this->input->post('price'),
-    'payment_method'=> $payment_method,
+    'user_id' => $this->input->post('user_id'),
+    'delivery_status' => 'Pending',
+    'payment_method' => 'Cash on delivery',
 
-  );                                    //prd($data);
+
+  );
+                              // prd($data);
     $this->mdl_home->order($data);
+    $to = 'sukramror0001@gmail.com';
+    // $to = $this->input->post('mail');
+    $subject = 'Rullen-Furniture';
+    $from = 'sukramror0001@gmail.com';
+    $emailContent = 'Hi.. '.$this->input->post('username').', Your order has been placed successfully having details shown below';
+    $emailContent .='<br>'.'<!DOCTYPE html>
+<html>
+<head>
+<style>
+table,th,td {
+  border: 1px solid blue;
+}
+</style>
+</head>
+<body>
+
+<table>
+  <tr>
+    <th>Product Id</th>
+    <th>Product Name</th>
+    <th>Product Quantity</th>
+    <th>Price Per Item</th>
+    <th>Total Price</th>
+    <th>Payment Mode</th>
+  </tr>
+  <tr>
+    <td>'.implode(", ", $this->input->post('product_id')).'</td>
+    <td>'.implode(", ", $this->input->post('product_title')).'</td>
+    <td>'.implode(", ", $this->input->post('p_qty')).'</td>
+    <td>'.implode(", ", $this->input->post('item_price')).'</td>
+    <td>'.$this->input->post('price').'</td>
+    <td>'.'Cash on delivery</td>
+  </tr>
+
+</table>
+
+</body>
+</html>
+';
+$emailContent .='<br>'.'Thanks for shopping with us, your order will be delivered soon.';
+
+    $config['protocol']    = 'smtp';
+    $config['smtp_host']    = 'ssl://smtp.gmail.com';
+    $config['smtp_port']    = '465';
+    $config['smtp_timeout'] = '60';
+    $config['smtp_user']    = 'sukramror0001@gmail.com';
+    $config['smtp_pass']    = 'Sukram@123';
+    $config['charset']    = 'utf-8';
+    $config['newline']    = "\r\n";
+    $config['mailtype'] = 'html';
+    $config['validation'] = TRUE;
+
+    $this->email->initialize($config);
+    $this->email->set_mailtype("html");
+    $this->email->from($from);
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message($emailContent);
+
+    // return redirect('email_send');
+    if($this->email->send())
+         {
+         }
+         else
+         {
+             show_error($this->email->print_debugger());
+         }
+
     $this->ordered();
 
 }else{
   $this->checkout();
 }
-}
+}else {
+     // echo 'Your email sent...!!!! ';
+     $this->session->set_flashdata('msg',"Please select atleast 1 product to place order");
+     // $this->session->set_flashdata('msg_class','alert-success');
+         return redirect('cart/checkout');
+
+ }
+}else{
+  echo 'online payment method is not yet working';
+}}
   public function ordered(){
       $this->destroy();
-    echo 'order successfull';
-
+    $this->session->set_flashdata('order_msg', 'Your order has been placed successfully, please check your email account for confirmation, Thank you');
+ return redirect('cart/checkout');
 
   }
 

@@ -12,6 +12,10 @@
             return false;
           }
         }
+        public function sign_up($data){
+          // prd($data);
+          $this->db->insert('user', $data);
+        }
         public function get_new_products(){
         $result = $this->db->where('new_product', 1)->get('products')->result_array();
         //  $this->db->where('product_id', 1);
@@ -86,7 +90,33 @@
           return $result->num_rows();
         }
         public function order($data){
-           $this->db->insert("orders", $data);
+           return $this->db->insert("orders", $data);
         }
-
+      public function retrieve_password($emailto){
+        $result = $this->db->where('email', $emailto)->get('user')->row_array();
+        return $result;
+      }
+      public function subscribe($data){
+        $this->db->insert('subscribe', $data);
+      }
+      public function check_old_password($user_id, $old_pass){
+        $this->db->where('user_id', $user_id);
+        $this->db->where('password', $old_pass);
+        $query = $this->db->get('user');
+        if($query->num_rows() == 1 ){
+          return $query->row();
+          // return true;
+        }else{
+          return false;
+        }
+      }
+      public function update_password($data, $user_id){
+        $this->db->where('user_id', $user_id);
+        $this->db->update('user', $data);
+      }
+      public function my_order(){
+        $id  = $this->session->userdata('id');
+        $result = $this->db->where('user_id', $id)->get('orders')->result_array();
+        return $result;
+      }
 }

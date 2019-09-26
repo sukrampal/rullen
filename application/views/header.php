@@ -138,17 +138,19 @@
 									<li class="<?php if($uri == "contact") { ?>active <?php } ?>"><a href="<?php echo base_url(); ?>home/contact">contact us</a></li>
 
                   <?php if($this->session->userdata('authenticated')){ ?>
-                  <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('first_name'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
+                  <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('username'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
 										<ul class="click_menu_show">
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
-                      <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
-                      <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('#', 'Profile'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 
 										</ul>
 									</li>
                 <?php }else{ ?>
-                  <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
+                  <li class="click_menu"><a href="<?php echo base_url(); ?>home/login">My Account <i class="fa fa-angle-down"></i></a>
 										<ul class="click_menu_show">
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
@@ -197,11 +199,13 @@
 									<li><a href="<?php echo base_url(); ?>home/contact">contact Us</a></li>
                   <li><a href="<?php echo base_url(); ?>home/about">About Us</a>
                     <?php if($this->session->userdata('authenticated')){ ?>
-                    <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('first_name'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
+                    <li class="click_menu"><a href="#"><?php $user = $this->session->userdata('username'); echo $user; ?> <i class="fa fa-angle-down"></i></a>
   										<ul class="click_menu_show">
   											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
   											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
                         <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/my_order/'.$user = $this->session->userdata('id'), 'Orders History'); ?></a></li>
                         <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 
   										</ul>
