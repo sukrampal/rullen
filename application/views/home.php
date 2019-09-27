@@ -9,12 +9,12 @@
              <img style="width:1920px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner2['image']; ?>" alt="" title="#caption2" >
 
 				  </div>
-
+<?php foreach($captions as $c){ ?>
             <div id="caption1" class="nivo-html-caption">
                 <div class="slide_all_1">
 					<h1 class=" wow bounceInUp" data-wow-delay=".3s" data-wow-duration=".9s">Antique Furniture</h1>
-					<h3 class="wow bounceInUp" data-wow-delay=".5s" data-wow-duration="1.1s">up to 25% off</h3>
-					<h2 class="wow bounceInUp" data-wow-delay=".6s" data-wow-duration="1.2s">furniture brands</h2>
+					<h3 class="wow bounceInUp" data-wow-delay=".5s" data-wow-duration="1.1s"><?php echo $c['caption1']; ?></h3>
+					<h2 class="wow bounceInUp" data-wow-delay=".6s" data-wow-duration="1.2s"><?php echo $c['caption2']; ?></h2>
 					<div class="slider-btn  wow bounceInUp" data-wow-delay=".7s" data-wow-duration="0.3s">
 						<a href="<?php echo base_url(); ?>home/gallery">view more</a>
 					</div>
@@ -23,13 +23,14 @@
             <div id="caption2" class="nivo-html-caption">
                 <div class="slide_all_2">
 					<h1  class=" wow fadeInLeft" data-wow-delay=".4s" data-wow-duration="1.1s">Antique Furniture</h1>
-					<h3  class="wow bounceInUp" data-wow-delay=".5s" data-wow-duration="1.1s">up to 25% off</h3>
-					<h2  class="wow fadeInRight" data-wow-delay=".8s" data-wow-duration="1.5s">furniture brands</h2>
+					<h3  class="wow bounceInUp" data-wow-delay=".5s" data-wow-duration="1.1s"><?php echo $c['caption1']; ?></h3>
+					<h2  class="wow fadeInRight" data-wow-delay=".8s" data-wow-duration="1.5s"><?php echo $c['caption2']; ?></h2>
 					<div class="slider-btn  wow bounceInUp" data-wow-delay=".7s" data-wow-duration="1.3s">
 						<a href="<?php echo base_url(); ?>home/gallery">view more</a>
 					</div>
                 </div>
             </div>
+					<?php } ?>
 		</div>
 		<!-- slider-area-end -->
 		<!-- service-area-start -->

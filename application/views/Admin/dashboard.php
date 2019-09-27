@@ -5,12 +5,12 @@
 <tr>
   <th>Order Id</th>
   <th>Product Id</th>
-  <th>Product Title</th>
+  <th>Product Name</th>
   <th>Quantity</th>
   <th>Per item Price</th>
-  <th>Price</th>
+  <th>Total Price</th>
   <th>Payment Method</th>
-  <th>First Name</th>
+  <th>Name</th>
   <!-- <th>Last Name</th> -->
   <th>Email</th>
   <th>Address</th>
@@ -26,17 +26,17 @@
   <tr>
   <td><?php echo $order['order_id']; ?></td>
   <td><?php echo $order['product_id']; ?></td>
-  <td><?php echo $order['product_title']; ?></td>
+  <td class="text-capitalize"><?php echo $order['product_title']; ?></td>
   <td><?php echo $order['qty']; ?></td>
   <td><?php echo $order['item_price']; ?></td>
   <td><?php echo $order['price']; ?></td>
-  <td><?php echo $order['payment_method']; ?></td>
-  <td><?php echo $order['first_name']; ?></td>
+  <td class="text-capitalize"><?php echo $order['payment_method']; ?></td>
+  <td class="text-capitalize"><?php echo $order['username']; ?></td>
   <!-- <td><?php echo $order['last_name']; ?></td> -->
   <td><?php echo $order['email']; ?></td>
-  <td><?php echo $order['address']; ?></td>
-  <td><?php echo $order['city']; ?></td>
-  <td><?php echo $order['suburb']; ?></td>
+  <td class="text-capitalize"><?php echo $order['address']; ?></td>
+  <td class="text-capitalize"><?php echo $order['city']; ?></td>
+  <td class="text-capitalize"><?php echo $order['suburb']; ?></td>
   <td><?php echo $order['postcode']; ?></td>
   <td><?php echo $order['phone']; ?></td>
   <td style="color:blue"><?php echo $order['delivery_status']; ?></td>

@@ -14,15 +14,8 @@
 							<?php if($error = $this->session->flashdata('msg')) {  ?>
 								<p style="color: red; padding-bottom:10px;"> <?php echo  $error; ?><p>
 								<?php } ?>
-									<!-- <div class="country-select">
-										<label>Country <span class="required">*</span></label>
-										<select>
-										  <option value="volvo">Christchurch</option>
-
-
-										</select>
-									</div> -->
 								</div>
+								<?php foreach($details as $D){}  ?>
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>Your Name </label>
@@ -34,14 +27,14 @@
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>Address</label>
-										<input type="text" name="address" value="<?php echo set_value('address'); ?>" placeholder="Street address" />
+										<input type="text" name="address" value="<?php echo $D['address']; ?>" placeholder="Street address" />
 										<span class="text-danger"><p style="color:red;" <?php echo form_error("address"); ?> </span>
 									</div>
 								</div>
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>Email Address <span class="required">*</span></label>
-										<input type="email" name="email" value="<?php echo set_value('email'); ?>" placeholder="Enter Email Address" />
+										<input type="email" name="email" value="<?php echo $D['email']; ?>" placeholder="Enter Email Address" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("email"); ?></span>
 									</div>
 								</div>
@@ -50,32 +43,32 @@
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Suburb <span class="required">*</span></label>
-										<input type="text" value="<?php echo set_value('suburb'); ?>" name="suburb" placeholder="Suburb" />
+										<input type="text" value="<?php echo $D['suburb']; ?>" name="suburb" placeholder="Suburb" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("suburb"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Postcode / Zip <span class="required">*</span></label>
-										<input type="text" name="postcode" value="<?php echo set_value('postcode'); ?>" placeholder="Postcode / Zip" />
+										<input type="text" name="postcode" value="<?php echo $D['postcode']; ?>" placeholder="Postcode / Zip" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("postcode"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>City <span class="required">*</span></label>
-										<input type="text" name="city" value="<?php echo set_value('city'); ?>" placeholder="Town / City" />
+										<input type="text" name="city" value="<?php echo $D['city']; ?>" placeholder="Town / City" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("city"); ?></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="checkout-form-list">
 										<label>Phone  <span class="required">*</span></label>
-										<input type="text" name="phone" value="<?php echo set_value('phone'); ?>" placeholder="Enter Mobile Number" />
+										<input type="text" name="phone" value="<?php echo  $D['phone']; ?>" placeholder="Enter Mobile Number" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("phone"); ?></span>
 									</div>
 								</div>
-
+           	<? } ?>
 							</div>
 
 						</div>

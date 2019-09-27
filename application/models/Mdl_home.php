@@ -77,6 +77,7 @@
         }
         public function get_related_product(){
           $id = $this->uri->segment(3);
+          $this->db->limit(7);
           $this->db->order_by('product_cat','random');
           $result = $this->db->where('product_cat', $id)->get('products')->result_array();
           return $result;
@@ -116,7 +117,27 @@
       }
       public function my_order(){
         $id  = $this->session->userdata('id');
-        $result = $this->db->where('user_id', $id)->get('orders')->result_array();
+        $result = $this->db->order_by('order_id', 'desc')->where('user_id', $id)->get('orders')->result_array();
         return $result;
       }
+      public function get_profile($user_id){
+        $user_id  = $this->session->userdata('id');
+      $result = $this->db->where('user_id', $user_id)->get('user')->result_array();
+      return $result;
+    }
+    public function fetch_single_data($user_id){
+      $result = $this->db->where('user_id', $user_id)->get('user')->result_array();
+      return $result;
+    }
+    public function update_profile($data, $user_id){
+      $this->db->where('user_id', $user_id)->update('user', $data);
+    }
+    public function get_detail($user_id){
+      $result = $this->db->where('user_id', $user_id)->get('user')->result_array();
+      return $result;
+    }
+    public function get_about(){
+      $result  = $this->db->get('about')->result_array();
+      return $result;
+    }
 }

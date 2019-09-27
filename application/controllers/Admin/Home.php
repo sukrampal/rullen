@@ -27,8 +27,8 @@ class Home extends CI_Controller {
               $username = $this->input->post('username');
               $password = $this->input->post('password');
               //model function
-              $this->load->model('Admin/Admin_model');
-              if($this->Admin_model->can_login($username, $password))
+              $this->load->model('Admin/mdl_admin');
+              if($this->mdl_admin->can_login($username, $password))
                   {
                     $session_data = array(
                     'username'     =>     $username
@@ -83,7 +83,7 @@ class Home extends CI_Controller {
                   $this->load->model('admin/mdl_admin');
                   $data =array(
                 'cat_title' => $this->input->post('cat_title')
-                 );
+              );
                  if($this->input->post('update')){
                    $this->mdl_admin->update_category($data, $this->input->post('hidden_id'));
                    redirect ("admin/home/updated");
@@ -193,7 +193,7 @@ class Home extends CI_Controller {
         }
 
         public function do_upload(){
-          // $this->load->library('form_validation');
+
                          $data['product_title'] = $this->input->post('product_title');
                          $data['product_cat'] = $this->input->post('product_cat');
                          $data['product_desc'] = $this->input->post('product_desc');
@@ -235,7 +235,8 @@ class Home extends CI_Controller {
                             $this->load->model('admin/mdl_admin');
                             $this->mdl_admin->insert_product($data);
                             redirect ('admin/home/product_inserted');
-                            }
+
+                        }
                             public function product_inserted(){
                               $this->product();
                             }
@@ -434,4 +435,98 @@ class Home extends CI_Controller {
                             $this->mdl_admin->delivery_status($data, $id);
                             redirect ('admin/home/dashboard');
                           }
+                          public function forget_password(){
+                            $this->load->model('admin/mdl_admin');
+                            $pass['pass']= $this->mdl_admin->retrieve_password(); //prd($password);
+                            $to = 'sukramror0001@gmail.com';
+                            $subject = 'Rullen-Furniture';
+                            $from = 'sukramror0001@gmail.com';
+                            foreach($pass as $p){
+                            $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in as admin at Rullen-Furniture:' .'<br>';
+                            $emailContent  .='Username: '. $p['username'].'<br>';
+                            $emailContent  .='Password: '. $p['password'];
+
+                    }
+                            // $emailContent .=$this->input->post('name');
+
+                            $config['protocol']    = 'smtp';
+                            $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                            $config['smtp_port']    = '465';
+                            $config['smtp_timeout'] = '60';
+                            $config['smtp_user']    = 'sukramror0001@gmail.com';
+                            $config['smtp_pass']    = 'Sukram@123';
+                            $config['charset']    = 'utf-8';
+                            $config['newline']    = "\r\n";
+                            $config['mailtype'] = 'html';
+                            $config['validation'] = TRUE;
+
+                            $this->email->initialize($config);
+                            $this->email->set_mailtype("html");
+                            $this->email->from($from);
+                            $this->email->to($to);
+                            $this->email->subject($subject);
+                            $this->email->message($emailContent);
+
+                            // return redirect('email_send');
+                            if($this->email->send())
+                                 {
+                                     // echo 'Your email sent...!!!! ';
+                                     $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
+                                     $this->session->set_flashdata('msg_class','alert-success');
+                                         return redirect('admin/home/index');
+                                 }
+                                 else
+                                 {
+                                     show_error($this->email->print_debugger());
+                                 }
+                           }
+                           public function about(){
+                             $this->load->model('admin/mdl_admin');
+                             $data['about_text'] = $this->mdl_admin->get_about();
+
+                             $this->navbar();
+                             $this->load->view('admin/about', $data);
+                             $this->load->view('admin/footer');
+                           }
+                           public function update_about(){
+                             $this->load->model('admin/mdl_admin');
+                             $this->load->library('form_validation');
+                             $this->form_validation->set_rules('about', 'About', 'required');
+                             if($this->form_validation->run()){
+                               $data = array(
+                                 'about' => $this->input->post('about'),
+                               );
+                               $this->mdl_admin->update_about($data);
+                               $this->session->set_flashdata('msg', ' About Us page has been updated successfully');
+                               redirect ('admin/home/about');
+                             }
+                             else{
+                               $this->about();
+                             }
+                           }
+                           public function captions(){
+                             $this->load->model('admin/mdl_admin');
+                             $data['captions'] = $this->mdl_admin->get_caption();
+                             $this->navbar();
+                             $this->load->view('admin/caption', $data);
+                             $this->load->view('admin/footer');
+                           }
+                           public function update_caption(){
+                             $this->load->model('admin/mdl_admin');
+                             $this->load->library('form_validation');
+                             $this->form_validation->set_rules('caption1', '', 'required');
+                             $this->form_validation->set_rules('caption2', '', 'required');
+                             if($this->form_validation->run()){
+                               $data = array(
+                               'caption1' => $this->input->post('caption1'),
+                               'caption2' => $this->input->post('caption2'),
+                             );
+                             $this->mdl_admin->update_caption($data);
+                             $this->session->set_flashdata('msg', 'Captions has been updated successfully');
+                             return redirect('admin/home/captions');
+                           }else{
+                             $this->captions();
+                           }
+
+                           }
 }

@@ -17,7 +17,9 @@
   <h3 align="center">ABOUT US</h3>
     <hr>
     <p align="center"><b>
-At Rullen Furniture we offer a wide selection of stylish product designed to fit with every style of New Zealand home. The furniture available ranges from lounge suites in leather or fabric, dining furniture, cabinetry and occasional furniture & bedroom furniture. We offer luxury and style in contemporary and traditional furniture at affordable prices.
+<?php foreach($about_text as $a){ ?>
+  <?php echo $a['about']; ?>
+<?php } ?>
 </b>  </p>
 </div>
 

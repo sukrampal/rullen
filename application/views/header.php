@@ -142,7 +142,7 @@
 										<ul class="click_menu_show">
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
-                      <li><a href="#"><?php echo anchor('#', 'Profile'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/my_profile', 'Profile'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
@@ -205,7 +205,7 @@
   											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
                         <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
                         <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
-                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/my_order/'.$user = $this->session->userdata('id'), 'Orders History'); ?></a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
                         <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 
   										</ul>

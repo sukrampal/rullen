@@ -26,7 +26,7 @@ if(isset($update_bnr)){
     <div class="table-responsive">
     <table class="table table-bordered">
         <tr>
-        <th>Banner Id</th>
+        <!-- <th>Banner Id</th> -->
         <th>Banner Location</th>
         <th>Banner Image</th>
         <th>Update</th>
@@ -34,7 +34,7 @@ if(isset($update_bnr)){
 
       <?php foreach ($banner as $bnr) { ?>
       <tr>
-        <td><?php echo $bnr['id']; ?></td>
+        <!-- <td><?php echo $bnr['id']; ?></td> -->
         <td><?php echo $bnr['title']; ?></td>
         <td><img style="width:150px; height:80px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $bnr['image']; ?>"></td>
         <td><a href="<?php echo base_url(); ?>admin/home/show_update_banner/<?php echo $bnr['id']; ?>" class="update _data" ><button type="button" class="btn btn-warning btn-sm">Update</button></td>
@@ -54,7 +54,7 @@ if(isset($update_bnr)){
 <div class="table-responsive">
 <table class="table table-bordered">
     <tr>
-    <th>Banner Id</th>
+    <!-- <th>Banner Id</th> -->
     <th>Banner Name</th>
     <th>Banner Image</th>
     <th>Update</th>
@@ -62,7 +62,7 @@ if(isset($update_bnr)){
 
   <?php foreach ($banner as $bnr) { ?>
   <tr>
-    <td><?php echo $bnr['id']; ?></td>
+    <!-- <td><?php echo $bnr['id']; ?></td> -->
     <td><?php echo $bnr['title']; ?></td>
     <td><img style="width:150px; height:80px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $bnr['image']; ?>"></td>
     <td><a href="<?php echo base_url(); ?>admin/home/show_update_banner/<?php echo $bnr['id']; ?>" class="update _data" ><button type="button" class="btn btn-warning btn-sm">Update</button></td>

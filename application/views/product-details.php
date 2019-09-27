@@ -25,16 +25,16 @@
 									<div class="tab-content">
 
 										<div class="tab-pane active" id="view1">
-											<a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>"><img style="height:300px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" width="500" height="333" alt=""></a>
+											<a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>"><img style="height:280px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" width="500" height="333" alt=""></a>
 										</div>
                     <div class="tab-pane" id="view2">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>"><img style="height:300px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>"><img style="height:280px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" width="500" height="333" alt=""></a>
                     </div>
                     <div class="tab-pane" id="view3">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>"><img style="height:300px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>"><img style="height:280px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" width="500" height="333" alt=""></a>
                     </div>
                     <div class="tab-pane" id="view4">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>"><img style="height:300px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>"><img style="height:280px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" width="500" height="333" alt=""></a>
                     </div>
 
 									</div>
@@ -92,8 +92,9 @@
 							<div class="upsell-product-title">
 								<h3 class="text-uppercase">Related Products</h3>
 							</div>
-
+<div class="feature-home-active">
 							<div class="row dotted-style3">
+                <div class="sukrampal">
 								<div class="upsell-product-active">
                   <?php foreach($var_shop as $shp){ ?>
 									<div class="col-lg-12">
@@ -118,9 +119,10 @@
 
                 <?php } ?>
 								</div>
+              </div>
 							</div>
+            </div>
 						</div>
-
 					</div>
           <br>
           <br>
@@ -129,11 +131,53 @@
 			</div>
 		</div>
 		<!-- all-hyperion-page-end -->
+    <div class="feature-preduct-area dotted-style4 home-page-2 feature-area-2 pb-50">
+      <div class="sukram">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-2">
+            <div class="section-title">
 
+            </div>
+<?php foreach($var_shop as $s) { ?>
+            <div class="feature-home-active">
+              <div class="single-product-items">
+                <div class="single-new-product">
+                  <div class="product-img">
+                    <a href="<?php echo base_url(); ?>home/product_details/<?php echo $s['product_cat']; ?>/<?php echo $s['product_title']; ?>/<?php echo $s['product_id']; ?>">
+                      <img src="<?php echo base_url(); ?>assets/img/<?php echo $s['product_image']; ?>" class="first_img" alt="" />
+                    </a>
+                  </div>
+                  <div class="product-content text-center">
+                    <a href="<?php echo base_url(); ?>home/product_details/<?php echo $s['product_cat']; ?>/<?php echo $s['product_title']; ?>/<?php echo $s['product_id']; ?>"><h3 style="color:#c2a773; font-family:raleway; "><?php echo $s['product_title']; ?></h3></a>
 
+                    <h4><b>Price: $<?php echo $s['product_price']; ?></b></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php } ?>
+          </div>
 
+        </div>
+      </div>
+    </div>
 
     </body>
 </html>
+<style>
+@media screen and (min-width: 600px) {
+.sukram {
+ visibility: hidden;
 
+ display: none;
+}
+}
+@media screen and (max-width: 600px) {
+.sukrampal {
+visibility: hidden;
 
+display: none;
+}
+}
+</style>

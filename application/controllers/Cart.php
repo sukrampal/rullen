@@ -79,8 +79,11 @@ public function update(){
   }
   public function checkout(){
     if($this->session->userdata('authenticated')){
+     $user_id = $this->session->userdata('id');
       $this->navbar();
-      $this->load->view('checkout');
+      $this->load->model('mdl_home');
+      $data['details'] = $this->mdl_home->get_detail($user_id);
+      $this->load->view('checkout', $data);
       $this->footer();
 
     }else{

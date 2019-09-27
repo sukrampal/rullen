@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title> Admin - Dashboard</title>
+  <title>Rullen-Furniture (Admin)</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url(); ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,7 +20,7 @@
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url(); ?>assets/admin/css/sb-admin.css" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-
+<link rel="icon" href="<?php echo base_url(); ?>assets/img/favicon.png" />
 </head>
 
 <body id="page-top">
@@ -113,6 +113,16 @@ $uri = $this->uri->segment(3);
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/banner">
           <i class="fas fa-fw fa-table"></i>
           <span>Banner</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "about"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/about">
+          <i class="fas fa-fw fa-table"></i>
+          <span>About</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "captions"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/captions">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Captions</span></a>
       </li>
     </ul>
 

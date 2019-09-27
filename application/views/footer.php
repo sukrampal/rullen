@@ -83,13 +83,13 @@
           <div class="footer-wrapper">
             <div class="footer-wrapper-strong">
               <div class="wrapper-strong-span">
-              <strong><a href="#">Monday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Tuesday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Thursday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Wednesday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Friday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Staurday: 10am-5pm</a></strong></br>
-              <strong><a href="#">Sunday: 10am-5pm</a></strong></br>
+              <strong><a href="#">Monday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Tuesday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Wednesday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Thursday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Friday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Saturday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Sunday: 10am-6pm</a></strong></br>
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@
             <a href="#"><img src="<?php echo base_url(); ?>assets/img/footer/15.jpg" alt="" /></a>
             <a href="#"><img src="<?php echo base_url(); ?>assets/img/footer/16.jpg" alt="" /></a>
           </div>
-          <a href="#">Follow our instagram <i class="fa fa-angle-double-right"></i></a>
+          <a href="https://www.facebook.com/Rullen-Antiques-Furniture-529871434030204/">Follow our facebook <i class="fa fa-angle-double-right"></i></a>
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@ class Home extends CI_Controller {
             'authenticated' => TRUE
           );
           $this->session->set_userdata($userdata);
-          redirect (base_url() . 'home/index');
+          redirect (base_url() . 'home/my_profile');
         }else{
           $this->session->set_flashdata('error_msg', 'invalid Email or Password');
           // redirect (base_url() . 'home/login');
@@ -113,7 +113,7 @@ class Home extends CI_Controller {
                     'authenticated' => TRUE
                   );
                   $this->session->set_userdata($userdata);
-                  redirect (base_url() . 'home/index');
+                  redirect (base_url() . 'home/my_profile');
                 }
   }else{
     $this->login();
@@ -124,6 +124,8 @@ class Home extends CI_Controller {
     public function index(){
       //prd($this->cart->contents());
         $this->load->model('mdl_home');
+        $this->load->model('admin/mdl_admin');
+        $data['captions'] = $this->mdl_admin->get_caption();
         $data['banner'] = $this->mdl_home->get_banner();// prd($data);
         $data['banner2']= $this->mdl_home->get_banner2(); //prd($data);
         $data['sukram'] = $this->mdl_home->get_new_products();
@@ -243,6 +245,7 @@ class Home extends CI_Controller {
         public function about(){
           $this->load->model('mdl_home');
           $data['banner'] = $this->mdl_home->about_banner();
+          $data['about_text'] = $this->mdl_home->get_about();
           $this->navbar();
           $this->load->view('about', $data);
           $this->footer();
@@ -289,7 +292,6 @@ class Home extends CI_Controller {
                    $this->session->set_flashdata('msg',"Your query has been sent successfully");
                    $this->session->set_flashdata('msg_class','alert-success');
                        return redirect('home/contact');
-
                }
                else
                {
@@ -306,7 +308,7 @@ class Home extends CI_Controller {
         }
         public function retrieve_password(){
           $this->load->library('form_validation');
-          $this->form_validation->set_rules('email', 'Email', 'required');
+          $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
           if($this->form_validation->run()){
         $emailto = $this->input->post('email');
         $this->load->model('mdl_home');
@@ -319,10 +321,8 @@ class Home extends CI_Controller {
         $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
         $emailContent  .='Email id: '. $p['email'].'<br>';
         $emailContent  .='Password: '. $p['password'];
-
 }
         // $emailContent .=$this->input->post('name');
-
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -348,7 +348,6 @@ class Home extends CI_Controller {
                  $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
                  $this->session->set_flashdata('msg_class','alert-success');
                      return redirect('home/forget_password');
-
              }
              else
              {
@@ -364,7 +363,7 @@ class Home extends CI_Controller {
         }
         public function subscribe(){
           $this->load->library('form_validation');
-          $this->form_validation->set_rules('email', 'Email', 'required|is_unique[subscribe.email]');
+          $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[subscribe.email]');
           if($this->form_validation->run()){
           $this->load->model('mdl_home');
           $data = array(
@@ -372,7 +371,41 @@ class Home extends CI_Controller {
           );
           $this->mdl_home->subscribe($data);
 
-         $this->session->set_flashdata('subscribe', 'You have been successfully subscribed to our newsletter');
+          $to = 'sukramror0001@gmail.com';
+          // $to = $this->input->post('mail');
+          $subject = 'Rullen-Furniture';
+          $from = 'sukramror0001@gmail.com';
+          $emailContent ='Hi..' .$this->session->userdata('username').'<br> Thanks for subscribing our newsletter';
+
+          $config['protocol']    = 'smtp';
+          $config['smtp_host']    = 'ssl://smtp.gmail.com';
+          $config['smtp_port']    = '465';
+          $config['smtp_timeout'] = '60';
+          $config['smtp_user']    = 'sukramror0001@gmail.com';
+          $config['smtp_pass']    = 'Sukram@123';
+          $config['charset']    = 'utf-8';
+          $config['newline']    = "\r\n";
+          $config['mailtype'] = 'html';
+          $config['validation'] = TRUE;
+
+          $this->email->initialize($config);
+          $this->email->set_mailtype("html");
+          $this->email->from($from);
+          $this->email->to($to);
+          $this->email->subject($subject);
+          $this->email->message($emailContent);
+
+          // return redirect('email_send');
+          if($this->email->send())
+               {
+               }
+               else
+               {
+                   show_error($this->email->print_debugger());
+               }
+
+
+         $this->session->set_flashdata('subscribe', 'You have been successfully subscribed to our newsletter.');
          // $this->session->set_flashdata('.sg')
             return  redirect ($_SERVER["HTTP_REFERER"]);
         }
@@ -398,7 +431,7 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('new_pass', 'New Password', 'trim|required');
         $this->form_validation->set_rules('c_pass', 'Confirm Password', 'trim|required|matches[new_pass]');
         if($this->form_validation->run()){
-          $this->load->model('mdl_home');
+        $this->load->model('mdl_home');
         $old_pass = $this->input->post('old_pass');
         $user_id = $this->input->post('user_id');
         $result = $this->mdl_home->check_old_password($user_id, $old_pass);
@@ -408,6 +441,43 @@ class Home extends CI_Controller {
            // $user_id =>$this->input->post('user_id'),
          );
          $this->mdl_home->update_password($data, $user_id);
+         $to = 'sukramror0001@gmail.com';
+         // $to = $this->input->post('mail');
+         $subject = 'Rullen-Furniture';
+         $from = 'sukramror0001@gmail.com';
+         $emailContent ='Hi..' .$this->session->userdata('username').', your password has been changed successfully';
+         $emailContent .='<br>'. 'Now your login details are as follow:';
+         $emailContent .='<br> Email id: '.$this->session->userdata('email');
+         $emailContent .='<br> Password: '.$this->input->post('new_pass');
+         $emailContent .='<br> Thank You';
+
+         $config['protocol']    = 'smtp';
+         $config['smtp_host']    = 'ssl://smtp.gmail.com';
+         $config['smtp_port']    = '465';
+         $config['smtp_timeout'] = '60';
+         $config['smtp_user']    = 'sukramror0001@gmail.com';
+         $config['smtp_pass']    = 'Sukram@123';
+         $config['charset']    = 'utf-8';
+         $config['newline']    = "\r\n";
+         $config['mailtype'] = 'html';
+         $config['validation'] = TRUE;
+
+         $this->email->initialize($config);
+         $this->email->set_mailtype("html");
+         $this->email->from($from);
+         $this->email->to($to);
+         $this->email->subject($subject);
+         $this->email->message($emailContent);
+
+         // return redirect('email_send');
+         if($this->email->send())
+              {
+              }
+              else
+              {
+                  show_error($this->email->print_debugger());
+              }
+
          $this->session->set_flashdata('msg1', ', Your password has been changed successfully');
          return redirect ('home/password_change');
         }else{
@@ -429,6 +499,64 @@ class Home extends CI_Controller {
         $this->navbar();
         $this->load->view('my_order', $data);
         $this->footer();
+      }else{
+        redirect (base_url(). 'home/login');
+      }
+    }
+    public function my_profile(){
+      if($this->session->userdata('authenticated')){
+      $this->load->model('mdl_home');
+      $user_id = $this->session->userdata('id');
+      $data['userdetail'] = $this->mdl_home->get_profile($user_id);   //prd($data);
+      $this->navbar();
+      $this->load->view('profile', $data);
+      $this->footer();
+    }else{
+      redirect (base_url(). 'home/login');
+    }
+    }
+    public function update_profile(){
+      if($this->session->userdata('authenticated')){
+      $user_id = $this->session->userdata('id');
+      $this->load->model('mdl_home');
+      $data['update'] = $this->mdl_home->fetch_single_data($user_id);
+      $this-> navbar();
+      $this->load->view('profile', $data);
+      $this->footer();
+    }else{
+      redirect (base_url(). 'home/login');
+    }
+    }
+    public function update_details(){
+      if($this->session->userdata('authenticated')){
+      $this->load->model('mdl_home');
+      $this->load->library('form_validation');
+      $user_id = $this->session->userdata('id');
+      $this->form_validation->set_rules('username', 'Username', 'trim|required|alpha');
+      // $this->form_validation->set_rules('email', 'Email', 'trim|required');
+      $this->form_validation->set_rules('phone', 'Phone', 'trim|required|numeric');
+      $this->form_validation->set_rules('address', 'Address', 'required');
+      $this->form_validation->set_rules('suburb', 'Subrub', 'trim|required|alpha');
+      $this->form_validation->set_rules('postcode', 'Postcode', 'trim|required|numeric');
+      $this->form_validation->set_rules('city', 'City', 'trim|required|alpha');
+      $this->form_validation->set_rules('country', 'Country', 'required');
+      if($this->form_validation->run()){
+        $data = array(
+          'username' => $this->input->post('username'),
+          // 'email' => $this->input->post('email'),
+          'phone' => $this->input->post('phone'),
+          'address' => $this->input->post('address'),
+          'suburb' => $this->input->post('suburb'),
+          'postcode' => $this->input->post('postcode'),
+          'city' => $this->input->post('city'),
+          'country' => $this->input->post('country'),
+        );                                        //prd($data);
+        $this->mdl_home->update_profile($data, $user_id);
+        $this->session->set_flashdata('success_msg', 'Your details has been updated successfully');
+           redirect ('home/my_profile');
+      }else{
+        $this->update_profile();
+      }
       }else{
         redirect (base_url(). 'home/login');
       }

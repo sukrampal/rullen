@@ -1,6 +1,21 @@
 <?php
  class Mdl_admin extends CI_Model
  {
+   public function can_login($username, $password)
+   {
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $query = $this->db->get('Admin');
+        //SELECT * FROM admin WHERE username = '$username' AND password = '$password'
+        if($query->num_rows() > 0)
+        {
+             return true;
+        }
+        else
+        {
+             return false;
+        }
+   }
      public function insert_category($data){
        $this->db->insert("categories", $data);
      }
@@ -102,5 +117,23 @@
     public function delivery_status($data, $id){
       $this->db->where('order_id', $id);
       $this->db->update('orders', $data);
+    }
+    public function retrieve_password(){
+      $result = $this->db->get('admin')->row_array();
+      return $result;
+    }
+    public function update_about($data){
+      $this->db->where('id', 1)->update('about', $data);
+    }
+    public function get_about(){
+      $result = $this->db->get('about')->result_array();
+      return $result;
+    }
+    public function update_caption($data){
+      $this->db->where('id', 1)->update('captions', $data);
+    }
+    public function get_caption(){
+      $result = $this->db->get('captions')->result_array();
+      return $result;
     }
  }

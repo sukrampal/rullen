@@ -55,7 +55,7 @@
                     <?php foreach ($this->cart->contents() as $items): ?>
 										<tr>
 											<td class="product-thumbnail"><a href="#"><img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" /></a></td>
-											<td class="product-name"><a href="#"><?php echo $items['name']; ?></a></td>
+											<td class="product-name text-capitalize"><a href="#"><?php echo $items['name']; ?></a></td>
 											<td class="product-price"><span class="amount">$<?php echo $items['item_price']; ?></span></td>
 											<td class="product-quantity"><input type="number" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo $items['qty']; ?>" /><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['qty'] * $items['item_price']); ?>"></td>
                       <td class="product-price"><span class="amount">$<?php echo $items['shipping']; ?></span></td>

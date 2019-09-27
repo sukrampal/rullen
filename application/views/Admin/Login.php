@@ -30,7 +30,11 @@
                          echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';
                     ?>
                </div>
+               <a href="<?php echo base_url(); ?>admin/home/forget_password">Lost your password?</a>
           </form>
+          <?php if($error = $this->session->flashdata('msg')) { ?>
+          <p style="color: green;"><strong>Success!</strong> <?php echo  $error; ?><p>
+          <?php } ?>
      </div>
    </div>
 </body>
