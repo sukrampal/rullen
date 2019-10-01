@@ -16,10 +16,11 @@
         <th class="product-quantity">Quantity</th>
         <!-- <th class="product-quantity">Shipping<small>(per quantity)</small></th> -->
         <th class="product-subtotal">Item Price</th>
-        <th class="product-remove">Price <small>(including shipping)</small></th>
+        <th class="product-remove">Price<br> <small>(including shipping)</small></th>
         <th class="product-remove">Payment Status</th>
         <th class="product-remove">Delivery Status</th>
         <th class="product-remove">Ordered on</th>
+
       </tr>
     </thead>
     <tbody>
@@ -35,8 +36,7 @@
         <td class="product-name text-capitalize"><?php echo $order['payment_method']; ?></td>
         <td class="product-name"><?php echo $order['delivery_status']; ?></td>
         <td class="product-name"><?php echo $order['created_at']; ?></td>
-
-
+       <td class="product-name"><a href ="<?php echo base_url(); ?>home/cancel_order/<?php echo $order['order_id']; ?>"> <p style="color:#17a2b8;"><?php echo $order['cancel_button']; ?></p></a></td>
       </tr>
     <?php } ?>
     </tbody>
@@ -47,5 +47,5 @@
 </div>
 </div>
 <?php }else{ ?>
-  <h4 style="color:green;padding-top:35px;padding-bottom:30px;text-align:center">Sorry, You haven't placed any order yet!</h4>
+  <h4 class="text-capitalize" style="color:green;padding-top:35px;padding-bottom:30px;text-align:center">Sorry, You haven't placed any order yet!</h4>
 <?php } ?>

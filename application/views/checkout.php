@@ -15,11 +15,11 @@
 								<p style="color: red; padding-bottom:10px;"> <?php echo  $error; ?><p>
 								<?php } ?>
 								</div>
-								<?php foreach($details as $D){}  ?>
+								<?php foreach($details as $D){  ?>
 								<div class="col-lg-12">
 									<div class="checkout-form-list">
 										<label>Your Name </label>
-										<input type="text" name="username" value="<?php echo $user = $this->session->userdata('username');  ?>" placeholder="Enter First Name" />
+										<input type="text" name="uname" value="<?php echo $D['username']; ?>"  placeholder="Enter First Name" />
 										<span class="text-danger"><p style="color:red" <?php echo form_error("username"); ?></span>
 									</div>
 								</div>
@@ -68,7 +68,7 @@
 										<span class="text-danger"><p style="color:red" <?php echo form_error("phone"); ?></span>
 									</div>
 								</div>
-           	<? } ?>
+           	<?php } ?>
 							</div>
 
 						</div>

@@ -143,21 +143,22 @@
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
                       <li><a href="#"><?php echo anchor('home/my_profile', 'Profile'); ?></a></li>
-                      <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 
 										</ul>
 									</li>
                 <?php }else{ ?>
-                  <li class="click_menu"><a href="<?php echo base_url(); ?>home/login">My Account <i class="fa fa-angle-down"></i></a>
-										<ul class="click_menu_show">
+                  <li class="click_menu <?php if($uri == "login") { ?>active <?php } ?>"><a href="<?php echo base_url(); ?>home/login">My Account </i></a>
+                     <!-- // place after my account <i class="fa fa-angle-down"> -->
+										<!-- <ul class="click_menu_show">
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
-                      <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
-                      <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li>
+                      <!-- <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
+                      <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li> -->
 
-										</ul>
+										<!-- </ul> -->
 									</li>
                 <?php } ?>
 								</ul>
@@ -203,10 +204,10 @@
   										<ul class="click_menu_show">
   											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
   											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
-                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('#', 'profile'); ?></a></li>
-                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
-                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
-                        <li><a href="<?php echo base_url(); ?>home/login"><?php echo anchor('home/logout', 'logout'); ?></a></li>
+                        <li><a ><?php echo anchor('home/my_profile', 'profile'); ?></a></li>
+                        <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
+                        <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
+                        <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 
   										</ul>
   									</li>

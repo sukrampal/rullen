@@ -78,14 +78,14 @@
       $result = $this->db->like('product_keywords', $search_term)->get('products')->result_array();
       return $result;
      }
-     public function get_order(){
-       $this->db->order_by('order_id', 'desc');
-       $result = $this->db->get('orders')->result_array();
+     public function get_order($limit, $offset){
+       // $this->db->order_by('order_id', 'desc');
+       $result = $this->db->limit($limit, $offset)->order_by('order_id', 'desc')->get('orders')->result_array();
        return $result;
      }
-     public function delete_order($id){
+     public function cancel_order($id, $data){
        $this->db->where('order_id', $id);
-       $this->db->delete('orders');
+       $this->db->update('orders', $data);
      }
      public function get_banners(){
        $result = $this->db->get('banner')->result_array();
@@ -135,5 +135,12 @@
     public function get_caption(){
       $result = $this->db->get('captions')->result_array();
       return $result;
+    }
+    public function get_orderforemail($id){
+      $result = $this->db->where('order_id', $id)->get('orders')->row_array();
+      return $result;
+    }
+    public function shipping($id, $data){
+      $this->db->where('order_id', $id)->update('orders', $data);
     }
  }

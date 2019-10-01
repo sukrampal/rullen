@@ -45,11 +45,18 @@ class Home extends CI_Controller {
             $this->session->sess_destroy();
             redirect (base_url() .'home/login');
           }
+
           public function signup(){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('uname', 'Username', 'trim|required|alpha');
-            $this->form_validation->set_rules('mail', 'Email', 'trim|required|valid_email|is_unique[user.email]');
-            $this->form_validation->set_rules('pass', 'Password', 'trim|required|alpha_numeric|min_length[5]');
+            $this->form_validation->set_rules('mail', 'Email', 'required|valid_email|is_unique[user.email]', array(
+                'required'      => 'You have not provided %s.',
+                'is_unique'     => 'This %s already exists, Please Sign In.'
+        ));
+            $this->form_validation->set_rules('pass', 'Password', 'required|min_length[5]|max_length[12]|alpha_numeric|callback_password_check', array(
+            'required'       => 'You have not provided %s.',
+            'password_check' => ' %s must contain alphabetic and numeric values.'
+            ));
             $this->form_validation->set_rules('c_password', 'Confirm Password', 'required|matches[pass]');
             if($this->form_validation->run()){
               $this->load->model('mdl_home');
@@ -71,7 +78,7 @@ class Home extends CI_Controller {
             // $to = $this->input->post('mail');
             $subject = 'Rullen-Furniture';
             $from = 'sukramror0001@gmail.com';
-            $emailContent ='Hi..' .$this->input->post('uname').', you are successfully signed up at Rullen-Furniture having'.'<br>'.'<b>Email id:</b> '.$this->input->post('mail').'<br>'.'<b>Password:</b> '.$this->input->post('pass').'<br>'.'Please visit our website rullenantiques.co.nz for latest furniture-items';
+            $emailContent ='Hi..' .$this->input->post('uname').', you are successfully registered at Rullen-Furniture having'.'<br>'.'<b>Email id:</b> '.$this->input->post('mail').'<br>'.'<b>Password:</b> '.$this->input->post('pass').'<br>'.'Please visit our website rullenantiques.co.nz for latest furniture-items';
 
             $config['protocol']    = 'smtp';
             $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -119,13 +126,18 @@ class Home extends CI_Controller {
     $this->login();
   }
           }
-
+    public function password_check($str)
+    {
+       if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
+         return TRUE;
+       }
+       return FALSE;
+    }
 
     public function index(){
       //prd($this->cart->contents());
         $this->load->model('mdl_home');
-        $this->load->model('admin/mdl_admin');
-        $data['captions'] = $this->mdl_admin->get_caption();
+        $data['captions'] = $this->mdl_home->get_caption();
         $data['banner'] = $this->mdl_home->get_banner();// prd($data);
         $data['banner2']= $this->mdl_home->get_banner2(); //prd($data);
         $data['sukram'] = $this->mdl_home->get_new_products();
@@ -215,7 +227,7 @@ class Home extends CI_Controller {
         $this->load->library('pagination');
         $config = [
           'base_url'         => base_url('home/gallery'),
-          'per_page'         => 20,
+          'per_page'         => 13,
           'total_rows'       => $this->mdl_home->num_rows(),
           'full_tag_open'    =>"<ul class='pagination'>",
           'full_tag_close'   =>"</ul>",
@@ -311,6 +323,9 @@ class Home extends CI_Controller {
           $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
           if($this->form_validation->run()){
         $emailto = $this->input->post('email');
+   //      $six_digit_random_number = mt_rand(100000, 999999);
+   // $this->session->set_userdata('otp', $six_digit_random_number);
+
         $this->load->model('mdl_home');
         $pass['pass']= $this->mdl_home->retrieve_password($emailto); //prd($password);
          if(!empty($pass)){
@@ -319,7 +334,7 @@ class Home extends CI_Controller {
         $from = 'sukramror0001@gmail.com';
         foreach($pass as $p){
         $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
-        $emailContent  .='Email id: '. $p['email'].'<br>';
+        $emailContent  .='Email id: '. $p['email'].'<br>';  //('Click on link to reset your password '.$this->session->userdata['otp'] )
         $emailContent  .='Password: '. $p['password'];
 }
         // $emailContent .=$this->input->post('name');
@@ -363,7 +378,7 @@ class Home extends CI_Controller {
         }
         public function subscribe(){
           $this->load->library('form_validation');
-          $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[subscribe.email]');
+          $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|is_unique[subscribe.email]');
           if($this->form_validation->run()){
           $this->load->model('mdl_home');
           $data = array(
@@ -503,6 +518,19 @@ class Home extends CI_Controller {
         redirect (base_url(). 'home/login');
       }
     }
+    public function cancel_order(){
+      if($this->session->userdata('authenticated')){
+      $id = $this->uri->segment(3);
+      $this->load->model('mdl_home');
+      $data['delivery_button'] = ' ';
+      $data['cancel_button'] = ' ';
+      $data['delivery_status'] = 'Cancelled';
+      $this->mdl_home->cancel_order($id, $data);
+      redirect ('home/my_order');
+    }else{
+      redirect (base_url(). 'home/login');
+    }
+    }
     public function my_profile(){
       if($this->session->userdata('authenticated')){
       $this->load->model('mdl_home');
@@ -561,4 +589,6 @@ class Home extends CI_Controller {
         redirect (base_url(). 'home/login');
       }
 }
+
+
 }

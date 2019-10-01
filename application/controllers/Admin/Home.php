@@ -48,7 +48,28 @@ class Home extends CI_Controller {
              }
         function dashboard(){
           $this->load->model('admin/mdl_admin');
-          $data['orders'] = $this->mdl_admin->get_order();
+          $this->load->library('pagination');
+          $config = [
+            'base_url'         => base_url('admin/home/dashboard'),
+            'per_page'         => 10,
+            'total_rows'       => $this->mdl_admin->num_rows(),
+            'full_tag_open'    =>"<ul class='pagination'>",
+            'full_tag_close'   =>"</ul>",
+            'first_tag_open'   =>'<li>',
+            'first_tag_close'  =>'</li>',
+            'last_tag_open'    =>'<li>',
+            'last_tag_close'   =>'</li>',
+            'next_tag_open'    =>'<li>',
+            'next_tag_close'   =>'</li>',
+            'prev_tag_open'    =>'<li>',
+            'prev_tag_close'   =>'</li>',
+            'num_tag_open'     =>'<li>',
+            'num_tag_close'    =>'</li>',
+            'cur_tag_open'     =>"<li class='active'><a>",
+            'cur_tag_close'    =>'</a></li>',
+          ];
+          $this->pagination->initialize($config);
+          $data['orders'] = $this->mdl_admin->get_order($config['per_page'], $this->uri->segment(4));
           $this->navbar();
           $this->load->view('admin/dashboard', $data);
           $this->load->view('admin/footer');
@@ -351,13 +372,107 @@ class Home extends CI_Controller {
                               $this->load->view('admin/search_product', $data);
                               $this->load->view('admin/footer');
                             }
-                            public function delete_order(){
+                            public function shipping(){
                               $id = $this->uri->segment(4);
                               $this->load->model('admin/mdl_admin');
-                              $this->mdl_admin->delete_order($id);
-                              redirect ('admin/home/order_deleted');
+                              $data['shipping_btn'] = Shipped;
+                              $this->mdl_admin->shipping($id, $data);
+                              $data['email'] = $this->mdl_admin->get_orderforemail($id);   //prd($data);
+                              foreach($data as $e){
+                              $to = $e['email'];
+                              $subject = 'Rullen-Furniture';
+                              $from = 'sukramror0001@gmail.com';
+
+                              $emailContent = 'Hi.. '.$e['username'].', Your product is ready for shipping, will be delivered soon';
+                              }
+                              // $emailContent .=$this->input->post('name');
+                              $config['protocol']    = 'smtp';
+                              $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                              $config['smtp_port']    = '465';
+                              $config['smtp_timeout'] = '60';
+                              $config['smtp_user']    = 'sukramror0001@gmail.com';
+                              $config['smtp_pass']    = 'Sukram@123';
+                              $config['charset']    = 'utf-8';
+                              $config['newline']    = "\r\n";
+                              $config['mailtype'] = 'html';
+                              $config['validation'] = TRUE;
+
+                              $this->email->initialize($config);
+                              $this->email->set_mailtype("html");
+                              $this->email->from($from);
+                              $this->email->to($to);
+                              $this->email->subject($subject);
+                              $this->email->message($emailContent);
+
+                              // return redirect('email_send');
+                              if($this->email->send())
+                                   {
+                                       // echo 'Your email sent...!!!! ';
+
+                                           return redirect('admin/home/dashboard');
+                                   }
+                                   else
+                                   {
+                                       show_error($this->email->print_debugger());
+                                   }
+                              redirect ('admin/home/dashboard');
+
                             }
-                            public function order_deleted(){
+
+                            public function cancel_order(){
+                              $id = $this->uri->segment(4);
+                              $this->load->model('admin/mdl_admin');
+                              // $data['delivery_status'] = 'Cancelled';
+                              // $data['delivery_button'] = ' ';
+                              // $data['cancel_button'] = ' ';
+                              $data1 = array(
+                                'delivery_status' => 'Cancelled',
+                                'delivery_button' => ' ',
+                                'cancel_button' => ' ',
+                                'shipping_btn'   => ' ',
+                              );
+                              $this->mdl_admin->cancel_order($id, $data1);
+                              $data['email'] = $this->mdl_admin->get_orderforemail($id);   //prd($data);
+                              foreach($data as $e){
+                              $to = $e['email'];
+                              $subject = 'Rullen-Furniture';
+                              $from = 'sukramror0001@gmail.com';
+
+                              $emailContent = 'Hi.. '.$e['username'].', Your product has been cancelled successfully';
+                              }
+                              // $emailContent .=$this->input->post('name');
+                              $config['protocol']    = 'smtp';
+                              $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                              $config['smtp_port']    = '465';
+                              $config['smtp_timeout'] = '60';
+                              $config['smtp_user']    = 'sukramror0001@gmail.com';
+                              $config['smtp_pass']    = 'Sukram@123';
+                              $config['charset']    = 'utf-8';
+                              $config['newline']    = "\r\n";
+                              $config['mailtype'] = 'html';
+                              $config['validation'] = TRUE;
+
+                              $this->email->initialize($config);
+                              $this->email->set_mailtype("html");
+                              $this->email->from($from);
+                              $this->email->to($to);
+                              $this->email->subject($subject);
+                              $this->email->message($emailContent);
+
+                              // return redirect('email_send');
+                              if($this->email->send())
+                                   {
+                                       // echo 'Your email sent...!!!! ';
+
+                                           return redirect('admin/home/dashboard');
+                                   }
+                                   else
+                                   {
+                                       show_error($this->email->print_debugger());
+                                   }
+                              redirect ('admin/home/order_cancelled');
+                            }
+                            public function order_cancelled(){
                               $this->dashboard();
                             }
                             public function banner() {
@@ -432,9 +547,14 @@ class Home extends CI_Controller {
                             $id  = $this->uri->segment(4);
                             $this->load->model('admin/mdl_admin');
                             $data['delivery_status'] = Delivered;
+                            $data['cancel_button'] = ' ';
+                            $data['delivery_button'] = ' ';
+                            $data['shipping_btn'] = ' ';
                             $this->mdl_admin->delivery_status($data, $id);
                             redirect ('admin/home/dashboard');
                           }
+
+
                           public function forget_password(){
                             $this->load->model('admin/mdl_admin');
                             $pass['pass']= $this->mdl_admin->retrieve_password(); //prd($password);

@@ -146,7 +146,7 @@
 											</a>
 										</li>
 									</ul> -->
-<?php echo $this->pagination->create_links(); ?>
+<p style="display:inline"><?php echo $this->pagination->create_links(); ?></p>
 
 								</nav>
                 <br>

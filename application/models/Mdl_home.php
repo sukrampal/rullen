@@ -90,8 +90,8 @@
           $result = $this->db->get('products');
           return $result->num_rows();
         }
-        public function order($data){
-           return $this->db->insert("orders", $data);
+        public function order($order){
+           return $this->db->insert("orders", $order);
         }
       public function retrieve_password($emailto){
         $result = $this->db->where('email', $emailto)->get('user')->row_array();
@@ -120,6 +120,10 @@
         $result = $this->db->order_by('order_id', 'desc')->where('user_id', $id)->get('orders')->result_array();
         return $result;
       }
+      public function cancel_order($id, $data){
+        $this->db->where('order_id', $id);
+        $this->db->update('orders', $data);
+      }
       public function get_profile($user_id){
         $user_id  = $this->session->userdata('id');
       $result = $this->db->where('user_id', $user_id)->get('user')->result_array();
@@ -138,6 +142,10 @@
     }
     public function get_about(){
       $result  = $this->db->get('about')->result_array();
+      return $result;
+    }
+    public function get_caption(){
+      $result = $this->db->get('captions')->result_array();
       return $result;
     }
 }

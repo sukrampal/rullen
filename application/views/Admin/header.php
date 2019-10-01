@@ -117,7 +117,7 @@ $uri = $this->uri->segment(3);
       <li class="nav-item <?php if($uri == "about"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/about">
           <i class="fas fa-fw fa-table"></i>
-          <span>About</span></a>
+          <span>About Page</span></a>
       </li>
       <li class="nav-item <?php if($uri == "captions"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/captions">

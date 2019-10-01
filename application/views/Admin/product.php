@@ -46,8 +46,8 @@
               <td><a href="<?php echo base_url(); ?>admin/home/update_product/<?php echo $prdct['product_id']; ?>" class="update _data" id="<?php echo $prdct['product_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
             </tr>
           <?php } ?>
-            <?= $this->pagination->create_links(); ?>
-            </tabel>
+            <p style="display:inline;" ><?php echo $this->pagination->create_links(); ?></p>
+          </table>
           </div>
       </div>
 
