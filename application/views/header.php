@@ -56,7 +56,7 @@
 								</div>
 								<div class="header-bottom-text">
 									<h3>Christchurch</h3>
-                <p>32 Durham Street</p>
+                <p>32 Durham Street South</p>
                 <p>Sydenham, NZ</p>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 								<div class="header-bottom-text">
 									<h3>SUPPORT 24/7</h3>
 									<p>+64 21770211</p>
-                <a href="mailto:Sukramror0001@gmail.com">info@rullenantiques.co.nz</a>
+                <a href="mailto:info@rullenantiques.co.nz">info@rullenantiques.co.nz</a>
 								</div>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 												<img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" />
 											</div>
 											<div class="cart-content">
-												<h4><a href=""><?php echo $items['name']; ?></a></h4>
+												<h4><a ><?php echo $items['name']; ?></a></h4>
 												<span>Quantity: <?php echo $items['qty']; ?></span>
 												<span class="cart-price">$<?php echo $items['price']; ?></span>
 											</div>
@@ -212,14 +212,14 @@
   										</ul>
   									</li>
                   <?php }else{ ?>
-                    <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
-  										<ul class="click_menu_show">
+                    <li class="click_menu"><a href="<?php echo base_url(); ?>home/login">My Account <i class="fa fa-angle-down"></i></a>
+  										<!-- <ul class="click_menu_show"> -->
   											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
   											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
-                        <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
-                        <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li>
+                        <!-- <li><a href="<?php echo base_url(); ?>home/login">signup</a></li>
+                        <li><a href="<?php echo base_url(); ?>home/login">sign in</a></li> -->
 
-  										</ul>
+  										<!-- </ul> -->
   									</li>
                   <?php } ?>
 								</ul>

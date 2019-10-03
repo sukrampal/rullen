@@ -31,14 +31,14 @@
         <div class="col-8">
           <div class="form-group">
             <label>Product Description</label>
-            <input type="text" class="form-control" name="product_desc" value="<?php echo $prd['product_desc']; ?>" placeholder="Enter product desc" required></input>
+            <textarea class="form-control" name="product_desc"  placeholder="Enter product desc" required><?php echo $prd['product_desc']; ?></textarea>
           </div>
         </div>
 
         <div class="col-8">
           <div class="form-group">
             <label>old Price</label>
-            <input type="number" name="old_price" value="<?php echo $prd['old_price']; ?>"class="form-control" placeholder="Enter Product Old Price" />
+            <input type="number" name="old_price" value="<?php echo $prd['old_price']; ?>"class="form-control" placeholder="Enter Product Old Price" required/>
             <span class="text-danger"><?php echo form_error("product_price"); ?></span>
           </div>
         </div>
@@ -241,4 +241,8 @@ function validateImage(id) {
     }
     return true;
 }
+</script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'product_desc' );
 </script>

@@ -34,6 +34,7 @@
 		</div>
 		<!-- slider-area-end -->
 		<!-- service-area-start -->
+		<div class="sukrampal">
 		<div class="service-area pt-80">
 			<div class="container">
 				<div class="row">
@@ -96,17 +97,27 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		<!-- service-area-end -->
 <br></br>
 		<!-- banner-area-start -->
 		<div class="banner-area pb-80">
 			<div class="container">
 				<div class="row">
+					<div class="desktop">
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 						<div class="single-banner mar_b-30">
-							<a href="#"><img style="height:430px; width: 370px" src="<?php echo base_url(); ?>assets/img/product/b1.jpg" width="370"  alt="" /></a>
+							<a href="#"><img style="height:430px;width: 370px" src="<?php echo base_url(); ?>assets/img/product/b1.jpg" width="370"  alt="" /></a>
 						</div>
 					</div>
+				</div>
+				<div class="mobile">
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="single-banner mar_b-30">
+						<a href="#"><img style="height:300px;" src="<?php echo base_url(); ?>assets/img/product/b1.jpg" width="370"  alt="" /></a>
+					</div>
+				</div>
+			</div>
 					<div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
 						<div class="row">
 							<div class="col-lg-12">
@@ -121,11 +132,20 @@
 							</div>
 						</div>
 					</div>
+					<div class="desktop">
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 						<div class="single-banner">
 							<a href="#"><img style="height:430px" src="<?php echo base_url(); ?>assets/img/banner/b4.png" alt="" /></a>
 						</div>
 					</div>
+				</div>
+				<div class="mobile">
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="single-banner">
+						<a href="#"><img style="height:300px" src="<?php echo base_url(); ?>assets/img/banner/b4.png" alt="" /></a>
+					</div>
+				</div>
+			</div>
 				</div>
 			</div>
 		</div>
@@ -236,19 +256,18 @@
 					<div class="text-center">
 						<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 
-		              <img src="<?php echo base_url(); ?>assets/img/service/s1.png"/><br></br>
+		              <img style="height:90px;" src="<?php echo base_url(); ?>assets/img/service/s.png"/><br></br>
 							<!-- <img src="public\images\s1.png"> -->
-							<h3>Is In Budget</h3>
+							<h3>Nationwide Shipping </h3>
 								<br>
-							<p>We provide a wide range of furniture<br>
-		          that fit in your budget</p>
+							<p>We can ship items anywhere in New Zealand</p>
 						</div>
 						<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
 		<img src="<?php echo base_url(); ?>assets/img/service/s2.png"/>
 <br></br>
-							<h3>Book By Phone</h3>
+							<h3 style="padding-top:8px;">Custom Orders</h3>
 								<br>
-							<p>Give A Miss Call Or Do an Online Booking through our website
+							<p>We help our customers to get furniture made as per their requirement
 		        </p>
 						</div>
 						<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
@@ -275,24 +294,20 @@
 			<div class="reason">
 
 			<div class="reason1">
-			<h2> REASONS TO SHOP WITH US</h2><br>
+			<!-- <h2> </h2><br> -->
 			<h3>&#10004;QUALITY GUARANTEED<h3>
-			  <h4> Want piece of mind that only your quality <br>
-			       furniture will be looking like the day you<br>
-			      brought it home for years to come.</h4><br>
-			  <h3> &#10004;NEW ZEALAND MADE<h3>
-			    <h4>Be proud to support NZ made furniture <br>
-			      specifically designed with you in mind</h4>
-			<h3>&#10004; SUITED TO YOUR TASTE</h3>
-			<h4>Love walking into your home that projects<br>
-			   your own style<h4>
+			  <h4> We make sure our customers are offered solid wood furniture.<br> Most of our collections are hand picked from NZ<br> and other parts of world.</h4><br>
+			  <h3> &#10004;Why Rugs from Us<h3>
+			    <h4>Most of our rugs are hand knotted and hand tufted made of pure wool.</h4>
+			<h3>&#10004; The Point of Difference</h3>
+			<h4>Most of our furniture is hand crafted and very unique<h4>
 
 			</div>
 
 
 
 			<div class="map">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2891.9272334774228!2d172.63238011659976!3d-43.54555871268405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d318b9a48a31057%3A0x6ec61ac1d5540db8!2sRullen+Antiques+%26+Furniture!5e0!3m2!1sen!2snz!4v1564573345282!5m2!1sen!2snz" width="450" height="500" frameborder="20" style=border:"20" allowfullscreen></iframe>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2891.9272334774228!2d172.63238011659976!3d-43.54555871268405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d318b9a48a31057%3A0x6ec61ac1d5540db8!2sRullen+Antiques+%26+Furniture!5e0!3m2!1sen!2snz!4v1564573345282!5m2!1sen!2snz" width="450" height="400" frameborder="20" style=border:"20" allowfullscreen></iframe>
 </div>
 	</div>
 <!-- <image style="width:500px; height:auto"  src="http://www.conform.se/portals/0/Bilder/OmOss/om_oss_2.jpg" /> -->
@@ -350,7 +365,7 @@
 
     .map {
         position: relative;
-        padding-bottom: 40%; // This is the aspect ratio
+        padding-bottom: 30%; // This is the aspect ratio
         height: 0;
         overflow: hidden;
     }
@@ -358,7 +373,7 @@
         position: absolute;
 
         width: 90% !important;
-        height: 100% !important;
+        height: 80% !important;
     }
 		@media screen and (min-width: 600px) {
    .sukram {
@@ -375,4 +390,18 @@
 }
 }
 
+			</style>
+			<style>
+			@media only screen and (max-width: 600px){
+			.desktop {
+			  display: none;
+			  visibility: hidden;
+			}
+			}
+			@media only screen and (min-width: 600px){
+			.mobile {
+			  display: none;
+			  visibility: hidden;
+			}
+			}
 			</style>

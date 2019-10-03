@@ -11,7 +11,7 @@ if(isset($update)){
     </div>
     <div class="form-group col-md-6 col-md-offset-3">
     <label>Phone</label>
-    <input type="text" name="phone" value="<?php echo $edit['phone']; ?>" class="form-control" autocomplete="off"/>
+    <input type="number" name="phone" value="<?php echo $edit['phone']; ?>" class="form-control" autocomplete="off"/>
     <span class="text-danger"><p style="color:red"<?php echo form_error("phone"); ?></span>
     </div>
     <div class="form-group col-md-6 col-md-offset-3">

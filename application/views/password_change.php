@@ -15,17 +15,17 @@
 
                <div class="form-group">
                     <label>Old Password </label>
-                    <input type="password" name="old_pass" class="form-control"  />
+                    <input type="password" name="old_pass" value="<?php echo set_value('old_pass'); ?>" class="form-control"  />
                     <span class="text-danger"><p style="color: red" <?php echo form_error('old_pass'); ?> </span>
                </div>
                <div class="form-group">
                     <label>New Password </label>
-                    <input type="password" name="new_pass" class="form-control"  />
+                    <input type="password" name="new_pass" value="<?php echo set_value('new_pass'); ?>" class="form-control"  />
                     <span class="text-danger"><p style="color: red" <?php echo form_error('new_pass'); ?> </span>
                </div>
                <div class="form-group">
                     <label>Confirm Password </label>
-                    <input type="password" name="c_pass" class="form-control"  />
+                    <input type="password" name="c_pass" value="<?php echo set_value('c_pass'); ?>" class="form-control"  />
                     <span class="text-danger"><p style="color: red" <?php echo form_error('c_pass'); ?> </span>
                </div>
 

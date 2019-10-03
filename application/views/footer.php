@@ -19,7 +19,7 @@
             <p class="text-success" style="padding:10px;"><strong>Congratulations, </strong><?php echo $error; ?></p>
           <?php } ?>
           <?php if($error = $this->session->flashdata('error')) { ?>
-            <p class="text-success" style="padding:10px;"><strong>Congratulations, </strong><?php echo $error; ?></p>
+            <p class="text-success" style="padding:10px;"><?php echo $error; ?></p>
           <?php } ?>
         </div>
       </div>
@@ -37,24 +37,24 @@
           <div class="footer-logo">
             <a href="#"><img style="height:50px; width:120px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $footer_logo['image']; ?>" alt="" /></a>
           </div>
-          <p>We are Christchurch based furniture shop. We sell furniture, Appliances, Technology, Antiques & much more.</p>
+          <p>We are 100% New Zealand owned business, specilize in Antiques, vintage, mid-century furniture, Lighting and Rugs.</p>
           <ul>
             <li>
-              <span>Address : </span> No 32 Durham Sreet, Sydenham, Christchurch.
+              <span>Address : </span> 32 Durham Street South, Sydenham, Christchurch.
             </li>
             <li>
               <span>Phone: </span> +64 21770211
             </li>
             <li>
-              <span>Email:</span> <a href="mailto:Sukramror0001@gmail.com">info@rullenantiques.co.nz</a>
+              <span>Email:</span> <a href="mailto:info@rullenantiques.co.nz">info@rullenantiques.co.nz</a>
             </li>
           </ul>
           <ul class="footer-social">
             <li><a href="https://www.facebook.com/Rullen-Antiques-Furniture-529871434030204/"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+            <li><a href="<?php echo base_url(); ?>home/index"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="<?php echo base_url(); ?>home/index"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="<?php echo base_url(); ?>home/index"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="<?php echo base_url(); ?>home/index"><i class="fa fa-flickr"></i></a></li>
           </ul>
         </div>
       </div>
@@ -66,8 +66,8 @@
           <div class="footer-wrapper">
             <ul class="usefull-link">
               <li><a href="<?php echo base_url(); ?>home/contact">Contact us</a></li>
-              <li><a href="#">Site map</a></li>
-              <li><a href="#">About us</a></li>
+              <li><a href="home/contact">Site map</a></li>
+              <li><a href="home/about">About us</a></li>
               <li><a href="#">Specials</a></li>
               <li><a href="<?php echo base_url(); ?>cart/index">My Cart</a></li>
               <li><a href="<?php echo base_url(); ?>home/contact">Custom service</a></li>
@@ -108,7 +108,7 @@
             <a href="#"><img src="<?php echo base_url(); ?>assets/img/footer/15.jpg" alt="" /></a>
             <a href="#"><img src="<?php echo base_url(); ?>assets/img/footer/16.jpg" alt="" /></a>
           </div>
-          <a href="https://www.facebook.com/Rullen-Antiques-Furniture-529871434030204/">Follow our facebook <i class="fa fa-angle-double-right"></i></a>
+          <a href="https://www.facebook.com/Rullen-Antiques-Furniture-529871434030204/">Follow us on facebook <i class="fa fa-angle-double-right"></i></a>
         </div>
       </div>
     </div>

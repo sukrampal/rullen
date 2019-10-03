@@ -112,7 +112,7 @@
 									<tfoot>
 
 										<tr class="shipping">
-											<th>Shipping(per quantiy)</th>
+											<th>Local Delivery</th>
 											<td>
 
 												<ul>
@@ -152,15 +152,19 @@
 									<div class="card">
 										<div class="card-header" role="tab" id="headingOne">
 											<h4 class="card-title">
+												<div class="order-button-payment">
 												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-												Direct Bank Transfer
+
 												</a>
+												</div>
 											</h4>
+
 										</div>
 										<div id="collapseOne" class="collapse show" data-parent="#accordion" aria-labelledby="headingOne">
-											<div class="card-body payment-content">
+											<!-- <div class="card-body payment-content">
+
 												Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.
-											</div>
+											</div> -->
 										</div>
 									</div>
 
@@ -168,13 +172,24 @@
 										<div class="card-header" role="tab" id="headingThree">
 											<h4 class="card-title panel-img">
 											<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-											PayPal <img src="<?php echo base_url(); ?>assets/img/payment_c.png" alt="" />
-											</a>
+                      For Online Payment Click To Get Details
+														<!-- <input type="submit" value="For Online Payment Click To Get Details" /> -->
+
+													</a>
 											</h4>
 										</div>
 										<div id="collapseThree" class="collapse" data-parent="#accordion" aria-labelledby="headingThree">
 											<div class="card-body payment-content">
-												Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.
+												Please send full payment in our bank account<br>
+												<b>Account Name:</b> Rullen Tech Limited<br>
+												<b>Account Number:</b> 02 0865 0071078 000<br>
+												<b>Reference Number:</b> <?php echo $user = $this->session->userdata('id');  ?></br>
+												Your order will not be delivered until we confirm<br>
+												full payment in our bank account.<br>
+												Do you have any further query, fill free to contact us.
+												<div class="order-button-payment">
+													<input type="submit" value="Place Order" />
+												</div>
 											</div>
 										</div>
 									</div>
@@ -182,7 +197,7 @@
 
 								<div class="order-button-payment">
 									<input type="submit" name="cash" value="Cash On Delivery" />
-									<input type="submit" value="Pay Online" />
+									<!-- <input type="submit" value="Pay Online" /> -->
 									<!-- onclick="printDiv('printMe')" -->
 								</div>
 							</div>

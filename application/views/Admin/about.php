@@ -3,18 +3,20 @@
   <?php if($error = $this->session->flashdata('msg')){ ?>
     <p style="color:green"><b>Success,</b><?php echo $error; ?></p>
   <?php } ?>
-<div class="table-responsive table table-bordered col-md-7">
+<!-- <div class="table-responsive table table-bordered col-md-7">
   <?php foreach($about_text as $a){  ?>
 <td>
   <?php echo $a['about']; ?>
 </td>
 <?php } ?>
 
-</div>
+</div> -->
 <form method="post" action="<?php echo base_url(); ?>admin/home/update_about">
 <div class="form-group col-md-7" >
 <label>About Us</label>
-<textarea name="about" class="form-control" autocomplete="off"/></textarea>
+<?php foreach($about_text as $a) { ?>
+<textarea name="about"  class="form-control" autocomplete="off"/><?php echo $a['about']; ?></textarea>
+<?php } ?>
 <span class="text-danger"><?php echo form_error("about") ?></span>
 </div>
 <div class="form-group">
@@ -25,3 +27,7 @@
 
 
 </div>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'about' );
+</script>

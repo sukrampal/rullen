@@ -384,6 +384,7 @@ class Home extends CI_Controller {
                               $from = 'sukramror0001@gmail.com';
 
                               $emailContent = 'Hi.. '.$e['username'].', Your product is ready for shipping, will be delivered soon';
+                              $emailContent .= 'If you have any further query, feel free to contact us at info@rullenantiques.co.nz or call us at +64 21770211';
                               }
                               // $emailContent .=$this->input->post('name');
                               $config['protocol']    = 'smtp';
@@ -438,7 +439,9 @@ class Home extends CI_Controller {
                               $subject = 'Rullen-Furniture';
                               $from = 'sukramror0001@gmail.com';
 
-                              $emailContent = 'Hi.. '.$e['username'].', Your product has been cancelled successfully';
+                              $emailContent = 'Hi.. '.$e['username'].', Your product having product id'.$e['product_id'].' has been cancelled successfully';
+                              $emailContent .='<br>'.'If you have any further query, feel free to contact us at info@rullenantiques.co.nz or call us at +64 21770211';
+
                               }
                               // $emailContent .=$this->input->post('name');
                               $config['protocol']    = 'smtp';
@@ -546,11 +549,60 @@ class Home extends CI_Controller {
                           public function deliver(){
                             $id  = $this->uri->segment(4);
                             $this->load->model('admin/mdl_admin');
-                            $data['delivery_status'] = Delivered;
-                            $data['cancel_button'] = ' ';
-                            $data['delivery_button'] = ' ';
-                            $data['shipping_btn'] = ' ';
-                            $this->mdl_admin->delivery_status($data, $id);
+                            // $data['delivery_status'] = 'Delivered';
+                            // $data['cancel_button'] = ' ';
+                            // $data['delivery_button'] = ' ';
+                            // $data['shipping_btn'] = ' ';
+                            $data2 = array(
+                              'delivery_status' => 'Delivered',
+                              'cancel_button' => ' ',
+                              'delivery_button' => ' ',
+                              'shipping_btn' => ' ',
+                            );
+
+                            $this->mdl_admin->delivery_status($data2, $id);
+                            $data['email'] = $this->mdl_admin->get_orderforemail($id);
+                            foreach($data as $e){
+                            $to = $e['email'];
+                            $name = $e['username'];
+                            $product_id = $e['product_id'];
+                            $subject = 'Rullen-Furniture';
+                            $from = 'sukramror0001@gmail.com';
+
+                            $emailContent = 'Hi.. '.$name.', Your product with product id'.$product_id.'has been delivered successfully';
+                            $emailContent .= '<br>'.'If you have any further query, feel free to contact us at info@rullenantiques.co.nz or call us at +64 21770211';
+
+}
+                            // $emailContent .=$this->input->post('name');
+                            $config['protocol']    = 'smtp';
+                            $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                            $config['smtp_port']    = '465';
+                            $config['smtp_timeout'] = '60';
+                            $config['smtp_user']    = 'sukramror0001@gmail.com';
+                            $config['smtp_pass']    = 'Sukram@123';
+                            $config['charset']    = 'utf-8';
+                            $config['newline']    = "\r\n";
+                            $config['mailtype'] = 'html';
+                            $config['validation'] = TRUE;
+
+                            $this->email->initialize($config);
+                            $this->email->set_mailtype("html");
+                            $this->email->from($from);
+                            $this->email->to($to);
+                            $this->email->subject($subject);
+                            $this->email->message($emailContent);
+
+                            // return redirect('email_send');
+                            if($this->email->send())
+                                 {
+                                     // echo 'Your email sent...!!!! ';
+
+                                         return redirect('admin/home/dashboard');
+                                 }
+                                 else
+                                 {
+                                     show_error($this->email->print_debugger());
+                                 }
                             redirect ('admin/home/dashboard');
                           }
 

@@ -42,7 +42,7 @@ class Home extends CI_Controller {
       }
      }
           public function logout(){
-            $this->session->sess_destroy();
+            $this->session->unset_userdata('authenticated');
             redirect (base_url() .'home/login');
           }
 
@@ -74,7 +74,7 @@ class Home extends CI_Controller {
                 $this->mdl_home->subscribe($data1);
               }
 
-            $to = 'sukramror0001@gmail.com';
+            $to = $this->input->post('mail');
             // $to = $this->input->post('mail');
             $subject = 'Rullen-Furniture';
             $from = 'sukramror0001@gmail.com';
@@ -265,12 +265,12 @@ class Home extends CI_Controller {
 
         public function send(){
           $this->load->library('form_validation');
-          $this->form_validation->set_rules('name', '', 'required|alpha');
+          $this->form_validation->set_rules('name', '', 'trim|required');
           $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-          $this->form_validation->set_rules('phone', '', 'required|min_length[9]|max_length[12]|regex_match[/^[0-9]{10}$/]');
+          $this->form_validation->set_rules('phone', '', 'required|min_length[9]|max_length[12]');
           $this->form_validation->set_rules('message', '', 'required');
           if($this->form_validation->run()){
-          $to = 'sukramror0001@gmail.com';
+          $to = 'info@rullenantiques.co.nz';
           $subject = 'Rullen-Furniture';
           $from = 'sukramror0001@gmail.com';
           $emailContent  ='Name: '.$this->input->post('name').'<br>';
@@ -322,60 +322,67 @@ class Home extends CI_Controller {
           $this->load->library('form_validation');
           $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
           if($this->form_validation->run()){
-        $emailto = $this->input->post('email');
-   //      $six_digit_random_number = mt_rand(100000, 999999);
-   // $this->session->set_userdata('otp', $six_digit_random_number);
+              $emailto = $this->input->post('email');
+              //      $six_digit_random_number = mt_rand(100000, 999999);
+              // $this->session->set_userdata('otp', $six_digit_random_number);
 
-        $this->load->model('mdl_home');
-        $pass['pass']= $this->mdl_home->retrieve_password($emailto); //prd($password);
-         if(!empty($pass)){
-        $to = 'sukramror0001@gmail.com';
-        $subject = 'Rullen-Furniture';
-        $from = 'sukramror0001@gmail.com';
-        foreach($pass as $p){
-        $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
-        $emailContent  .='Email id: '. $p['email'].'<br>';  //('Click on link to reset your password '.$this->session->userdata['otp'] )
-        $emailContent  .='Password: '. $p['password'];
-}
-        // $emailContent .=$this->input->post('name');
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
-        $config['smtp_timeout'] = '60';
-        $config['smtp_user']    = 'sukramror0001@gmail.com';
-        $config['smtp_pass']    = 'Sukram@123';
-        $config['charset']    = 'utf-8';
-        $config['newline']    = "\r\n";
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
+              $this->load->model('mdl_home');
+              $pass= $this->mdl_home->retrieve_password($emailto); //prd($pass);
+              if(!empty($pass)){
+                $to = 'sukramror0001@gmail.com';
+                $subject = 'Rullen-Furniture';
+                $from = 'info@rullenantiques.co.nz';
+                /*foreach($pass as $p){*/
+                  $emailContent = 'Hi.. '.$pass['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
+                  $emailContent  .='Email id: '. $pass['email'].'<br>';  //('Click on link to reset your password '.$this->session->userdata['otp'] )
+                  $emailContent  .='Password: '. $pass['password'];
+                  $emailContent .= '<br>'.'If you have any further query, fill free to contact us at info@rullenantiques.co.nz';
+                //}
+                // $emailContent .=$this->input->post('name');
+                $config['protocol']    = 'mail';
+                $config['smtp_host']    = 'smtp.office365.com';
+                $config['smtp_port']    = '587';
+                $config['smtp_timeout'] = '60';
+                $config['smtp_user']    = 'info@rullenantiques.co.nz';
+                $config['smtp_pass']    = 'Sukram@123';
+                $config['charset']    = 'utf-8';
+                $config['newline']    = "\r\n";
+                $config['mailtype'] = 'html';
+                $config['validation'] = TRUE;
 
-        $this->email->initialize($config);
-        $this->email->set_mailtype("html");
-        $this->email->from($from);
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message($emailContent);
+                $this->email->initialize($config);
+                $this->email->set_mailtype("html");
+                $this->email->from($from);
+                $this->email->to($to);
+                $this->email->subject($subject);
+                $this->email->message($emailContent);
 
-        // return redirect('email_send');
-        if($this->email->send())
-             {
-                 // echo 'Your email sent...!!!! ';
-                 $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
-                 $this->session->set_flashdata('msg_class','alert-success');
-                     return redirect('home/forget_password');
-             }
-             else
-             {
-                 show_error($this->email->print_debugger());
-             }
-              }else{
-              echo 'sorry';
+                // return redirect('email_send');
+                if($this->email->send())
+                {
+                   // echo 'Your email sent...!!!! ';
+                   $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
+                   $this->session->set_flashdata('msg_class','alert-success');
+                       return redirect('home/forget_password');
+                }
+                else
+                {
+                   show_error($this->email->print_debugger());
+                }
               }
-              }else{
-              // redirect ('home/forget_password');
-              $this->forget_password();
+              else
+              {
+                $this->session->set_flashdata('error1'," This email is not registered, Pease register first.");
+                return redirect('home/forget_password');
               }
+          }
+          else
+          {
+          // redirect ('home/forget_password');
+          $this->forget_password();
+          }
         }
+
         public function subscribe(){
           $this->load->library('form_validation');
           $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|is_unique[subscribe.email]');
@@ -386,11 +393,11 @@ class Home extends CI_Controller {
           );
           $this->mdl_home->subscribe($data);
 
-          $to = 'sukramror0001@gmail.com';
+          $to = $this->input->post('email');
           // $to = $this->input->post('mail');
           $subject = 'Rullen-Furniture';
           $from = 'sukramror0001@gmail.com';
-          $emailContent ='Hi..' .$this->session->userdata('username').'<br> Thanks for subscribing our newsletter';
+          $emailContent ='Thank you for subscribing with us'.'<br>'.'we will keep you updated with our new stock and promotions.'.'<br>'.'If you have any query, fill free to contact us through our website or email us at info@rullenantiques.co.nz';
 
           $config['protocol']    = 'smtp';
           $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -425,7 +432,7 @@ class Home extends CI_Controller {
             return  redirect ($_SERVER["HTTP_REFERER"]);
         }
         else{
-          $this->session->set_flashdata('error', 'You are already subscribed');
+          $this->session->set_flashdata('error', 'You are already subscribed, Thank You.');
             redirect ($_SERVER["HTTP_REFERER"]);
         }
       }
@@ -443,20 +450,23 @@ class Home extends CI_Controller {
          if($this->session->userdata('authenticated')){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('old_pass', 'Old Password', 'trim|required');
-        $this->form_validation->set_rules('new_pass', 'New Password', 'trim|required');
+        $this->form_validation->set_rules('new_pass', 'New Password', 'required|min_length[5]|max_length[12]|alpha_numeric|callback_password_check', array(
+        'required'       => 'You have not provided %s.',
+        'password_check' => ' %s must contain alphabetic and numeric values.'
+        ));
         $this->form_validation->set_rules('c_pass', 'Confirm Password', 'trim|required|matches[new_pass]');
         if($this->form_validation->run()){
         $this->load->model('mdl_home');
         $old_pass = $this->input->post('old_pass');
         $user_id = $this->input->post('user_id');
-        $result = $this->mdl_home->check_old_password($user_id, $old_pass);
-        if($result == true){
+        $result = $this->mdl_home->check_old_password($user_id, $old_pass); //prd($result->password);
+        if($result->password == $old_pass){
          $data = array(
            'password' => $this->input->post('new_pass'),
            // $user_id =>$this->input->post('user_id'),
          );
          $this->mdl_home->update_password($data, $user_id);
-         $to = 'sukramror0001@gmail.com';
+         $to = $this->session->userdata('email');
          // $to = $this->input->post('mail');
          $subject = 'Rullen-Furniture';
          $from = 'sukramror0001@gmail.com';
@@ -524,8 +534,43 @@ class Home extends CI_Controller {
       $this->load->model('mdl_home');
       $data['delivery_button'] = ' ';
       $data['cancel_button'] = ' ';
+      $data['shipping_btn'] = ' ';
       $data['delivery_status'] = 'Cancelled';
       $this->mdl_home->cancel_order($id, $data);
+      // $to = $this->session->userdata('email');
+      // // $to = $this->input->post('mail');
+      // $subject = 'Rullen-Furniture';
+      // $from = 'sukramror0001@gmail.com';
+      // $emailContent ='Hi..' .$this->session->userdata('username').', Your order has been cancelled successfully';
+      // $emailContent .='<br>'.'If you have any further query, feel free to contact us at info@rullenantiques.co.nz or call us at +64 21770211,'.'<br>'.' Thank you.';
+      //
+      // $config['protocol']    = 'smtp';
+      // $config['smtp_host']    = 'ssl://smtp.gmail.com';
+      // $config['smtp_port']    = '465';
+      // $config['smtp_timeout'] = '60';
+      // $config['smtp_user']    = 'sukramror0001@gmail.com';
+      // $config['smtp_pass']    = 'Sukram@123';
+      // $config['charset']    = 'utf-8';
+      // $config['newline']    = "\r\n";
+      // $config['mailtype'] = 'html';
+      // $config['validation'] = TRUE;
+      //
+      // $this->email->initialize($config);
+      // $this->email->set_mailtype("html");
+      // $this->email->from($from);
+      // $this->email->to($to);
+      // $this->email->subject($subject);
+      // $this->email->message($emailContent);
+      //
+      // // return redirect('email_send');
+      // if($this->email->send())
+      //      {
+      //      }
+      //      else
+      //      {
+      //          show_error($this->email->print_debugger());
+      //      }
+
       redirect ('home/my_order');
     }else{
       redirect (base_url(). 'home/login');

@@ -6,6 +6,7 @@
 
 <tr>
   <th>Order Id</th>
+  <th>User Id</th>
   <th>Product Id</th>
   <th>Product Name</th>
   <th>Quantity</th>
@@ -28,6 +29,7 @@
 <?php foreach($orders as $order){  ?>
   <tr>
   <td><?php echo $order['order_id']; ?></td>
+  <td><?php echo $order['user_id']; ?></td>
   <td><?php echo $order['product_id']; ?></td>
   <td class="text-capitalize"><?php echo $order['product_title']; ?></td>
   <td><?php echo $order['qty']; ?></td>

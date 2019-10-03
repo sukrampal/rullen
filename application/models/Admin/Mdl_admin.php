@@ -114,9 +114,9 @@
       $this->db->where('username', $uname);
       $this->db->update('admin', $data);
     }
-    public function delivery_status($data, $id){
+    public function delivery_status($data2, $id){
       $this->db->where('order_id', $id);
-      $this->db->update('orders', $data);
+      $this->db->update('orders', $data2);
     }
     public function retrieve_password(){
       $result = $this->db->get('admin')->row_array();

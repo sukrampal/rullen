@@ -1,13 +1,14 @@
 <!-- <h3 style="text-align:center; padding-top:20px" >Forget Your password</h3> -->
-<h4 style="text-align:center; padding-top:10px"> Please enter otp to place your order</h4>
+<p style="text-align:center; padding-top:10px;color:green;"> An OTP has been sent to you at your registered email address,<br> please enter below</p>
 <br>
 <div class="container">
   <div class="col-md-4 col-md-offset-4">
 
           <form method="post" action="<?php echo base_url(); ?>cart/otp_verification">
+
                <div class="form-group">
                     <label>Enter Your OTP: </label>
-                    <input type="text" name="otp" class="form-control"  />
+                    <input type="number" name="otp" class="form-control"  />
                     <span class="text-danger"><p style="color: red" <?php echo form_error('otp'); ?> </span>
                </div>
                <div class="form-group">

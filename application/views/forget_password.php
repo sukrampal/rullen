@@ -16,6 +16,9 @@
                <?php if($error = $this->session->flashdata('msg')){ ?>
                  <p style="color: green;"><strong>Success!</strong> <?php echo  $error; ?><p>
              <?php  }  ?>
+             <?php if($error = $this->session->flashdata('error1')){ ?>
+               <p style="color: #a94442;"><strong>Sorry!</strong> <?php echo  $error; ?><p>
+           <?php  }  ?>
           </form>
      </div>
    </div>

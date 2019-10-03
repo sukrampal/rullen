@@ -64,7 +64,7 @@ public function update(){
   {
     $data[$i]['rowid'] = $k;
     $data[$i]['qty'] = $p[0];
-    $data[$i]['qty_price'] = $p[1];
+    $data[$i]['qty_price'] = $p[0] * $p[1];
     $i++;
   }              //prd($p);
 
@@ -105,6 +105,8 @@ public function update(){
     $this->load->model('mdl_home');
 
     // prd($data);
+    //prd($_POST);
+
     $order = array(
     'username' => $this->input->post('uname'),
     'address' => $this->input->post('address'),
@@ -126,6 +128,29 @@ public function update(){
     'shipping_btn'   => 'Ready to Ship'
 
   );
+
+  foreach($this->input->post('product_id') as $key => $p)
+  {
+    $order["products"][$key]["product_id"] = $p;
+  }
+  foreach($this->input->post('product_title') as $key => $p)
+  {
+    $order["products"][$key]["product_title"] = $p;
+  }
+  foreach($this->input->post('p_qty') as $key => $p)
+  {
+    $order["products"][$key]["p_qty"] = $p;
+  }
+  foreach($this->input->post('item_price') as $key => $p)
+  {
+    $order["products"][$key]["item_price"] = $p;
+  }
+  unset($order["product_id"]);
+  unset($order["product_title"]);
+  unset($order["p_qty"]);
+  unset($order["qty"]);
+  unset($order["item_price"]);
+  //prd($order);
   $this->session->set_userdata('order',$order);//prd($this->session->userdata('product_id'));
   $this->session->set_flashdata($order);//prd($this->session->flashdata('product_id'));
                               // prd($data);
@@ -134,7 +159,8 @@ public function update(){
     // opt mail
     $six_digit_random_number = mt_rand(100000, 999999);
     $this->session->set_userdata('otp', $six_digit_random_number);
-    $to = 'sukramror0001@gmail.com';
+    $this->session->set_tempdata('otp', $six_digit_random_number, 600);
+    $to = $this->session->userdata('email');
     // $to = $this->input->post('mail');
     $subject = 'Rullen-Furniture';
     $from = 'sukramror0001@gmail.com';
@@ -166,75 +192,8 @@ public function update(){
          {
              show_error($this->email->print_debugger());
          }
-    // otp mail end
-//     $to = 'sukramror0001@gmail.com';
-//     // $to = $this->input->post('mail');
-//     $subject = 'Rullen-Furniture';
-//     $from = 'sukramror0001@gmail.com';
-//     $emailContent = 'Hi.. '.$this->input->post('username').', Your order has been placed successfully having details shown below';
-//     $emailContent .='<br>'.'<!DOCTYPE html>
-// <html>
-// <head>
-// <style>
-// table,th,td {
-//   border: 1px solid blue;
-// }
-// </style>
-// </head>
-// <body>
-//
-// <table>
-//   <tr>
-//     <th>Product Id</th>
-//     <th>Product Name</th>
-//     <th>Product Quantity</th>
-//     <th>Price Per Item</th>
-//     <th>Total Price</th>
-//     <th>Payment Mode</th>
-//   </tr>
-//   <tr>
-//     <td>'.implode(", ", $this->input->post('product_id')).'</td>
-//     <td>'.implode(", ", $this->input->post('product_title')).'</td>
-//     <td>'.implode(", ", $this->input->post('p_qty')).'</td>
-//     <td>'.implode(", ", $this->input->post('item_price')).'</td>
-//     <td>'.$this->input->post('price').'</td>
-//     <td>'.'Cash on delivery</td>
-//   </tr>
-//
-// </table>
-//
-// </body>
-// </html>
-// ';
-// $emailContent .='<br>'.'Thanks for shopping with us, your order will be delivered soon.';
-//
-//     $config['protocol']    = 'smtp';
-//     $config['smtp_host']    = 'ssl://smtp.gmail.com';
-//     $config['smtp_port']    = '465';
-//     $config['smtp_timeout'] = '60';
-//     $config['smtp_user']    = 'sukramror0001@gmail.com';
-//     $config['smtp_pass']    = 'Sukram@123';
-//     $config['charset']    = 'utf-8';
-//     $config['newline']    = "\r\n";
-//     $config['mailtype'] = 'html';
-//     $config['validation'] = TRUE;
-//
-//     $this->email->initialize($config);
-//     $this->email->set_mailtype("html");
-//     $this->email->from($from);
-//     $this->email->to($to);
-//     $this->email->subject($subject);
-//     $this->email->message($emailContent);
-//
-//     // return redirect('email_send');
-//     if($this->email->send())
-//          {
-//          }
-//          else
-//          {
-//              show_error($this->email->print_debugger());
-//          }
 
+// $this->session->set_flashdata('otp', 'We have sent you an otp at '.$this->input->post('email').' which is valid for 10 minutes, please enter here.');
     $this->verify_otp();
 
 }else{
@@ -248,7 +207,118 @@ public function update(){
 
  }
 }else{
-  echo 'online payment method is not yet working';
+  if(!empty($this->input->post('product_id'))){
+$this->load->library('form_validation');
+$this->form_validation->set_rules("uname", "Username ", 'required');
+$this->form_validation->set_rules("address", "Address ", 'required');
+$this->form_validation->set_rules("city", "City", 'required');
+$this->form_validation->set_rules("suburb", "Suburb ", 'required');
+$this->form_validation->set_rules("postcode", "Postcode/zip", 'required');
+$this->form_validation->set_rules("email", "Email ", 'required');
+$this->form_validation->set_rules("phone", "contact number", 'required');
+if($this->form_validation->run()){
+$this->load->model('mdl_home');
+
+// prd($data);
+//prd($_POST);
+
+$order = array(
+'username' => $this->input->post('uname'),
+'address' => $this->input->post('address'),
+'city' => $this->input->post('city'),
+'suburb' => $this->input->post('suburb'),
+'postcode' => $this->input->post('postcode'),
+'email' => $this->input->post('email'),
+'phone' => $this->input->post('phone'),
+'product_id' => implode(", ", $this->input->post('product_id')),
+'product_title' => implode(", ", $this->input->post('product_title')),
+'qty' => implode(", ", $this->input->post('p_qty')),
+'item_price' => implode(", ", $this->input->post('item_price')),
+'price' => $this->input->post('price'),
+'user_id' => $this->input->post('user_id'),
+'delivery_status' => 'Pending',
+'cancel_button' => 'Cancel',
+'delivery_button' => 'Delivered',
+'payment_method' => 'In Bank Account',
+'shipping_btn'   => 'Ready to Ship'
+
+);
+
+foreach($this->input->post('product_id') as $key => $p)
+{
+$order["products"][$key]["product_id"] = $p;
+}
+foreach($this->input->post('product_title') as $key => $p)
+{
+$order["products"][$key]["product_title"] = $p;
+}
+foreach($this->input->post('p_qty') as $key => $p)
+{
+$order["products"][$key]["p_qty"] = $p;
+}
+foreach($this->input->post('item_price') as $key => $p)
+{
+$order["products"][$key]["item_price"] = $p;
+}
+unset($order["product_id"]);
+unset($order["product_title"]);
+unset($order["p_qty"]);
+unset($order["qty"]);
+unset($order["item_price"]);
+//prd($order);
+$this->session->set_userdata('order',$order);//prd($this->session->userdata('product_id'));
+
+// $this->mdl_home->order($data);
+// opt mail
+$six_digit_random_number = mt_rand(100000, 999999);
+$this->session->set_userdata('otp', $six_digit_random_number);
+$this->session->set_tempdata('otp', $six_digit_random_number, 600);
+$to = $this->session->userdata('email');
+// $to = $this->input->post('mail');
+$subject = 'Rullen-Furniture';
+$from = 'sukramror0001@gmail.com';
+$emailContent ='Hi..' .$this->session->userdata('username').', Here is your OTP to place your order'.('OTP: '.$this->session->userdata['otp'] );
+
+$config['protocol']    = 'smtp';
+$config['smtp_host']    = 'ssl://smtp.gmail.com';
+$config['smtp_port']    = '465';
+$config['smtp_timeout'] = '60';
+$config['smtp_user']    = 'sukramror0001@gmail.com';
+$config['smtp_pass']    = 'Sukram@123';
+$config['charset']    = 'utf-8';
+$config['newline']    = "\r\n";
+$config['mailtype'] = 'html';
+$config['validation'] = TRUE;
+
+$this->email->initialize($config);
+$this->email->set_mailtype("html");
+$this->email->from($from);
+$this->email->to($to);
+$this->email->subject($subject);
+$this->email->message($emailContent);
+
+// return redirect('email_send');
+if($this->email->send())
+     {
+     }
+     else
+     {
+         show_error($this->email->print_debugger());
+     }
+
+// $this->session->set_flashdata('otp', 'We have sent you an otp at '.$this->input->post('email').' which is valid for 10 minutes, please enter here.');
+$this->verify_otp();
+
+}else{
+$this->checkout();
+}
+}else {
+ // echo 'Your email sent...!!!! ';
+ $this->session->set_flashdata('msg',"Please select atleast 1 product to place order");
+ // $this->session->set_flashdata('msg_class','alert-success');
+     return redirect('cart/checkout');
+
+}
 }
 }else{
   redirect (base_url(). 'home/login');
@@ -265,17 +335,34 @@ public function update(){
     }
 
    public function otp_verification(){
-
+if($this->session->userdata('authenticated')){
      if($this->input->post('otp') == $this->session->userdata('otp')){
        $this->load->model('mdl_home');
-       $this->mdl_home->order($this->session->userdata('order'));
+       $order = $this->session->userdata('order');
+       $this->mdl_home->order($order);
 
-        $to = 'sukramror0001@gmail.com';
+        $to = $order["email"];
         // $to = $this->input->post('mail');
         $subject = 'Rullen-Furniture';
         $from = 'sukramror0001@gmail.com';
-        $emailContent = 'Hi.. '.$this->session->userdata('username').', Your order has been placed successfully having details shown below';
+
+        $products = "";
+        foreach($order["products"] as $p)
+        {
+          $products .= '<tr>
+            <td>'.$p["product_id"].'</td>
+            <td>'.$p["product_title"].'</td>
+            <td>'.$p["p_qty"].'</td>
+            <td>'.$p["item_price"].'</td>
+            <td>'.$order["payment_method"].'</td>
+            <td>'.($p["p_qty"] * $p["item_price"]).'</td>
+          </tr>';
+        }
+
+
+        $emailContent = 'Hi.. '.$order["username"].', Your order has been placed successfully, please check the details below';
         $emailContent .='<br>'.'<!DOCTYPE html>
+
     <html>
     <head>
     <style>
@@ -292,24 +379,24 @@ public function update(){
         <th>Product Name</th>
         <th>Product Quantity</th>
         <th>Price Per Item</th>
-        <th>Total Price</th>
         <th>Payment Mode</th>
-      </tr>
+        <th>Total Price Per Item</th>
+      </tr>'.$products.'
       <tr>
-        <td>'.$this->session->flashdata('product_id').'</td>
-        <td>'.$this->session->flashdata('product_title').'</td>
-        <td>'.$this->session->flashdata('p_qty').'</td>
-        <td>'.$this->session->flashdata('item_price').'</td>
-        <td>'.$this->session->flashdata('price').'</td>
-        <td>'.'Cash on delivery</td>
+        <td colspan="5">Total Price(<small>Include Shipping</small>)</td>
+        <td>'.$order['price'].'</td>
       </tr>
-
     </table>
 
     </body>
     </html>
     ';
-    $emailContent .='<br>'.'Thanks for shopping with us, your order will be delivered soon.';
+    $emailContent .='<br>'.'<b>Account Name:</b>'.' Rullen Tech Limited,';
+    $emailContent .='<br>'.'<b>Account Number:</b>'.'  02 0865 0071078 000';
+    $emailContent .='<br>'.'<b>Reference Number: </b>'.$this->session->userdata('id');
+    $emailContent .='<br>'.'Please send full payment in our bank account.';
+    $emailContent .='<br>'.'Your order will not proceed, untill we confirm full payment in our bank account. ';
+    $emailContent .='<br>'.'if you have any further query, feel free to contact us at info@rullenantiques.co.nz';
 
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -340,12 +427,15 @@ public function update(){
 
         $this->ordered();
 
-     }
-       else{
+     }else{
          $this->session->set_flashdata('verify_otp', 'OTP not verified, Please try again');
          redirect ('cart/verify_otp');
        }
- }
+      }
+      else{
+        redirect (base_url(). 'home/login');
+     }
+   }
   public function ordered(){
 
       $this->destroy();

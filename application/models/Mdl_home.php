@@ -17,7 +17,7 @@
           $this->db->insert('user', $data);
         }
         public function get_new_products(){
-        $result = $this->db->where('new_product', 1)->get('products')->result_array();
+        $result = $this->db->where('new_product', 1)->limit(7)->get('products')->result_array();
         //  $this->db->where('product_id', 1);
         return $result;
               }
@@ -91,7 +91,17 @@
           return $result->num_rows();
         }
         public function order($order){
-           return $this->db->insert("orders", $order);
+          $products = $order["products"];
+          unset($order["products"]);
+          foreach($products as $p)
+          {
+            $order["product_id"] = $p["product_id"];
+            $order["product_title"] = $p["product_title"];
+            $order["qty"] = $p["p_qty"];
+            $order["item_price"] = $p["item_price"];
+            $this->db->insert("orders", $order);
+          }
+           return true;
         }
       public function retrieve_password($emailto){
         $result = $this->db->where('email', $emailto)->get('user')->row_array();
@@ -100,16 +110,13 @@
       public function subscribe($data){
         $this->db->insert('subscribe', $data);
       }
+
       public function check_old_password($user_id, $old_pass){
         $this->db->where('user_id', $user_id);
         $this->db->where('password', $old_pass);
         $query = $this->db->get('user');
-        if($query->num_rows() == 1 ){
-          return $query->row();
-          // return true;
-        }else{
-          return false;
-        }
+        return $query->row();
+
       }
       public function update_password($data, $user_id){
         $this->db->where('user_id', $user_id);
