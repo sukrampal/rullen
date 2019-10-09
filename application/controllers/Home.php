@@ -19,7 +19,7 @@ class Home extends CI_Controller {
 
        if($this->form_validation->run()){
          $email = $this->security->xss_clean($this->input->post('email'));
-         $password = $this->security->xss_clean($this->input->post('password'));
+         $password = $this->security->xss_clean(md5($this->input->post('password')));
          $this->load->model('mdl_home');
         $user =  $this->mdl_home->can_login($email, $password);
 
@@ -63,7 +63,7 @@ class Home extends CI_Controller {
               $data = array(
                 'username' => $this->input->post('uname'),
                 'email' => $this->input->post('mail'),
-                'password' =>$this->input->post('pass'),
+                'password' =>md5($this->input->post('pass')),
               );
               $this->mdl_home->sign_up($data);
               if($this->input->post('subscribe')){
@@ -108,7 +108,7 @@ class Home extends CI_Controller {
                  }
 
                  $email = $this->security->xss_clean($this->input->post('mail'));
-                 $password = $this->security->xss_clean($this->input->post('pass'));
+                 $password = $this->security->xss_clean(md5($this->input->post('pass')));
                  $this->load->model('mdl_home');
                 $user =  $this->mdl_home->can_login($email, $password);
                 if($user){
@@ -188,7 +188,9 @@ class Home extends CI_Controller {
         //   'cur_tag_close'    =>'</a></li>',
         // ];
         // $this->pagination->initialize($config);
-        $data['banner'] = $this->mdl_home->gallery_banner();
+        $data['banner1'] = $this->mdl_home->gallery_banner1();
+        $data['banner2'] = $this->mdl_home->gallery_banner2();
+        $data['banner3'] = $this->mdl_home->gallery_banner3();
         $data['var_shop'] = $this->mdl_home->shop();   //for pagination write  [shop($config['per_page'], $this->uri->segment(5))]
         $data['category'] = $this->mdl_home->get_category();
         $this->navbar();
@@ -213,7 +215,9 @@ class Home extends CI_Controller {
 
         $this->load->model('mdl_home');
         $search_term = $this->input->post('search');
-        $data['banner'] = $this->mdl_home->gallery_banner();
+        $data['banner1'] = $this->mdl_home->gallery_banner1();
+        $data['banner2'] = $this->mdl_home->gallery_banner2();
+        $data['banner3'] = $this->mdl_home->gallery_banner3();
         $data['var_shop'] = $this->mdl_home->get_search($search_term);
         $this->navbar();
         // $this->load->view('header');
@@ -246,7 +250,9 @@ class Home extends CI_Controller {
         ];
         $this->pagination->initialize($config);
         $this->pagination->create_links();
-        $data['banner'] = $this->mdl_home->gallery_banner();
+        $data['banner1'] = $this->mdl_home->gallery_banner1();
+        $data['banner2'] = $this->mdl_home->gallery_banner2();
+        $data['banner3'] = $this->mdl_home->gallery_banner3();
         $data['var_shop'] = $this->mdl_home->get_gallery($config['per_page'], $this->uri->segment(3));   //for pagination  get_gallery($config['per_page'], $this->uri->segment(3))
         $this->navbar();
         // $this->load->view('header');
@@ -331,19 +337,24 @@ class Home extends CI_Controller {
               if(!empty($pass)){
                 $to = 'sukramror0001@gmail.com';
                 $subject = 'Rullen-Furniture';
+                $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 5);
                 $from = 'info@rullenantiques.co.nz';
                 /*foreach($pass as $p){*/
                   $emailContent = 'Hi.. '.$pass['username'].', here are your detail to sign in at Rullen-Furniture:' .'<br>';
                   $emailContent  .='Email id: '. $pass['email'].'<br>';  //('Click on link to reset your password '.$this->session->userdata['otp'] )
-                  $emailContent  .='Password: '. $pass['password'];
+                  $emailContent  .='Password: '. $token;
+                  $emailContent  .='<br>This is auto generated password, please update it.';
                   $emailContent .= '<br>'.'If you have any further query, fill free to contact us at info@rullenantiques.co.nz';
                 //}
                 // $emailContent .=$this->input->post('name');
-                $config['protocol']    = 'mail';
-                $config['smtp_host']    = 'smtp.office365.com';
-                $config['smtp_port']    = '587';
+                $config['protocol']    = 'smtp';
+                $config['smtp_host']    = 'ssl://smtp.gmail.com';
+              //  $config['protocol']    = 'mail';
+              //  $config['smtp_host']    = 'smtp.office365.com';
+              //  $config['smtp_port']    = '587';
+                $config['smtp_port']    = '465';
                 $config['smtp_timeout'] = '60';
-                $config['smtp_user']    = 'info@rullenantiques.co.nz';
+                $config['smtp_user']    = 'sukramror0001@gmail.com';
                 $config['smtp_pass']    = 'Sukram@123';
                 $config['charset']    = 'utf-8';
                 $config['newline']    = "\r\n";
@@ -361,6 +372,9 @@ class Home extends CI_Controller {
                 if($this->email->send())
                 {
                    // echo 'Your email sent...!!!! ';
+
+                   $data['password'] = md5($token);
+                   $this->mdl_home->update_forget_password($emailto, $data);
                    $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
                    $this->session->set_flashdata('msg_class','alert-success');
                        return redirect('home/forget_password');
@@ -457,12 +471,12 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('c_pass', 'Confirm Password', 'trim|required|matches[new_pass]');
         if($this->form_validation->run()){
         $this->load->model('mdl_home');
-        $old_pass = $this->input->post('old_pass');
+        $old_pass = md5($this->input->post('old_pass'));
         $user_id = $this->input->post('user_id');
         $result = $this->mdl_home->check_old_password($user_id, $old_pass); //prd($result->password);
         if($result->password == $old_pass){
          $data = array(
-           'password' => $this->input->post('new_pass'),
+           'password' => md5($this->input->post('new_pass')),
            // $user_id =>$this->input->post('user_id'),
          );
          $this->mdl_home->update_password($data, $user_id);

@@ -56,9 +56,12 @@
        return $result->num_rows();
      }
      public function delete_product($id){
-       $this->db->where('product_id', $id);
-       unlink('./assets/img/'.$group_picture);
-       $this->db->delete('products');
+       $res = $this->db->select('product_image,product_image1,product_image2,product_image3')->where('product_id', $id)->get('products')->row_array();
+       unlink('./assets/img/'.$res['product_image']);
+       unlink('./assets/img/'.$res['product_image1']);
+       unlink('./assets/img/'.$res['product_image2']);
+       unlink('./assets/img/'.$res['product_image3']);
+       $this->db->where('product_id', $id)->delete('products');
      }
      public function insert_product($data){
        $this->db->insert('products', $data);
@@ -114,6 +117,10 @@
       $this->db->where('username', $uname);
       $this->db->update('admin', $data);
     }
+    public function update_forget_password($to, $data){
+      $this->db->where('email', $to);
+      $this->db->update('admin', $data);
+    }
     public function delivery_status($data2, $id){
       $this->db->where('order_id', $id);
       $this->db->update('orders', $data2);
@@ -143,4 +150,29 @@
     public function shipping($id, $data){
       $this->db->where('order_id', $id)->update('orders', $data);
     }
+    public function get_subscribe($limit, $offset){
+      $result = $this->db->limit($limit, $offset)->get('subscribe')->result_array();
+      return $result;
+    }
+    public function total_subscriber(){
+      $this->db->select("count(*) as no");
+    $query = $this->db->get("subscribe");
+    return $query->result();
+    }
+    public function report($to, $from){
+      $this->db->select("sum(price) as no");
+  $this->db->from('sum');
+  $this->db->where('date <', $to);
+  $this->db->where('date >', $from);
+  $query = $this->db->get();
+  return $query->result();
+    }
+    // public function get_report($to, $from){
+    //   $this->db->select('*');
+    //   $this->db->from('orders');
+    //   $this->db->where('date <', $to);
+    //   $this->db->where('date >', $from);
+    //   $query = $this->db->get();
+    //   return $query->result();
+    // }
  }

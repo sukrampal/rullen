@@ -8,7 +8,7 @@
         foreach($update as $edit){ ?>
 
             <form method ="post" action="<?php echo base_url(); ?>admin/home/add_category">
-              <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update product category</button></h3>
+              <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Category</button></h3>
           <div class="form-group">
           <label>Category name</label>
           <input type="text" name="cat_title" value="<?php echo $edit['cat_title']; ?>" class="form-control" autocomplete="off"/>
@@ -40,7 +40,7 @@
     }else{ ?>
 
       <form method ="post" action="<?php echo base_url(); ?>admin/home/add_category">
-        <h3 align="center"><button type="button" class="btn btn-outline-secondary">Add product category</button></h3>
+        <h3 align="center"><button type="button" class="btn btn-outline-secondary">Add Product Category</button></h3>
         <?php
           if($this->uri->segment(3)=="inserted"){
             echo '<p class="text-success">Category added successfully</p>';

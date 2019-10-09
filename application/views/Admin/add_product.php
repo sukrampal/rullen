@@ -5,7 +5,7 @@
   if(isset($single_product)){
   foreach($single_product as $prd){ ?>
     <form method="post" action="<?php echo base_url(); ?>admin/home/product_updated" enctype="multipart/form-data">
-       <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update product details</button></h3>
+       <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Details</button></h3>
         <div class="col-8">
           <div class="form-group">
             <label>Product Name</label>
@@ -54,6 +54,13 @@
             <label>Shipping Cost</label>
             <input type="number" name="shipping" value="<?php echo $prd['shipping']; ?>"  class="form-control" placeholder="Enter Shipping Cost" required>
             <span class="text-danger"><?php echo form_error("shipping"); ?></span>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="<?php echo $prd['qty']; ?>"  class="form-control" placeholder="Enter Quantity" required>
+            <span class="text-danger"><?php echo form_error("qty"); ?></span>
           </div>
         </div>
         <div class="col-8">
@@ -116,7 +123,7 @@
 
 
   <form method="post" action="<?php echo base_url(); ?>admin/home/do_upload" enctype="multipart/form-data">
-     <h3 align="center" class="text-success">Please enter your product details here</h3>
+     <h3 align="center" class="text-success">Please Enter Your Product Details Here</h3>
       <div class="col-8">
         <div class="form-group">
           <label>Product Name</label>
@@ -165,6 +172,13 @@
           <label>Shipping Cost</label>
           <input type="number" name="shipping"   class="form-control" placeholder="Enter Shipping Cost" required>
           <span class="text-danger"><?php echo form_error("shipping"); ?></span>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" name="quantity"   class="form-control" placeholder="Enter Quantity" required>
+          <span class="text-danger"><?php echo form_error("quantity"); ?></span>
         </div>
       </div>
       <div class="col-8">
@@ -234,11 +248,11 @@ function validateImage(id) {
         document.getElementById(id).value = '';
         return false;
     }
-    if (file.size < 1024000) {
-        alert('Image size should be more than 1MB');
-        document.getElementById(id).value = '';
-        return false;
-    }
+    // if (file.size < 1024000) {
+    //     alert('Image size should be more than 1MB');
+    //     document.getElementById(id).value = '';
+    //     return false;
+    // }
     return true;
 }
 </script>

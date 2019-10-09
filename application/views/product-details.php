@@ -27,26 +27,26 @@
 									<div class="tab-content">
 
 										<div class="tab-pane active" id="view1">
-											<a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>"><img style="height:325px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" width="500" height="333" alt=""></a>
+											<a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>"><img style="height:400px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" width="500" height="333" alt=""></a>
 										</div>
                     <div class="tab-pane" id="view2">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>"><img style="height:325px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>"><img style="height:400px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" width="500" height="333" alt=""></a>
                     </div>
                     <div class="tab-pane" id="view3">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>"><img style="height:325px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>"><img style="height:400px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" width="500" height="333" alt=""></a>
                     </div>
                     <div class="tab-pane" id="view4">
-                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>"><img style="height:325px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" width="500" height="333" alt=""></a>
+                      <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>"><img style="height:400px" src=	"<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" width="500" height="333" alt=""></a>
                     </div>
 
 									</div>
 									  <!-- Nav tabs -->
 									<ul class="sinple-tab-menu" role="tablist">
 
-										<li class=" active"><a href="#view1" data-toggle="tab"><img style="height:50px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" alt="" /></a></li>
-										<li><a href="#view2" data-toggle="tab"><img style="height:50px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" alt="" /></a></li>
-                    <li><a href="#view3" data-toggle="tab"><img style="height:50px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" alt="" /></a></li>
-                    <li><a href="#view4" data-toggle="tab"><img style="height:50px"  src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" alt="" /></a></li>
+										<li class=" active"><a href="#view1" data-toggle="tab"><img style="height:50px;width:100%" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" alt="" /></a></li>
+										<li><a href="#view2" data-toggle="tab"><img style="height:50px;width:100%" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" alt="" /></a></li>
+                    <li><a href="#view3" data-toggle="tab"><img style="height:50px;width:100%" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" alt="" /></a></li>
+                    <li><a href="#view4" data-toggle="tab"><img style="height:50px;width:100%"  src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" alt="" /></a></li>
 									</ul>
 							   </div>
                </div>
@@ -54,22 +54,22 @@
                <div class="container">
                  <div class="mySlides">
 
-                   <img style="height:200px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" style="width:100%">
+                   <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>"><img style="height:230px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" style="width:100%"></a>
                  </div>
 
                  <div class="mySlides">
 
-                   <img style="height:200px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" style="width:100%">
+                   <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>"><img style="height:230px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image1']; ?>" style="width:100%"></a>
                  </div>
 
                  <div class="mySlides">
 
-                   <img style="height:200px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" style="width:100%">
+                   <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>"><img style="height:230px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image2']; ?>" style="width:100%"></a>
                  </div>
 
                  <div class="mySlides">
 
-                   <img style="height:200px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" style="width:100%">
+                   <a class="image-link" href="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>"><img style="height:230px;width:350px;" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image3']; ?>" style="width:100%"></a>
                  </div>
 
                  <a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -98,6 +98,7 @@
 										</div>
 										<div class="checkbox">
 											<span><i class="fa fa-check-square" aria-hidden="true"></i>In stock</span>
+                      <!-- <?php echo $prdct['qty']; ?> -->
 										</div>
 
 											<h4 style="font-family:Bell MT;">$<?php echo $prdct['product_price']; ?></h4>
@@ -109,9 +110,14 @@
 													<input type="number" name="qty" id="french-hens" value="1">
 												</div>
 
-												<button class="single_add_to_cart_button hyper-page" type="submit"><span class="lnr lnr-cart"></span>Add to cart</button>
+												<button class="single_add_to_cart_button hyper-page" type="submit"><span class="lnr lnr-cart"></span>Add to cart</button><br>
+
 											</form>
 										</div>
+                    <?php if($error = $this->session->flashdata('qty')){ ?>
+                    <p style="color:#a94442"> <b> <?php echo $error; ?></b></p>
+
+                  <?php } ?>
 										<br><br>
 										<p class="text-capitalize"><?php echo $prdct['product_desc']; ?></p>
 									</div>

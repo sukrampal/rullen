@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update About Us Page</button></h3>
+  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Captions</button></h3>
   <?php if($error = $this->session->flashdata('msg')){ ?>
     <p style="color:green"><b>Success,</b><?php echo $error; ?></p>
   <?php } ?>

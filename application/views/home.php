@@ -1,3 +1,5 @@
+<div class="loader">
+</div>
 
 		<!-- slider-area-start -->
 		<div class="slider-area">
@@ -373,7 +375,7 @@
         position: absolute;
 
         width: 90% !important;
-        height: 80% !important;
+        height: 100% !important;
     }
 		@media screen and (min-width: 600px) {
    .sukram {

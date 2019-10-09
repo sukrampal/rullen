@@ -32,20 +32,25 @@
 
 				<div class="row">
 
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="">
 
 						<form action="<?php echo base_url(); ?>cart/update" method="post">
 
+              <?php if($error = $this->session->flashdata('qty')){ ?>
+              <p style="color:red">  <?php echo $error; ?></p>
+              <?php } ?>
+
 							<div class="table-content table-responsive">
+
                 <!-- <div class="desktop"> -->
 								<table>
 									<thead>
 										<tr>
-											<th class="product-thumbnail">Image</th>
-											<th class="product-name">Product</th>
-											<th class="product-price">Price</th>
-											<th class="product-quantity">Quantity</th>
-                      <th class="product-quantity"><small>Local Delivery Charges<br> per item</small></th>
+											<th class="product-thumbnail">Product</th>
+											<!-- <th class="product-name">Product</th> -->
+											<!-- <th class="product-price">Price</th> -->
+											<th class="product-quantity">Qty</th>
+                      <!-- <th class="product-quantity"><small>Local Delivery Charges<br> per item</small></th> -->
 											<th class="product-subtotal">Total</th>
 											<th class="product-remove">Remove</th>
 										</tr>
@@ -55,15 +60,19 @@
 
                     <?php foreach ($this->cart->contents() as $items): ?>
 										<tr>
-											<td class="product-thumbnail"><a ><img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" /></a></td>
-											<td class="product-name text-capitalize"><a><?php echo $items['name']; ?></a></td>
-											<td class="product-price"><span class="amount">$<?php echo $items['item_price']; ?></span></td>
-											<td class="product-quantity"><input type="number" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo $items['qty']; ?>" /><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['item_price']); ?>"></td>
-                      <td class="product-price"><span class="amount">$<?php echo $items['shipping']; ?></span></td>
-											<td class="product-subtotal"><?php echo $this->cart->format_number($items['subtotal']); ?></td>
-											<td class="product-remove"><a href="<?php echo base_url(); ?>cart/remove_item/<?php echo $items['rowid']; ?>"><i name="remove" class="fa fa-times" ></i></a></td>
+											<td class="product-thumbnail"><a ><img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" /></a> <div class="ml-3 d-inline-block align-middle">
+                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle"><br></a></h5><span class="text-muted font-weight-normal font-italic d-block text-capitalize"><b><?php echo $items['name']; ?></b></span>
+                      </div></td>
+											<!-- <td class="product-name text-capitalize"><a><?php echo $items['name']; ?></a></td> -->
+											<!-- <td class="product-price"><span class="amount">$<?php echo $items['item_price']; ?></span></td> -->
+											<td class="product-quantity"><input type="number" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo $items['qty']; ?>" /><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['item_price']); ?>"><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['shipping']); ?>"><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['id']); ?>"></td>
+
+                     <!-- <td class="product-price"><span class="amount">$<?php echo $items['shipping']; ?></span></td> -->
+											<td class="product-subtotal"><?php echo $this->cart->format_number($items['qty_price']); ?></td>
+											<td class="product-remove"><a href="<?php echo base_url(); ?>cart/remove_item/<?php echo $items['rowid']; ?>"><i name="remove" class="fa fa-trash" ></i></a></td>
 
 										</tr>
+
                     <?php $i++; ?>
 
                     <?php endforeach; ?>
@@ -71,42 +80,7 @@
 									</tbody>
 
 								</table>
-              <!-- </div> -->
-              <!-- <div class="mobile">
-                <table>
-                  <thead>
-                    <tr>
-                      <th style="padding:0px;width:0px;" class="product-thumbnail"><small><small>Image</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-name"><small><small>Product</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-price"><small><small>Price</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-quantity"><small><small>Qty</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-quantity"><small><small>Local Delivery</br> Charges<br> per item</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-subtotal"><small><small>Total</small></small></th>
-                      <th style="padding:0px;width:0px;" class="product-remove"><small><small>Remove</small></small></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1; ?>
 
-                    <?php foreach ($this->cart->contents() as $items): ?>
-                    <tr>
-                      <td style="padding:0px;width:0px;" class="product-thumbnail"><a ><img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" /></a></td>
-                      <td style="padding:0px;width:0px;" class="product-name text-capitalize"><a><small><small><?php echo $items['name']; ?></small></small></a></td>
-                      <td style="padding:0px;width:0px;" class="product-price"><span class="amount"><small><small>$<?php echo $items['item_price']; ?></small></small></span></td>
-                      <td style="padding:0px;width:0px;" class="product-quantity"><input type="number" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo $items['qty']; ?>" /><input type="hidden" name="qty[<?php echo $items['rowid']; ?>][]" value="<?php echo ($items['item_price']); ?>"></td>
-                      <td style="padding:0px;width:0px;" class="product-price"><span class="amount"><small><small>$<?php echo $items['shipping']; ?></small></small></span></td>
-                      <td style="padding:0px;width:0px;" class="product-subtotal"><small><small><?php echo $this->cart->format_number($items['subtotal']); ?></small></small></td>
-                      <td style="padding:0px;width:0px;" class="product-remove"><a href="<?php echo base_url(); ?>cart/remove_item/<?php echo $items['rowid']; ?>"><i name="remove" class="fa fa-times" ></i></a></td>
-
-                    </tr>
-                    <?php $i++; ?>
-
-                    <?php endforeach; ?>
-
-                  </tbody>
-
-                </table>
-              </div> -->
 							</div>
 							<div class="row">
 								<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
@@ -123,6 +97,17 @@
 										<table>
 											<tbody>
 
+                        <br><tr class="cart-subtotal">
+
+                            <th>Local Delivery</th>
+                            <?php $i = 1; ?>
+
+                            <?php $shipping = 0; foreach ($this->cart->contents() as $items){
+                              $shipping += $this->cart->format_number($items['shipping']);
+                              $i++;
+                            } ?>
+                            <td><span class="amount">$<?php echo $shipping; ?></span></td>
+                          </tr>
 
 												<tr class="order-total">
 

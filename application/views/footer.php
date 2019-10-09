@@ -35,7 +35,7 @@
       <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 mar_b-30">
         <div class="footer-wrapper">
           <div class="footer-logo">
-            <a href="#"><img style="height:50px; width:120px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $footer_logo['image']; ?>" alt="" /></a>
+            <a href="#"><img  src="<?php echo base_url(); ?>assets/img/banner/<?php echo $footer_logo['image']; ?>" alt="" /></a>
           </div>
           <p>We are 100% New Zealand owned business, specilize in Antiques, vintage, mid-century furniture, Lighting and Rugs.</p>
           <ul>
@@ -133,7 +133,10 @@
   </div>
 </div>
 <!-- .copyright-area-end -->
+<style>
+.loader{ position: fixed;left: 0px;top: 0px;width:100%;height:100%;z-index: 9999;background: url('<?php echo base_url(); ?>assets/img/banner/pageloader.gif') 50% 50% no-repeat rgb(249,249,249);}
 
+</style>
 
 <!-- all js here -->
 <!-- jquery latest version -->
@@ -162,5 +165,14 @@
     <script src="<?php echo base_url(); ?>assets/js/plugins.js"></script>
 <!-- main js -->
     <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+    <script language="javascript">
+
+             $('document').ready(function(e) {
+
+                  $(".loader").fadeOut("slow");
+                 });
+
+         </script>
 </body>
 </html>

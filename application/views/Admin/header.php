@@ -13,14 +13,14 @@
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url(); ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
+ <link href="<?php echo base_url(); ?>assets/admin/css/sb-admin.css" rel="stylesheet">
   <!-- Page level plugin CSS-->
   <link href="<?php echo base_url(); ?>assets/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="<?php echo base_url(); ?>assets/admin/css/sb-admin.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-<link rel="icon" href="<?php echo base_url(); ?>assets/img/favicon.png" />
+<link rel="icon" href="<?php echo base_url(); ?>assets/img/banner/favicon.png" />
 </head>
 
 <body id="page-top">
@@ -59,7 +59,7 @@
           <a class="dropdown-item" href="<?php echo base_url(); ?>admin/home/password_change">Change Password</a>
           <!-- <a class="dropdown-item" href="#">Activity Log</a> -->
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="<?php echo base_url(); ?>Admin/home/logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="<?php echo base_url(); ?>admin/home/logout" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -74,7 +74,7 @@ $uri = $this->uri->segment(3);
     <ul class="sidebar navbar-nav">
       <li class="nav-item <?php if($uri == "dashboard"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-shopping-cart"></i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -101,28 +101,38 @@ $uri = $this->uri->segment(3);
       </li>
       <li class="nav-item <?php if($uri == "product"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/product">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fa fa-camera-retror"></i><i class="fas fa-camera-retro"></i>
           <span>Products</span></a>
       </li>
       <li class="nav-item <?php if($uri == "new_product"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/new_product">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fa fa-image"></i>
           <span>New Products</span></a>
       </li>
       <li class="nav-item <?php if($uri == "banner"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/banner">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fa fa-photo-video"></i>
           <span>Banner</span></a>
       </li>
       <li class="nav-item <?php if($uri == "about"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/about">
-          <i class="fas fa-fw fa-table"></i>
-          <span>About Page</span></a>
+          <i class="far fa-address-card"></i>
+         <span>About Page</span></a>
       </li>
       <li class="nav-item <?php if($uri == "captions"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/captions">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="far fa-edit"></i>
           <span>Captions</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "subscribe"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/subscribe">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Subscriber List</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "report"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/report">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Report</span></a>
       </li>
     </ul>
 

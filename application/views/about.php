@@ -4,7 +4,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="page-title" >
           <h3></h3>
-          <img style="width:1920px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner['image']; ?>" alt="" >
+          <img style="width:1920px;padding-top:20px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner['image']; ?>" alt="" >
         </div>
       </div>
     </div>

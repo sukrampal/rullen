@@ -29,8 +29,16 @@
          $result = $this->db->where('id', 2)->get('banner')->row_array();
         return $result;
         }
-        public function gallery_banner(){
-         $result = $this->db->where('id', 4)->get('banner')->row_array();
+        public function gallery_banner1(){
+         $result = $this->db->where('id', 8)->get('banner')->row_array();
+        return $result;
+        }
+        public function gallery_banner2(){
+         $result = $this->db->where('id', 9)->get('banner')->row_array();
+        return $result;
+        }
+        public function gallery_banner3(){
+         $result = $this->db->where('id', 10)->get('banner')->row_array();
         return $result;
         }
         public function about_banner(){
@@ -49,7 +57,7 @@
         public function shop(){         // for pagination shop($limit, $offset)
 
         $id = $this->uri->segment(4);
-        $result = $this->db->where('product_cat', $id)->get('products')->result_array();   //for pagination where('product_cat', $id)->limit($limit, $offset)->get('products')
+        $result = $this->db->where('product_cat', $id)->order_by('product_id','desc')->get('products')->result_array();   //for pagination where('product_cat', $id)->limit($limit, $offset)->get('products')
         return $result;
         }
         public function get_category(){
@@ -83,7 +91,7 @@
           return $result;
         }
         public function get_gallery($limit, $offset){     // for pagination get_gallery($limit, $offset){
-          $result = $this->db->limit($limit, $offset)->get('products')->result_array();   //db->limit($limit, $offset)->get('products')->
+          $result = $this->db->limit($limit, $offset)->order_by('product_id','random')->get('products')->result_array();   //db->limit($limit, $offset)->get('products')->
           return $result;
         }
         public function num_rows(){
@@ -120,6 +128,10 @@
       }
       public function update_password($data, $user_id){
         $this->db->where('user_id', $user_id);
+        $this->db->update('user', $data);
+      }
+      public function update_forget_password($emailto, $data){
+        $this->db->where('email', $emailto);
         $this->db->update('user', $data);
       }
       public function my_order(){

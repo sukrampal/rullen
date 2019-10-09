@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="<?php echo base_url(); ?>assets/img/favicon.png" />
+        <link rel="icon" href="<?php echo base_url(); ?>assets/img/banner/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
 		<!-- google-font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
@@ -40,13 +40,17 @@
     <body>
 
 		<header>
+    <div class="loader">
+    </div>
+    <div class="loader">
+    </div>
 
 			<div class="header-bottom-area ptb-50">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-3 col-md-2 col-sm-3 col-xs-12">
 							<div class="logo">
-								<a href="<?php echo base_url(); ?>home/index"><img style="height:55px; width:120px" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $logo['image']; ?>" alt="" /></a>
+								<a href="<?php echo base_url(); ?>home/index"><img style="width:65%" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $logo['image']; ?>" alt="" /></a>
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7 hidden-sm hidden-xs">
@@ -80,11 +84,12 @@
 								<div class="shop-cart-hover fix">
 
 									<ul>
+                    <?php $i = 1; ?>
+
+                    <?php foreach ($this->cart->contents() as $items): ?>
 
 										<li>
-                      <?php $i = 1; ?>
 
-                      <?php foreach ($this->cart->contents() as $items): ?>
 
 											<div class="cart-img">
 												<img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" />
@@ -95,11 +100,11 @@
 												<span class="cart-price">$<?php echo $items['price']; ?></span>
 											</div>
 
-                      <?php $i++; ?>
 
-                      <?php endforeach; ?>
 										</li>
+                    <?php $i++; ?>
 
+                    <?php endforeach; ?>
 										<li class="total-price"><span>$<?php echo $this->cart->format_number($this->cart->total()); ?></span></li>
 										<li class="checkout-bg">
 											<a href="<?php echo base_url(); ?>cart/checkout">checkout <i class="fa fa-angle-right"></i></a>

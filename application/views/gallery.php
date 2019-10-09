@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -10,9 +11,54 @@
 		<!-- modernizr css -->
     </head>
     <body>
+      <div class="desktop">
+      <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+              <li data-target="#carousel" data-slide-to="0" class=""></li>
+              <li data-target="#carousel" data-slide-to="1" class="active"></li>
+              <li data-target="#carousel" data-slide-to="2" class=""></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                  <img style="width:100%;padding-top:20px;padding-left:50px;padding-right:50px;height:500px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner1['image']; ?>">
+              </div>
+
+              <div class="item">
+                  <img style="width:100%;padding-top:20px;padding-left:50px;padding-right:50px;height:500px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner2['image']; ?>">
+              </div>
+
+              <div class="item">
+                  <img style="width:100%;padding-top:20px;padding-left:50px;padding-right:50px;height:500px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner3['image']; ?>">
+              </div>
+          </div>
+      </div>
+      </div>
+      <div class="mobile">
+        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img style="width:100%;padding-top:20px;padding-left:20px;padding-right:20px;height:150px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner1['image']; ?>">
+                </div>
+
+                <div class="item">
+                    <img style="width:100%;padding-top:20px;padding-left:20px;padding-right:20px;height:150px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner2['image']; ?>">
+                </div>
+
+                <div class="item">
+                    <img style="width:100%;padding-top:20px;padding-left:20px;padding-right:20px;height:150px;" src="<?php echo base_url(); ?>assets/img/banner/<?php echo $banner3['image']; ?>">
+                </div>
+            </div>
+        </div>
+      </div>
 
 		<!-- page-title-wrapper-start -->
-		<div class="page-title-wrapper">
+		<!-- <div class="page-title-wrapper">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -23,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- page-title-wrapper-end -->
 		<!-- bedroom-all-product-area-start -->
 		<div class="bedroom-all-product-area ptb-80">
@@ -66,9 +112,10 @@
 
 
 											<div class="single-new-product mt-40 category-new-product">
+                        <div class="desktop">
 												<div class="product-img">
 													<a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>">
-														<img style="height:150px;" src="<?php echo base_url(); ?>assets/img/<?php echo $shp['product_image']; ?>" class="first_img"  alt="" />
+														<img style="width:100%;height:170px;" src="<?php echo base_url(); ?>assets/img/<?php echo $shp['product_image']; ?>" class="first_img"  alt="" />
 													</a>
 													<div class="new-product-action">
 
@@ -76,6 +123,19 @@
 
 													</div>
 												</div>
+                      </div>
+                      <div class="mobile">
+                        <div class="product-img">
+                          <a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>">
+                            <img style="width:100%;height:220px;" src="<?php echo base_url(); ?>assets/img/<?php echo $shp['product_image']; ?>" class="first_img"  alt="" />
+                          </a>
+                          <div class="new-product-action">
+
+                            <a href="<?php echo base_url(); ?>cart/add/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+
+                          </div>
+                        </div>
+                      </div>
 												<div class="product-content text-center">
 													<a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>"><h3 class="text-capitalize" style="font-family:Bell MT;"><?php echo $shp['product_title']; ?></h3></a>
 
@@ -100,7 +160,7 @@
                     <?php if(!empty($var_shop)) {
                      foreach($var_shop as $shp){ ?>
 										<div class="single-category-product-img">
-											<a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>"><img style="height:200px" src="<?php echo base_url(); ?>assets/img/<?php echo $shp['product_image']; ?>" alt="" /></a>
+											<a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>"><img style="width:100%;height:210px" src="<?php echo base_url(); ?>assets/img/<?php echo $shp['product_image']; ?>" alt="" /></a>
 										</div>
 										<div class="single-category-product-info">
 											<a href="<?php echo base_url(); ?>home/product_details/<?php echo $shp['product_cat']; ?>/<?php echo $shp['product_title']; ?>/<?php echo $shp['product_id']; ?>"><h2 class="text-capitalize"><?php echo $shp['product_title']; ?></h2></a>
@@ -184,3 +244,68 @@
 
 
 </style>
+
+<style>
+@media only screen and (max-width: 600px){
+.desktop {
+  display: none;
+  visibility: hidden;
+}
+}
+@media only screen and (min-width: 600px){
+.mobile {
+  display: none;
+  visibility: hidden;
+}
+}
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.carousel-fade .carousel-control {
+  z-index: 1;
+}
+
+.carousel-indicators .active {
+    width: 20px;
+    height: 15px;
+    margin: 0;
+    background-color: #000;
+    border: none;
+    border-radius: 4px;
+}
+.carousel-indicators li {
+    width: 20px;
+    height: 15px;
+    margin: 0;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    -webkit-transform: skew(1deg, 0deg);
+    -moz-transform: skew(5deg, 0deg);
+    -ms-transform: skew(1deg, 0deg);
+    -o-transform: skew(1deg, 0deg);
+    transform: skew(1deg, 0deg);
+}
+</style>
+<script>
+$('.carousel').carousel();
+</script>

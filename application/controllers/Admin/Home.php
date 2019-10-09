@@ -12,7 +12,7 @@ class Home extends CI_Controller {
           }
           else
           {
-               $this->load->view("Admin/login");
+               $this->load->view("admin/login");
           }
       // $this->load->view("Admin/login");
       }
@@ -25,21 +25,21 @@ class Home extends CI_Controller {
       {
                   //true
               $username = $this->input->post('username');
-              $password = $this->input->post('password');
+              $password = md5($this->input->post('password'));
               //model function
-              $this->load->model('Admin/mdl_admin');
+              $this->load->model('admin/mdl_admin');
               if($this->mdl_admin->can_login($username, $password))
                   {
                     $session_data = array(
                     'username'     =>     $username
                     );
                     $this->session->set_userdata($session_data);
-                    redirect(base_url() . 'Admin/home/dashboard');
+                    redirect(base_url() . 'admin/home/dashboard');
                   }
                   else
                   {
                      $this->session->set_flashdata('error', 'Invalid Username and Password');
-                     redirect(base_url() . 'Admin/home/index');
+                     redirect(base_url() . 'admin/home/index');
                   }
                }else {
                   //false
@@ -86,7 +86,7 @@ class Home extends CI_Controller {
         function logout()
             {
                  $this->session->unset_userdata('username');
-                 redirect(base_url() . 'Admin/home/index');
+                 redirect(base_url() . 'admin/home/index');
             }
             public function navbar(){
               if($this->session->userdata('username') != '')
@@ -94,7 +94,7 @@ class Home extends CI_Controller {
                    $this->load->view('admin/header');
 
                  }else{
-                 redirect(base_url() . 'Admin/home/index');
+                 redirect(base_url() . 'admin/home/index');
                  }
             }
         public function add_category(){
@@ -122,7 +122,7 @@ class Home extends CI_Controller {
           if($this->session->userdata('username') != '')
              {
              }else{
-             redirect(base_url() . 'Admin/home/index');
+             redirect(base_url() . 'admin/home/index');
              }
             }
 
@@ -138,7 +138,7 @@ class Home extends CI_Controller {
              }
              else
              {
-                redirect(base_url() . 'Admin/home/index');
+                redirect(base_url() . 'admin/home/index');
              }
         }
         public function delete_category(){
@@ -221,6 +221,7 @@ class Home extends CI_Controller {
                          $data['product_price'] = $this->input->post('product_price');
                          $data['old_price'] = $this->input->post('old_price');
                          $data['shipping'] = $this->input->post('shipping');
+                         $data['qty'] = $this->input->post('quantity');
                          $data['product_keywords'] = $this->input->post('product_keywords');
                          $config['upload_path']  = './assets/img/';
                          $config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -351,6 +352,7 @@ class Home extends CI_Controller {
                               $data['product_price'] = $this->input->post('product_price');
                               $data['old_price'] = $this->input->post('old_price');
                               $data['shipping'] = $this->input->post('shipping');
+                              $data['qty'] = $this->input->post('quantity');
                               $data['product_keywords'] = $this->input->post('product_keywords');
 
 
@@ -528,11 +530,11 @@ class Home extends CI_Controller {
                             if($this->form_validation->run()){
                             $this->load->model('admin/mdl_admin');
                             $uname = $this->input->post('uname');
-                            $old_pass = $this->input->post('old_pass');
+                            $old_pass = md5($this->input->post('old_pass'));
                             $result = $this->mdl_admin->check_old_password($uname, $old_pass);
                             if($result == true){
                              $data = array(
-                               'password' => $this->input->post('new_pass'),
+                               'password' => md5($this->input->post('new_pass')),
                                // $user_id =>$this->input->post('user_id'),
                              );
                              $this->mdl_admin->update_password($data, $uname);
@@ -565,11 +567,11 @@ class Home extends CI_Controller {
                             foreach($data as $e){
                             $to = $e['email'];
                             $name = $e['username'];
-                            $product_id = $e['product_id'];
+                            $product_title = $e['product_title'];
                             $subject = 'Rullen-Furniture';
                             $from = 'sukramror0001@gmail.com';
 
-                            $emailContent = 'Hi.. '.$name.', Your product with product id'.$product_id.'has been delivered successfully';
+                            $emailContent = 'Hi.. '.$name.', Your product '.$product_title.' has been delivered successfully';
                             $emailContent .= '<br>'.'If you have any further query, feel free to contact us at info@rullenantiques.co.nz or call us at +64 21770211';
 
 }
@@ -610,13 +612,15 @@ class Home extends CI_Controller {
                           public function forget_password(){
                             $this->load->model('admin/mdl_admin');
                             $pass['pass']= $this->mdl_admin->retrieve_password(); //prd($password);
-                            $to = 'sukramror0001@gmail.com';
+                            $to = $this->input->post('email');
                             $subject = 'Rullen-Furniture';
+                            $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 5);
                             $from = 'sukramror0001@gmail.com';
                             foreach($pass as $p){
                             $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in as admin at Rullen-Furniture:' .'<br>';
                             $emailContent  .='Username: '. $p['username'].'<br>';
-                            $emailContent  .='Password: '. $p['password'];
+                            $emailContent  .='Password: '. $token;
+                            $emailContent  .='<br> This is an auto generated password, Please change it in your account setting.';
 
                     }
                             // $emailContent .=$this->input->post('name');
@@ -643,6 +647,8 @@ class Home extends CI_Controller {
                             if($this->email->send())
                                  {
                                      // echo 'Your email sent...!!!! ';
+                                     $data['password'] = md5($token);
+                                     $this->mdl_admin->update_forget_password($to, $data);
                                      $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
                                      $this->session->set_flashdata('msg_class','alert-success');
                                          return redirect('admin/home/index');
@@ -651,6 +657,53 @@ class Home extends CI_Controller {
                                  {
                                      show_error($this->email->print_debugger());
                                  }
+                           }
+
+                           public function token(){
+                             $this->load->model('admin/mdl_admin');
+                             $pass['pass']= $this->mdl_admin->retrieve_password(); //prd($password);
+                             $to = 'sukramror0001@gmail.com';
+                             $subject = 'Rullen-Furniture';
+                             $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 10);
+                             $from = 'sukramror0001@gmail.com';
+                             foreach($pass as $p){
+                             $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in as admin at Rullen-Furniture:' .'<br>';
+                             $emailContent  .='Username: '. $p['username'].'<br>';
+                             $emailContent  .='Password: '. $p['password'];
+                             $emailContent  .= "<p>Follow this link to reset your password <a href='".base_url()."admin/index/$token' >Reset Password</a> </p>";
+                     }
+                             // $emailContent .=$this->input->post('name');
+
+                             $config['protocol']    = 'smtp';
+                             $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                             $config['smtp_port']    = '465';
+                             $config['smtp_timeout'] = '60';
+                             $config['smtp_user']    = 'sukramror0001@gmail.com';
+                             $config['smtp_pass']    = 'Sukram@123';
+                             $config['charset']    = 'utf-8';
+                             $config['newline']    = "\r\n";
+                             $config['mailtype'] = 'html';
+                             $config['validation'] = TRUE;
+
+                             $this->email->initialize($config);
+                             $this->email->set_mailtype("html");
+                             $this->email->from($from);
+                             $this->email->to($to);
+                             $this->email->subject($subject);
+                             $this->email->message($emailContent);
+
+                             // return redirect('email_send');
+                             if($this->email->send())
+                                  {
+                                      // echo 'Your email sent...!!!! ';
+                                      $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
+                                      $this->session->set_flashdata('msg_class','alert-success');
+                                          return redirect('admin/home/index');
+                                  }
+                                  else
+                                  {
+                                      show_error($this->email->print_debugger());
+                                  }
                            }
                            public function about(){
                              $this->load->model('admin/mdl_admin');
@@ -701,4 +754,125 @@ class Home extends CI_Controller {
                            }
 
                            }
-}
+                           public function subscribe(){
+                             $this->load->model('admin/mdl_admin');
+                             $this->load->library('pagination');
+                             $config = [
+                               'base_url'         => base_url('admin/home/subscribe'),
+                               'per_page'         => 12,
+                               'total_rows'       => $this->mdl_admin->num_rows(),
+                               'full_tag_open'    =>"<ul class='pagination'>",
+                               'full_tag_close'   =>"</ul>",
+                               'first_tag_open'   =>'<li>',
+                               'first_tag_close'  =>'</li>',
+                               'last_tag_open'    =>'<li>',
+                               'last_tag_close'   =>'</li>',
+                               'next_tag_open'    =>'<li>',
+                               'next_tag_close'   =>'</li>',
+                               'prev_tag_open'    =>'<li>',
+                               'prev_tag_close'   =>'</li>',
+                               'num_tag_open'     =>'<li>',
+                               'num_tag_close'    =>'</li>',
+                               'cur_tag_open'     =>"<li class='active'><a>",
+                               'cur_tag_close'    =>'</a></li>',
+                             ];
+                             $this->pagination->initialize($config);
+                             $total = $this->mdl_admin->total_subscriber();
+                             $data['total_sbscribe'] = $total[0]->no;      // prd($data);
+                             $data['subscribe'] = $this->mdl_admin->get_subscribe($config['per_page'], $this->uri->segment(4));
+                             $this->navbar();
+                             $this->load->view('admin/subscribe', $data);
+                             $this->load->view('admin/footer');
+                           }
+                           public function mail_to_subscriber(){
+                             $email = $this->input->post('email');
+                             if(!empty($email)){
+                               $this->load->library('form_validation');
+                               $this->form_validation->set_rules('subscribe', ' ', 'required');
+                               if($this->form_validation->run()){
+
+                            $email = $this->input->post('email');
+                             $file_data = $this->upload_file();  //prd($file_data);
+
+
+                            for($i =0; $i < sizeof($email); $i++){
+                              $to = $email;  //prd($email);
+                              $subject = 'Rullen-Furniture';
+                              $from = 'sukramror0001@gmail.com';
+
+                              $emailContent = $this->input->post('subscribe');
+                              // $emailContent .=$this->input->post('name');
+
+                              $config['protocol']    = 'smtp';
+                              $config['smtp_host']    = 'ssl://smtp.gmail.com';
+                              $config['smtp_port']    = '465';
+                              $config['smtp_timeout'] = '60';
+                              $config['smtp_user']    = 'sukramror0001@gmail.com';
+                              $config['smtp_pass']    = 'Sukram@123';
+                              $config['charset']    = 'utf-8';
+                              $config['newline']    = "\r\n";
+                              $config['mailtype'] = 'html';
+                              $config['validation'] = TRUE;
+
+                              $this->email->initialize($config);
+                              $this->email->set_mailtype("html");
+                              $this->email->from($from);
+                              $this->email->to($to);
+                              $this->email->subject($subject);
+                              $this->email->message($emailContent);
+                              $this->email->attach($file_data['full_path']);
+
+                              // return redirect('email_send');
+                              if($this->email->send())
+                                   {
+                                    if(delete_files($file_data['file_path']));
+                                    {
+                                       // echo 'Your email sent...!!!! ';
+                                       $this->session->set_flashdata('msg',"Email has been sent to the selected users.");
+                                       $this->session->set_flashdata('msg_class','alert-success');
+                                           return redirect('admin/home/subscribe');
+                                   }
+                                 }
+                                   else
+                                   {
+                                       show_error($this->email->print_debugger());
+                                   }
+                            }
+                          return  redirect ('admin/home/subscribe');
+                        }else{
+                          $this->subscribe();
+                        }
+                      }else{
+                          $this->session->set_flashdata('email', 'Please select at least one email address to send data, Thank you');
+                          redirect('admin/home/subscribe');
+                        }}
+
+                           public function upload_file(){
+
+                             if(!empty($_FILES)){
+                             // if($this->input->post('product_image0')){            doesn't work
+                             $config['upload_path']  = './assets/img/subscribe/';
+                             $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                             $this->load->library('upload', $config);
+                                if (!$this->upload->do_upload('file')) {
+                                $error = array('error' => $this->upload->display_errors());
+                                } else {
+                                $fileData = $this->upload->data();
+                              return $this->upload->data();
+                              }
+                            }
+
+                           }
+                           public function report(){
+                             $this->navbar();
+                             $this->load->view('admin/report');
+                             $this->load->view('admin/footer');
+                           }
+                           // public function generate_report(){
+                           //   $from = $this->input->post('from');
+                           //   $to = $this->input->post('to');
+                           //   $this->load->model('admin/mdl_admin');
+                           //   $total = $this->mdl_admin->get_report($to, $from); prd($total);
+                           //   $data['total_sbscribe'] = $total[0]->no;
+                           // }
+                      }

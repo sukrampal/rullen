@@ -13,7 +13,7 @@
     <h3>Admin Panel</b></h3>
  <!-- Tabs Titles -->
           <br /><br /><br />
-          <form method="post" action="<?php echo base_url(); ?>Admin/home/login_validation">
+          <form method="post" action="<?php echo base_url(); ?>admin/home/login_validation">
                <div class="form-group">
                     <label>Enter Username</label>
                     <input type="text" name="username" class="form-control" autocomplete="off" />
@@ -30,7 +30,8 @@
                          echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';
                     ?>
                </div>
-               <a href="<?php echo base_url(); ?>admin/home/forget_password">Lost your password?</a>
+               <a href="<?php echo base_url(); ?>admin/home/forget_password">Lost your password?</a><br>
+                <a href="<?php echo base_url(); ?>admin/home/token">Lost your password (token)?</a>
           </form>
           <?php if($error = $this->session->flashdata('msg')) { ?>
           <p style="color: green;"><strong>Success!</strong> <?php echo  $error; ?><p>

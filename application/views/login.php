@@ -13,12 +13,12 @@
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email </label>
 										<input type="text" name="email" value="<?php echo set_value('email'); ?>" class="form-control">
-                    <span class="text-danger"><p style="color: red" <?php echo form_error('email'); ?> </span>
+                    <span class="text-danger"><p style="color: #a94442" <?php echo form_error('email'); ?> </span>
                   </div>
 									<div class="form-group login-page">
 										<label>Password </label>
 										<input type="Password" name="password" id="typepas" class="form-control" >
-                    <span class="text-danger"><p style="color: red" <?php echo form_error('password'); ?> </span>
+                    <span class="text-danger"><p style="color: #a94442" <?php echo form_error('password'); ?> </span>
 											<input type="checkbox" onclick="Toggle1()">
 											 <small style="color:#666666">Show Password</small>
                   </div>
@@ -39,24 +39,24 @@
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Username</label>
 										<input type="text" name="uname" value="<?php echo set_value('uname'); ?>" class="form-control">
-										<span class="text-danger"><p style="color: red" <?php echo form_error('uname'); ?> </span>
+										<span class="text-danger"><p style="color: #a94442" <?php echo form_error('uname'); ?> </span>
 									</div>
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email </label>
 										<input type="text" name="mail" value="<?php echo set_value('mail'); ?>" class="form-control">
-										<span class="text-danger"><p style="color: red" <?php echo form_error('mail'); ?> </span>
+										<span class="text-danger"><p style="color: #a94442" <?php echo form_error('mail'); ?> </span>
 									</div>
 									<div class="form-group login-page">
 										<label>Password </label>
 										<input type="Password" name="pass" id="typepass" value="<?php echo set_value('pass'); ?>" class="form-control" >
 											<input type="checkbox" onclick="Toggle()">
                        <small style="color:#666666">Show Password</small>
-											 <span class="text-success"><p style="color: red" <?php echo form_error('pass'); ?> </span>
+											 <span class="text-success"><p style="color: #a94442" <?php echo form_error('pass'); ?> </span>
 									</div>
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Confirm Password </label>
 										<input type="Password" name="c_password" value="<?php echo set_value('c_password'); ?>" class="form-control" >
-										<span class="text-danger"><p style="color: red" <?php echo form_error('c_password'); ?> </span>
+										<span class="text-danger"><p style="color: #a94442" <?php echo form_error('c_password'); ?> </span>
 									</div>
 									<div class="col-8">
 					          <div class="form-group login-page">

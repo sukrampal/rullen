@@ -4,7 +4,7 @@
 <div class="container">
   <div class="col-md-4 col-md-offset-4">
 
-          <form method="post" action="<?php echo base_url(); ?>cart/otp_verification">
+          <form method="post" action="<?php echo base_url(); ?>cart/otp_verification1">
 
                <div class="form-group">
                     <label>Enter Your OTP: </label>
