@@ -78,22 +78,7 @@ $uri = $this->uri->segment(3);
           <span>Dashboard</span>
         </a>
       </li>
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
-        </div>
-      </li> -->
+
       <li class="nav-item <?php if($uri == "category"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/category">
           <i class="fas fa-fw fa-chart-area"></i>
@@ -131,8 +116,18 @@ $uri = $this->uri->segment(3);
       </li>
       <li class="nav-item <?php if($uri == "report"){?>active<?php } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>admin/home/report">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="far fa-chart-bar"></i>
           <span>Report</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "opening_hours"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/opening_hours">
+          <i class="fa fa-clock"></i>
+          <span>Opening Hours</span></a>
+      </li>
+      <li class="nav-item <?php if($uri == "footer_context"){?>active<?php } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin/home/footer_context">
+          <i class="fa fa-keyboard"></i>
+          <span>Footer Context</span></a>
       </li>
     </ul>
 

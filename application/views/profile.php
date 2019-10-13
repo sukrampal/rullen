@@ -56,6 +56,9 @@ if(isset($update)){
 <?php if($error = $this->session->flashdata('success_msg')) { ?>
   <p style="color: green;padding-left:20px;"><strong>Success!</strong> <?php echo  $error; ?><p>
 <?php } ?>
+<?php if($error = $this->session->flashdata('unsubscribe')) { ?>
+  <p style="color:green;padding-left:20px;"> <?php echo  $error; ?><p>
+<?php } ?>
 <?php foreach ($userdetail as $ud){  ?>
   <h4 class="text-capitalize"> Name: <?php base_url(); echo $ud['username']; ?></h4>
 <h4> Email Id: <?php echo $ud['email']; ?></h4>
@@ -64,7 +67,8 @@ if(isset($update)){
 <h4 class="text-capitalize"> Suburb: <?php echo $ud['suburb']; ?></h4>
 <h4 class="text-capitalize"> City: <?php echo $ud['city']; ?></h4>
 <h4 class="text-capitalize"> Postcode: <?php echo $ud['postcode']; ?></h4>
-<h4 class="text-capitalize" style="padding-bottom:10px;"> Country: <?php echo $ud['country']; ?></h4>
+<h4 class="text-capitalize"> Country: <?php echo $ud['country']; ?></h4>
+<h4 class="text-capitalize" style="padding-bottom:10px;color:#666666;"><a href="<?php echo base_url(); ?>home/unsubscribe/<?php echo $unsub_btn['serial_no']; ?>"><b style="color:#337ab7"><?php echo $unsub_btn['unsub_btn']; ?></a></b></h4>
 <?php } ?>
 </div>
 

@@ -40,7 +40,7 @@
        $this->db->update('categories', $data);
      }
      public function get_product($limit, $offset){
-       $result = $this->db->limit($limit, $offset)->order_by('product_id', 'desc')->get('products')->result_array();
+       $result = $this->db->limit($limit, $offset)->order_by('product_id', 'desc')->join('categories', 'product_cat = cat_id')->get('products')->result_array();
        return $result;
      }
      public function get_new_product(){
@@ -78,7 +78,7 @@
        $this->db->update('products', $data);
      }
      public function get_search($search_term='default'){
-      $result = $this->db->like('product_keywords', $search_term)->get('products')->result_array();
+      $result = $this->db->like('product_keywords', $search_term)->join('categories', 'product_cat = cat_id')->get('products')->result_array();
       return $result;
      }
      public function get_order($limit, $offset){
@@ -161,18 +161,56 @@
     }
     public function report($to, $from){
       $this->db->select("sum(price) as no");
-  $this->db->from('sum');
-  $this->db->where('date <', $to);
-  $this->db->where('date >', $from);
-  $query = $this->db->get();
-  return $query->result();
+      $this->db->from('sum');
+      $this->db->where('date <', $to);
+      $this->db->where('date >', $from);
+      $query = $this->db->get();
+      return $query->result();
+      }
+    public function get_selling($to, $from){
+      $this->db->select("sum(price) as no");
+      $this->db->from('orders');
+      $this->db->where('date <', $to);
+      $this->db->where('date >', $from);
+      $query = $this->db->get();
+      return $query->result();
     }
-    // public function get_report($to, $from){
-    //   $this->db->select('*');
-    //   $this->db->from('orders');
-    //   $this->db->where('date <', $to);
-    //   $this->db->where('date >', $from);
-    //   $query = $this->db->get();
-    //   return $query->result();
-    // }
+    public function get_purchase($to, $from){
+      $this->db->select("sum(old_price) as no");
+      $this->db->from('products');
+      $this->db->where('date <', $to);
+      $this->db->where('date >', $from);
+      $query = $this->db->get();
+      return $query->result();
+    }
+    public function out_of_stock($id, $data){
+      $this->db->where('product_id', $id);
+      $this->db->update('products', $data);
+    }
+    public function in_stock($id, $data){
+      $this->db->where('product_id', $id);
+      $this->db->update('products', $data);
+    }
+    public function out_of_stock_item_list(){
+      $result = $this->db->where('out_stk', 'OUT OF STOCK')->get('products')->result_array();
+      return $result;
+    }
+    public function get_opening_hours(){
+      $result = $this->db->get('opening_hours')->result_array();
+      return $result;
+    }
+    public function fetch_time($id){
+      $result = $this->db->where('id', $id)->get('opening_hours')->result_array();
+      return $result;
+    }
+    public function update_time($id, $data){
+      $this->db->where('id', $id)->update('opening_hours', $data);
+    }
+    public function get_footer_context(){
+      $result = $this->db->where('id', 1)->get('footer_context')->row_array();
+      return $result;
+    }
+    public function update_footer_context($data){
+      $this->db->where('id', 1)->update('footer_context', $data);
+    }
  }

@@ -186,7 +186,8 @@
 								<div class="product-icon-wrapper">
 									<div class="product-icon">
 										<ul>
-											<li><a href="<?php echo base_url(); ?>cart/add/<?php echo $s['product_id']; ?>"><span class="lnr lnr-cart"></span></a></li>
+											<!-- <li><a href="<?php echo base_url(); ?>cart/add/<?php echo $s['product_id']; ?>"><span class="lnr lnr-cart"></span></a></li> -->
+											<li><a href="<?php echo base_url(); ?>home/add_to_wishlist/<?php echo $s['product_id']; ?>"><span class="lnr lnr-heart"></span></a></li>
 										</ul>
 									</div>
 								</div>

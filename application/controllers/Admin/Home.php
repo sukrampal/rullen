@@ -214,7 +214,7 @@ class Home extends CI_Controller {
         }
 
         public function do_upload(){
-
+                          $this->load->helper('date');
                          $data['product_title'] = $this->input->post('product_title');
                          $data['product_cat'] = $this->input->post('product_cat');
                          $data['product_desc'] = $this->input->post('product_desc');
@@ -222,6 +222,8 @@ class Home extends CI_Controller {
                          $data['old_price'] = $this->input->post('old_price');
                          $data['shipping'] = $this->input->post('shipping');
                          $data['qty'] = $this->input->post('quantity');
+                         $data['in_stk'] = 'IN STOCK';
+                         $data['date'] =  date('y-d-m',NOW());
                          $data['product_keywords'] = $this->input->post('product_keywords');
                          $config['upload_path']  = './assets/img/';
                          $config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -253,7 +255,7 @@ class Home extends CI_Controller {
                             if($this->input->post('new_product')){
                               $data['new_product'] = 1;
                             }
-                                                               //  prd($data);
+                                                              //  prd($data);
                             $this->load->model('admin/mdl_admin');
                             $this->mdl_admin->insert_product($data);
                             redirect ('admin/home/product_inserted');
@@ -659,52 +661,7 @@ class Home extends CI_Controller {
                                  }
                            }
 
-                           public function token(){
-                             $this->load->model('admin/mdl_admin');
-                             $pass['pass']= $this->mdl_admin->retrieve_password(); //prd($password);
-                             $to = 'sukramror0001@gmail.com';
-                             $subject = 'Rullen-Furniture';
-                             $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 10);
-                             $from = 'sukramror0001@gmail.com';
-                             foreach($pass as $p){
-                             $emailContent = 'Hi.. '.$p['username'].', here are your detail to sign in as admin at Rullen-Furniture:' .'<br>';
-                             $emailContent  .='Username: '. $p['username'].'<br>';
-                             $emailContent  .='Password: '. $p['password'];
-                             $emailContent  .= "<p>Follow this link to reset your password <a href='".base_url()."admin/index/$token' >Reset Password</a> </p>";
-                     }
-                             // $emailContent .=$this->input->post('name');
 
-                             $config['protocol']    = 'smtp';
-                             $config['smtp_host']    = 'ssl://smtp.gmail.com';
-                             $config['smtp_port']    = '465';
-                             $config['smtp_timeout'] = '60';
-                             $config['smtp_user']    = 'sukramror0001@gmail.com';
-                             $config['smtp_pass']    = 'Sukram@123';
-                             $config['charset']    = 'utf-8';
-                             $config['newline']    = "\r\n";
-                             $config['mailtype'] = 'html';
-                             $config['validation'] = TRUE;
-
-                             $this->email->initialize($config);
-                             $this->email->set_mailtype("html");
-                             $this->email->from($from);
-                             $this->email->to($to);
-                             $this->email->subject($subject);
-                             $this->email->message($emailContent);
-
-                             // return redirect('email_send');
-                             if($this->email->send())
-                                  {
-                                      // echo 'Your email sent...!!!! ';
-                                      $this->session->set_flashdata('msg',"Email has been sent to you with username and password, please check your inbox, Thank you");
-                                      $this->session->set_flashdata('msg_class','alert-success');
-                                          return redirect('admin/home/index');
-                                  }
-                                  else
-                                  {
-                                      show_error($this->email->print_debugger());
-                                  }
-                           }
                            public function about(){
                              $this->load->model('admin/mdl_admin');
                              $data['about_text'] = $this->mdl_admin->get_about();
@@ -868,11 +825,126 @@ class Home extends CI_Controller {
                              $this->load->view('admin/report');
                              $this->load->view('admin/footer');
                            }
-                           // public function generate_report(){
-                           //   $from = $this->input->post('from');
-                           //   $to = $this->input->post('to');
-                           //   $this->load->model('admin/mdl_admin');
-                           //   $total = $this->mdl_admin->get_report($to, $from); prd($total);
-                           //   $data['total_sbscribe'] = $total[0]->no;
-                           // }
+                           public function generate_report(){
+                             $this->load->library('form_validation');
+                             $this->form_validation->set_rules('from', ' ', 'required|callback_date_valid');
+                             $this->form_validation->set_rules('to', ' ', 'required|callback_date_valid');
+                             if($this->form_validation->run()){
+                             $from = $this->input->post('from');
+                             $to = $this->input->post('to');
+                             $this->load->model('admin/mdl_admin');
+                             $total = $this->mdl_admin->get_selling($to, $from);
+                             $data['total_selling'] = $total[0]->no; //prd($total[0]->no);
+                             $total1 = $this->mdl_admin->get_purchase($to, $from);
+                             $data['total_purchase'] = $total1[0]->no;
+                             $result = $total[0]->no - $total1[0]->no;
+
+
+                             $this->session->set_flashdata('report', 'Total selling for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
+                              <b>$'.$total[0]->no.'</b>.');
+                              $this->session->set_flashdata('report1', 'Total purchasing for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
+                               <b>$'.$total1[0]->no.'</b>.');
+                               if($total[0]->no > $total1[0]->no){
+                               $this->session->set_flashdata('report2', 'Profit for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
+                                <b>'.$data.'</b>.'); }
+                                if($total1[0]->no > $total[0]->no){
+                                  $this->session->set_flashdata('report3', 'Loss for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
+                                   <b>'.$result.'</b>.');
+                                }
+                              $this->report();
+                           }else{
+                             $this->report();
+                           }
+                         }
+                         public function date_valid($date)
+                              {
+                              $parts = explode("-", $date);
+                              if (count($parts) == 3) {
+                              if (checkdate($parts[2], $parts[1], $parts[0]))
+                              {
+                              return TRUE;
+                              }
+                              }
+                              $this->form_validation->set_message('date_valid', 'The Date field must be YYYY-DD-MM');
+                              return false;
+                              }
+                        public function out_of_stock(){
+                          $id = $this->uri->segment(4);
+                          $this->load->model('admin/mdl_admin');
+                          $data = array(
+                            'in_stk' => 'IN STOCK',
+                            'out_stk' => ' ',
+                            'qty' => '1',
+                          );
+                          $this->mdl_admin->out_of_stock($id, $data);
+                          $this->session->set_flashdata('out', 'Congratulation, Your Product Is In Stock Now.');
+                            return  redirect ($_SERVER["HTTP_REFERER"]);
+                        }
+                        public function in_stock(){
+                          $id = $this->uri->segment(4);
+                          $this->load->model('admin/mdl_admin');
+                          $data = array(
+                            'out_stk' => 'OUT OF STOCK',
+                            'in_stk' => ' ',
+                            'qty' => '0',
+                          );
+                          $this->mdl_admin->in_stock($id, $data);
+                          $this->session->set_flashdata('in', 'Selected Product Is Out Of Stock Now.');
+                          redirect ('admin/home/product');
+                        }
+                        public function out_of_stock_item_list(){
+                          $this->load->model('admin/mdl_admin');
+                          $data['out_of_stock'] = $this->mdl_admin->out_of_stock_item_list(); //prd($data);
+                          $this->navbar();
+                          $this->load->view('admin/product', $data);
+                          $this->load->view('admin/footer');
+                        }
+                        public function opening_hours(){
+                          $this->load->model('admin/mdl_admin');
+                          $data['opening_hours'] = $this->mdl_admin->get_opening_hours();
+                          $this->navbar();
+                          $this->load->view('admin/opening_hours', $data); //prd($data);
+                          $this->load->view('admin/footer');
+                        }
+                        public function change_time(){
+                          $id = $this->uri->segment(4);
+                          $this->load->model('admin/mdl_admin');
+                          $data['opening_hours'] = $this->mdl_admin->get_opening_hours();
+                          $data['change_time'] = $this->mdl_admin->fetch_time($id);
+                          $this->navbar();
+                          $this->load->view('admin/opening_hours', $data); //prd($data);
+                          $this->load->view('admin/footer');
+                        }
+                        public function time_changed(){
+                             $id = $this->input->post('hidden_id');
+                            $this->load->model('admin/mdl_admin');
+                            $data = array(
+                              'timing' => $this->input->post('time'),
+                            );
+                            $this->mdl_admin->update_time($id, $data);
+                            $this->session->set_flashdata('time', 'Time has been updated successfully');
+                            redirect ('admin/home/opening_hours');
+                        }
+                        public function footer_context(){
+                          $this->load->model('admin/mdl_admin');
+                          $data['footer_context']  = $this->mdl_admin->get_footer_context();
+                          $this->navbar();
+                          $this->load->view('admin/about', $data); //prd($data);
+                          $this->load->view('admin/footer');
+                        }
+                        public function update_footer_context(){
+                          $this->load->library('form_validation');
+                          $this->form_validation->set_rules('text', 'Text', 'required');
+                          if($this->form_validation->run()){
+                            $data = array(
+                              'text' => $this->input->post('text'),
+                            );
+                            $this->load->model('admin/mdl_admin');
+                            $this->mdl_admin->update_footer_context($data);
+                            $this->session->set_flashdata('context', ' Footer Context has been updated successfully');
+                            redirect ('admin/home/footer_context');
+                          }else{
+                            $this->footer_context();
+                          }
+                        }
                       }

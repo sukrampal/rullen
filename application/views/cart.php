@@ -44,6 +44,7 @@
 
                 <!-- <div class="desktop"> -->
 								<table>
+                  <?php if(!empty($this->cart->contents())){ ?>
 									<thead>
 										<tr>
 											<th class="product-thumbnail">Product</th>
@@ -78,7 +79,9 @@
                     <?php endforeach; ?>
 
 									</tbody>
-
+                <?php }else{ ?>
+                  <p class="text-capitalize" style="text-align:center;">please select an item to cart, Thank you</p>
+                  <?php } ?>
 								</table>
 
 							</div>

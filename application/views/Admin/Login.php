@@ -31,7 +31,7 @@
                     ?>
                </div>
                <a href="<?php echo base_url(); ?>admin/home/forget_password">Lost your password?</a><br>
-                <a href="<?php echo base_url(); ?>admin/home/token">Lost your password (token)?</a>
+          
           </form>
           <?php if($error = $this->session->flashdata('msg')) { ?>
           <p style="color: green;"><strong>Success!</strong> <?php echo  $error; ?><p>

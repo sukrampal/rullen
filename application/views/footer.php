@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-4 mar_b-30">
         <div class="contuct-info text-center">
-          <h4>Sign up for news & offers!</h4>
+          <h4>Subscribe for news & offers!</h4>
           <p>You may safely unsubscribe at any time</p>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div class="footer-logo">
             <a href="#"><img  src="<?php echo base_url(); ?>assets/img/banner/<?php echo $footer_logo['image']; ?>" alt="" /></a>
           </div>
-          <p>We are 100% New Zealand owned business, specilize in Antiques, vintage, mid-century furniture, Lighting and Rugs.</p>
+          <p><?php echo $footer_context['text']; ?></p>
           <ul>
             <li>
               <span>Address : </span> 32 Durham Street South, Sydenham, Christchurch.
@@ -83,13 +83,13 @@
           <div class="footer-wrapper">
             <div class="footer-wrapper-strong">
               <div class="wrapper-strong-span">
-              <strong><a href="#">Monday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Tuesday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Wednesday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Thursday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Friday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Saturday: 10am-6pm</a></strong></br>
-              <strong><a href="#">Sunday: 10am-6pm</a></strong></br>
+              <strong><a href="#">Monday: <?php echo $monday['timing']; ?></a></strong></br>
+              <strong><a href="#">Tuesday: <?php echo $tuesday['timing']; ?></a></strong></br>
+              <strong><a href="#">Wednesday: <?php echo $wednesday['timing']; ?></a></strong></br>
+              <strong><a href="#">Thursday: <?php echo $thursday['timing']; ?></a></strong></br>
+              <strong><a href="#">Friday: <?php echo $friday['timing']; ?></a></strong></br>
+              <strong><a href="#">Saturday: <?php echo $saturday['timing']; ?></a></strong></br>
+              <strong><a href="#">Sunday: <?php echo $sunday['timing']; ?></a></strong></br>
               </div>
             </div>
           </div>

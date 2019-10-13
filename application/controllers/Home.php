@@ -33,7 +33,7 @@ class Home extends CI_Controller {
           $this->session->set_userdata($userdata);
           redirect (base_url() . 'home/my_profile');
         }else{
-          $this->session->set_flashdata('error_msg', 'invalid Email or Password');
+          $this->session->set_flashdata('error_msg', 'Invalid Email or Password');
           // redirect (base_url() . 'home/login');
           redirect (base_url() . 'home/login');
         }
@@ -154,6 +154,15 @@ class Home extends CI_Controller {
         $this->load->view('header',$data);
       }
       public function footer(){
+        $this->load->model('admin/mdl_admin');
+        $data['footer_context']  = $this->mdl_admin->get_footer_context();
+        $data['monday'] = $this->mdl_home->monday();
+        $data['tuesday'] = $this->mdl_home->tuesday();
+        $data['wednesday'] = $this->mdl_home->wednesday();
+        $data['thursday'] = $this->mdl_home->thursday();
+        $data['friday'] = $this->mdl_home->friday();
+        $data['saturday'] = $this->mdl_home->saturday();
+        $data['sunday'] = $this->mdl_home->sunday();
         $data['footer_logo'] = $this->mdl_home->get_footer_logo();
         $this->load->view('footer', $data);
       }
@@ -404,6 +413,7 @@ class Home extends CI_Controller {
           $this->load->model('mdl_home');
           $data = array(
             'email' => $this->input->post('email'),
+            'unsub_btn' => 'Unsubscribe',
           );
           $this->mdl_home->subscribe($data);
 
@@ -594,7 +604,9 @@ class Home extends CI_Controller {
       if($this->session->userdata('authenticated')){
       $this->load->model('mdl_home');
       $user_id = $this->session->userdata('id');
-      $data['userdetail'] = $this->mdl_home->get_profile($user_id);   //prd($data);
+      $user_email = $this->session->userdata('email');
+      $data['userdetail'] = $this->mdl_home->get_profile($user_id);
+      $data['unsub_btn'] = $this->mdl_home->get_unsub_btn($user_email);    //prd($data);
       $this->navbar();
       $this->load->view('profile', $data);
       $this->footer();
@@ -647,7 +659,42 @@ class Home extends CI_Controller {
       }else{
         redirect (base_url(). 'home/login');
       }
-}
-
+     }
+     public function add_to_wishlist(){
+       if($this->session->userdata('authenticated')){
+       $this->load->model('mdl_home');
+       $id  = $this->uri->segment(3);  //prd($id);
+       $data = array(
+         'p_id' => $id,
+         'uzr_id' => $this->session->userdata('id'),
+       );   //prd($data);
+       $this->mdl_home->add_to_wishlist($data);
+        redirect ('home/my_wishlist');
+      }else{
+        redirect (base_url(). 'home/login');
+      }
+     }
+    public function my_wishlist(){
+      $uzr_id = $this->session->userdata('id');
+      $this->load->model('mdl_home');
+      $data['wishlist'] = $this->mdl_home->get_wishlist($uzr_id);
+      $this->navbar();
+      $this->load->view('wishlist', $data);// prd($data);
+      $this->footer();
+    }
+    public function remove_wishitem(){
+      $p_id = $this->uri->segment(3);// prd($p_id);
+      $this->load->model('mdl_home');
+      $this->mdl_home->remove_wishitem($p_id);
+      $this->session->set_flashdata('wishlist', 'Your item has been successfully removed from your wishlist.');
+      $this->my_wishlist();
+    }
+    public function unsubscribe(){
+      $id = $this->uri->segment(3); //prd($id);
+      $this->load->model('mdl_home');
+      $this->mdl_home->unsubscribe($id);
+      $this->session->set_flashdata('unsubscribe', 'You Are Unsubscribed From Our Newletters, Thank you.');
+      $this->my_profile();
+    }
 
 }

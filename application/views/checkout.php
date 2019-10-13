@@ -141,7 +141,7 @@
 										<tr class="order-total">
 											<th>Order Total</th>
 											<td><strong><span class="amount">$<?php echo $this->cart->format_number($this->cart->total()); ?></span></strong>
-												<input type="hidden" name="price" value="<?php echo $this->cart->format_number($this->cart->total()); ?>" />
+												<input type="hidden" name="price" value="<?php echo $this->cart->total(); ?>" />
 											</td>
 										</tr>
 									</tfoot>

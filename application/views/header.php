@@ -148,6 +148,7 @@
 											<!--<li><a href="customer-login.html">Compare Products</a></li> -->
 											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
                       <li><a href="#"><?php echo anchor('home/my_profile', 'Profile'); ?></a></li>
+                      <li><a href="#"><?php echo anchor('home/my_wishlist', 'My Wishlist'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
                       <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
@@ -211,6 +212,7 @@
   											<!-- <li><a href="customer-login.html">Profile setting</a></li> -->
                         <li><a ><?php echo anchor('home/my_profile', 'profile'); ?></a></li>
                         <li><a href="#"><?php echo anchor('home/my_order', 'Orders History'); ?></a></li>
+                        <li><a href="#"><?php echo anchor('home/my_wishlist', 'My Wishlist'); ?></a></li>
                         <li><a href="#"><?php echo anchor('home/password_change', 'Change Password'); ?></a></li>
                         <li><a href="#"><?php echo anchor('home/logout', 'logout'); ?></a></li>
 

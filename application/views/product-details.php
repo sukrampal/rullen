@@ -96,10 +96,8 @@
 										<div class="sinple-c-title">
 											<h3 class="text-capitalize" style="font-family:Bell MT;"><?php echo $prdct['product_title']; ?></h3>
 										</div>
-										<div class="checkbox">
-											<span><i class="fa fa-check-square" aria-hidden="true"></i>In stock</span>
-                      <!-- <?php echo $prdct['qty']; ?> -->
-										</div>
+
+                    <button type="button" class="btn btn-outline-secondary"><b style="color:green"><?php echo $prdct['in_stk']; ?></b><b style="color:red"><?php echo $prdct['out_stk']; ?></b></button>
 
 											<h4 style="font-family:Bell MT;">$<?php echo $prdct['product_price']; ?></h4>
 
@@ -159,8 +157,8 @@
 												</a>
 												<div class="new-product-action feature-action">
 
-													<a href="<?php echo base_url(); ?>cart/add/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-
+													<!-- <a href="<?php echo base_url(); ?>cart/add/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a> -->
+                          <a href="<?php echo base_url(); ?>home/add_to_wishlist/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-heart"></span>Add to Wishlist</a>
 												</div>
 											</div>
 											<div class="product-content text-center">

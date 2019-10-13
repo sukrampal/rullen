@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   class Cart extends CI_Controller {
     public function index(){
+      $this->load->model('mdl_home');
+      $data['var_shop'] = $this->mdl_home->shop();
       $this->navbar();
-      $this->load->view('cart');
+      $this->load->view('cart', $data);
       $this->footer();
     }
 
@@ -16,6 +18,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
     public function footer(){
       $this->load->model('mdl_home');
+      $this->load->model('admin/mdl_admin');
+      $data['footer_context']  = $this->mdl_admin->get_footer_context();
+      $data['monday'] = $this->mdl_home->monday();
+      $data['tuesday'] = $this->mdl_home->tuesday();
+      $data['wednesday'] = $this->mdl_home->wednesday();
+      $data['thursday'] = $this->mdl_home->thursday();
+      $data['friday'] = $this->mdl_home->friday();
+      $data['saturday'] = $this->mdl_home->saturday();
+      $data['sunday'] = $this->mdl_home->sunday();
       $data['footer_logo'] = $this->mdl_home->get_footer_logo();
       $this->load->view('footer', $data);
     }
@@ -146,7 +157,7 @@ public function update(){
     'delivery_button' => 'Delivered',
     'payment_method' => 'Cash on Delivery',
     'shipping_btn'   => 'Ready to Ship',
-    'date' => date('Y-m-d',NOW()),
+    'date' => date('y-d-m',NOW()),
 
   );
 
@@ -172,7 +183,7 @@ public function update(){
   unset($order["qty"]);
   unset($order["item_price"]);
   //prd($order);
-  $this->session->set_userdata('order',$order);//prd($this->session->userdata('product_id'));
+  $this->session->set_userdata('order',$order);  // prd($order);
   // $this->session->set_flashdata($order);
 
   // $this->session->set_flashdata('price', $this->input->post('price'));

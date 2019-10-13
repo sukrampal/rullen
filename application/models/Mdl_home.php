@@ -167,4 +167,50 @@
       $result = $this->db->get('captions')->result_array();
       return $result;
     }
+    public function add_to_wishlist($data){
+      $this->db->insert('wishlist', $data);
+    }
+    public function get_wishlist($uzr_id){
+      $result =  $this->db->where('uzr_id', $uzr_id)->join('products', 'p_id = product_id')->get('wishlist')->result_array();
+      return $result;
+    }
+    public function remove_wishitem($p_id){
+      $this->db->where('p_id', $p_id);
+      $this->db->delete('wishlist');
+    }
+    public function get_unsub_btn($usermail){
+      $result = $this->db->where('email', $usermail)->get('subscribe')->row_array();
+      return $result;
+    }
+    public function unsubscribe($id){
+      $this->db->where('serial_no', $id)->delete('subscribe');
+    }
+    public function monday(){
+      $result = $this->db->where('id', 1)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function tuesday(){
+      $result = $this->db->where('id', 2)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function wednesday(){
+      $result = $this->db->where('id', 3)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function thursday(){
+      $result = $this->db->where('id', 4)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function friday(){
+      $result = $this->db->where('id', 5)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function saturday(){
+      $result = $this->db->where('id', 6)->get('opening_hours')->row_array();
+      return $result;
+    }
+    public function sunday(){
+      $result = $this->db->where('id', 7)->get('opening_hours')->row_array();
+      return $result;
+    }
 }
