@@ -356,13 +356,13 @@
 			.reason1 h4{
 			  margin: 10px;
 			  padding: 10px;
-			  color: gray;
+			  color: #45461c;
 				font-family: sans-serif;
 				font-size: 18px;
 				font-weight: 100;
 			}
 			.reason h3{
-			  color: gray;
+			  color: #5d5629d6;
 				font-weight:40;
 			}
 

@@ -122,7 +122,7 @@
                           </a>
                           <div class="new-product-action">
 
-                            <a href="<?php echo base_url(); ?>cart/add/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+                            <!-- <a href="<?php echo base_url(); ?>cart/add/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a> -->
                             <a href="<?php echo base_url(); ?>home/add_to_wishlist/<?php echo $shp['product_id']; ?>"><span class="lnr lnr-heart"></span>Add to Wishlist</a>
                           </div>
                         </div>

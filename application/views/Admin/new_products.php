@@ -28,7 +28,7 @@
             <?php foreach($products as $prdct){ ?>
             <tr>
               <td><?php echo $prdct['product_id']; ?></td>
-              <td><?php echo $prdct['product_cat']; ?></td>
+              <td><?php echo $prdct['cat_title']; ?></td>
               <td><?php echo $prdct['product_title']; ?></td>
               <td><?php echo $prdct['product_price']; ?></td>
               <td><?php echo $prdct['old_price']; ?></td>

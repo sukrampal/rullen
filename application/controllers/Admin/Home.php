@@ -4,7 +4,7 @@
 class Home extends CI_Controller {
       public function index()
       {
-        if($this->session->userdata('username') != '')
+        if($this->session->userdata('id') == '1')
           {
             redirect (base_url() . 'admin/home/dashboard');
                // echo '<p class="text-success">Welcome - '.$this->session->userdata('username').'</p>';
@@ -31,7 +31,8 @@ class Home extends CI_Controller {
               if($this->mdl_admin->can_login($username, $password))
                   {
                     $session_data = array(
-                    'username'     =>     $username
+                    'username'     =>     $username,
+                    'id' => 1
                     );
                     $this->session->set_userdata($session_data);
                     redirect(base_url() . 'admin/home/dashboard');
@@ -85,11 +86,11 @@ class Home extends CI_Controller {
         }
         function logout()
             {
-                 $this->session->unset_userdata('username');
+                 $this->session->unset_userdata('id');
                  redirect(base_url() . 'admin/home/index');
             }
             public function navbar(){
-              if($this->session->userdata('username') != '')
+              if($this->session->userdata('id') == '1')
                  {
                    $this->load->view('admin/header');
 
@@ -839,6 +840,9 @@ class Home extends CI_Controller {
                              $data['total_purchase'] = $total1[0]->no;
                              $result = $total[0]->no - $total1[0]->no;
 
+                             $this->session->set_flashdata('total_selling', $total[0]->no);
+                             $this->session->set_flashdata('total_purchase', $total1[0]->no);
+
 
                              $this->session->set_flashdata('report', 'Total selling for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
                               <b>$'.$total[0]->no.'</b>.');
@@ -846,7 +850,7 @@ class Home extends CI_Controller {
                                <b>$'.$total1[0]->no.'</b>.');
                                if($total[0]->no > $total1[0]->no){
                                $this->session->set_flashdata('report2', 'Profit for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
-                                <b>'.$data.'</b>.'); }
+                                <b>'.$result.'</b>.'); }
                                 if($total1[0]->no > $total[0]->no){
                                   $this->session->set_flashdata('report3', 'Loss for the time period from '.$this->input->post('from').' to '.$this->input->post('to').' is
                                    <b>'.$result.'</b>.');

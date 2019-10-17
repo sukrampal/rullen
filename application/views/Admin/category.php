@@ -23,18 +23,19 @@
                   <div class="table-responsive">
                   <table class="table table-bordered">
                   <tr>
-                    <th>Category id</th>
+                    <th>Category Number</th>
                     <th>Category Name</th>
                     <th>Delete</th>
                     <th>Update</th>
                   </tr>
-                  <?php foreach($category as $cat){  ?>
+                  <?php $i = 1; foreach($category as $cat){  ?>
                     <tr>
-                    <td><?php echo $cat['cat_id']; ?></td>
+
+                    <td><?php echo $i; ?></td>
                     <td><?php echo $cat['cat_title']; ?></td>
                     <td><a href="<?php echo base_url(); ?>admin/home/delete_category/<?php echo $cat['cat_id']; ?>" class="delete_data"  onclick="return myConfirm();" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
                     <td><a href="<?php echo base_url(); ?>admin/home/update_category/<?php echo $cat['cat_id']; ?>" class="update _data" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
-                    </tr><?php } ?>
+                    </tr><?php $i++; } ?>
 
       <?php  }
     }else{ ?>
@@ -66,19 +67,19 @@
         <div class="table-responsive">
         <table class="table table-bordered">
         <tr>
-          <th>Category id</th>
+          <th>Category Number</th>
           <th>Category Name</th>
           <th>Delete</th>
           <th>Update</th>
         </tr>
-        <?php foreach($category as $cat){  ?>
+        <?php $i = 1; foreach($category as $cat){  ?>
           <tr>
-          <td><?php echo $cat['cat_id']; ?></td>
+          <td><?php echo $i; ?></td>
           <td><?php echo $cat['cat_title']; ?></td>
           <td><a href="<?php echo base_url(); ?>admin/home/delete_category/<?php echo $cat['cat_id']; ?>" class="delete_data"  onclick="return myConfirm();" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
           <td><a href="<?php echo base_url(); ?>admin/home/update_category/<?php echo $cat['cat_id']; ?>" class="update _data" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
           </tr>
-        <?php } ?>
+        <?php $i++; } ?>
       <?php } ?>
         </table>
         </div>

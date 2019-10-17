@@ -2,7 +2,7 @@
 		<!-- checkout-area start -->
 		<div class="checkout-area pb-50">
 			<div class="container">
-				<form method="post" class="row" action="<?php echo base_url(); ?>cart/order" onsubmit="return printDiv('printMe');">
+				<form method="post" class="row" action="<?php echo base_url(); ?>cart/order" >
 					<div class="col-lg-6">
 						<div class="checkbox-form">
 							<h3>Billing Details</h3>
@@ -197,7 +197,7 @@
 
 								<div class="order-button-payment">
 									<input type="submit" name="cash" value="Cash On Delivery" />
-									<!-- <input type="submit" value="Pay Online" /> -->
+									<!-- <input type="submit"  onclick="printDiv('printMe')" value="print" /> -->
 									<!-- onclick="printDiv('printMe')" -->
 								</div>
 							</div>
@@ -210,18 +210,18 @@
 		<!-- contact-area-start -->
 
 		<script>
-		function printDiv(divName){
-			/*w=window.open();
-			w.document.write(document.getElementById(divName).innerHTML);
-			w.print();
-			w.close();*/
-			/*var printContents = document.getElementById(divName).innerHTML;
-			var originalContents = document.body.innerHTML;
-			document.body.innerHTML = printContents;
-			window.print();
-			console.log('originalContents',originalContents);
-			document.body.innerHTML = originalContents;*/
-			return true;
-		}
+		// function printDiv(divName){
+		// 	w=window.open();
+		// 	w.document.write(document.getElementById(divName).innerHTML);
+		// 	w.print();
+		// 	w.close();
+		// 	var printContents = document.getElementById(divName).innerHTML;
+		// 	var originalContents = document.body.innerHTML;
+		// 	document.body.innerHTML = printContents;
+		// 	window.print();
+		// 	console.log('originalContents',originalContents);
+		// 	document.body.innerHTML = originalContents;
+		// 	return true;
+		// }   give id='printMe'
 
 	</script>

@@ -44,7 +44,7 @@
        return $result;
      }
      public function get_new_product(){
-       $result  = $this->db->where('new_product', 1)->get('products')->result_array();
+       $result  = $this->db->where('new_product', 1)->join('categories', 'product_cat = cat_id')->get('products')->result_array();
        return $result;
      }
      public function delete_new_product($data, $id){
@@ -178,8 +178,8 @@
     public function get_purchase($to, $from){
       $this->db->select("sum(old_price) as no");
       $this->db->from('products');
-      $this->db->where('date <', $to);
-      $this->db->where('date >', $from);
+      $this->db->where('date <=', $to);
+      $this->db->where('date >=', $from);
       $query = $this->db->get();
       return $query->result();
     }
