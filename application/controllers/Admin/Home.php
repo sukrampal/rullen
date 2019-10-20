@@ -380,7 +380,7 @@ class Home extends CI_Controller {
                             public function shipping(){
                               $id = $this->uri->segment(4);
                               $this->load->model('admin/mdl_admin');
-                              $data['shipping_btn'] = Shipped;
+                              $data['delivery_status'] = Shipped;
                               $this->mdl_admin->shipping($id, $data);
                               $data['email'] = $this->mdl_admin->get_orderforemail($id);   //prd($data);
                               foreach($data as $e){
@@ -433,9 +433,8 @@ class Home extends CI_Controller {
                               // $data['cancel_button'] = ' ';
                               $data1 = array(
                                 'delivery_status' => 'Cancelled',
-                                'delivery_button' => ' ',
                                 'cancel_button' => ' ',
-                                'shipping_btn'   => ' ',
+
                               );
                               $this->mdl_admin->cancel_order($id, $data1);
                               $data['email'] = $this->mdl_admin->get_orderforemail($id);   //prd($data);
@@ -561,8 +560,7 @@ class Home extends CI_Controller {
                             $data2 = array(
                               'delivery_status' => 'Delivered',
                               'cancel_button' => ' ',
-                              'delivery_button' => ' ',
-                              'shipping_btn' => ' ',
+
                             );
 
                             $this->mdl_admin->delivery_status($data2, $id);

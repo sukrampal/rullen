@@ -1,4 +1,5 @@
-<h3 align="center"><button type="button" class="btn btn-outline-secondary">Subscribed Users</button></h3>
+<!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Subscribed Users</button></h3> -->
+<div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">SUBSCRIBERS</p></div>
 <div class="table-responsive">
   <form method="post" action="<?php echo base_url(); ?>admin/home/mail_to_subscriber" enctype="multipart/form-data">
 

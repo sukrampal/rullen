@@ -2,7 +2,8 @@
   <?php
 if(isset($update_bnr)){
    foreach ($update_bnr as $bnr); { ?>
-       <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Banner</button></h3>
+       <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Banner</button></h3> -->
+       <div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">UPDATE BANNER</p></div>
     <form method ="post" action="<?php echo base_url(); ?>admin/home/update_banner" enctype="multipart/form-data">
       <div class="table-responsive">
       <table class="table table-bordered">
@@ -46,7 +47,8 @@ if(isset($update_bnr)){
     </div>
   <?php }
 }else{ ?>
-    <h3 align="center"><button type="button" class="btn btn-outline-secondary">Banner Image</button></h3>
+    <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Banner Image</button></h3> -->
+    <div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">BANNERS</p></div>
     <?php
     if($this->uri->segment(3) == "banner_updated"){
     echo '<p class="text-success">Your banner has been updated successfully</p>';

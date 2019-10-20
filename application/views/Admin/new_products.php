@@ -1,6 +1,7 @@
 
         <!-- sukram -->
-        <h1 align="center"><button type="button" class="btn btn-outline-secondary">Latest Products</button></h1><br></br>
+        <!-- <h1 align="center"><button type="button" class="btn btn-outline-secondary">Latest Products</button></h1><br></br> -->
+        <div class="abc" align="center"><p align="center" style="width:350px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">LATEST PRODUCT LIST</p></div>
         <?php
         if($this->uri->segment(3)=="new_product_deleted"){
           echo '<p class="text-success">Your product has been removed from the list of latest products</p>';

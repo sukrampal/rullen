@@ -144,7 +144,7 @@
 							<div class="upsell-product-title">
 								<h3 class="text-uppercase">Related Products</h3>
 							</div>
-<div class="feature-home-active">
+            <div class="feature-home-active">
 							<div class="row dotted-style3">
                 <div class="desktop">
 								<div class="upsell-product-active">

@@ -2,13 +2,14 @@
 
         <!-- sukram  -->
 
-    <div class="container">
+    <div style="padding-top:50px" class="container">
       <?php
       if(isset($update)){
         foreach($update as $edit){ ?>
 
             <form method ="post" action="<?php echo base_url(); ?>admin/home/add_category">
-              <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Category</button></h3>
+              <!-- <p align="center" style="width:250px;background-color:#DDDDDD;border-bottom: 2px solid #007bff;color:BLACK;font-size: 20px;">UPDATE CATEGORY PAGE</p> -->
+              <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Category</button></h3> -->
           <div class="form-group">
           <label>Category name</label>
           <input type="text" name="cat_title" value="<?php echo $edit['cat_title']; ?>" class="form-control" autocomplete="off"/>
@@ -23,7 +24,7 @@
                   <div class="table-responsive">
                   <table class="table table-bordered">
                   <tr>
-                    <th>Category Number</th>
+                    <th style="width:1px">Category Number</th>
                     <th>Category Name</th>
                     <th>Delete</th>
                     <th>Update</th>
@@ -31,7 +32,7 @@
                   <?php $i = 1; foreach($category as $cat){  ?>
                     <tr>
 
-                    <td><?php echo $i; ?></td>
+                    <td ><?php echo $i; ?></td>
                     <td><?php echo $cat['cat_title']; ?></td>
                     <td><a href="<?php echo base_url(); ?>admin/home/delete_category/<?php echo $cat['cat_id']; ?>" class="delete_data"  onclick="return myConfirm();" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
                     <td><a href="<?php echo base_url(); ?>admin/home/update_category/<?php echo $cat['cat_id']; ?>" class="update _data" id="<?php echo $cat['cat_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
@@ -41,7 +42,9 @@
     }else{ ?>
 
       <form method ="post" action="<?php echo base_url(); ?>admin/home/add_category">
-        <h3 align="center"><button type="button" class="btn btn-outline-secondary">Add Product Category</button></h3>
+        <!-- <p align="center" style="width:150px;background-color:#DDDDDD;border-bottom: 2px solid #007bff;color:BLACK;font-size: 20px;">ADD CATEGORY</p> -->
+        <!-- <p align="center" style="width:150px;border: 1px solid gray;border-radius: 12px;color:white;font-size: 20px;background-color:#007bff">ADD CATEGORY</p> -->
+        <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Add Product Category</button></h3> -->
         <?php
           if($this->uri->segment(3)=="inserted"){
             echo '<p class="text-success">Category added successfully</p>';
@@ -67,7 +70,7 @@
         <div class="table-responsive">
         <table class="table table-bordered">
         <tr>
-          <th>Category Number</th>
+          <th style="width:1px;">Category Number</th>
           <th>Category Name</th>
           <th>Delete</th>
           <th>Update</th>

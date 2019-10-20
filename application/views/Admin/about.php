@@ -1,6 +1,7 @@
 <div class="container">
   <?php if(isset($about_text)){ ?>
-  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update About Us Page</button></h3>
+  <!-- <h3 align="center" style="color:#666666;">Update About Us Page</h3> -->
+  <div class="abc" align="center"><p align="center" style="width:350px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">UPDATE ABOUT US CONTENT</p></div>
   <?php if($error = $this->session->flashdata('msg')){ ?>
     <p style="color:green"><b>Success,</b><?php echo $error; ?></p>
   <?php } ?>
@@ -26,7 +27,8 @@
 </div>
 </form>
 <?php }else{ ?>
-  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Footer Context</button></h3>
+  <!-- <h3 align="center" style="color:#666666">Update Footer Context</h3> -->
+  <div class="abc" align="center"><p align="center" style="width:350px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">UPDATE FOOTER CONTEXT</p></div>
   <?php if($error = $this->session->flashdata('context')){ ?>
     <p style="color:green"><b>Success,</b><?php echo $error; ?></p>
   <?php } ?>

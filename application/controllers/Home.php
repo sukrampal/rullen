@@ -556,9 +556,9 @@ class Home extends CI_Controller {
       if($this->session->userdata('authenticated')){
       $id = $this->uri->segment(3);
       $this->load->model('mdl_home');
-      $data['delivery_button'] = ' ';
+      // $data['delivery_button'] = ' ';
       $data['cancel_button'] = ' ';
-      $data['shipping_btn'] = ' ';
+      // $data['shipping_btn'] = ' ';
       $data['delivery_status'] = 'Cancelled';
       $this->mdl_home->cancel_order($id, $data);
       // $to = $this->session->userdata('email');

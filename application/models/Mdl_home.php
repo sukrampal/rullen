@@ -107,6 +107,7 @@
             $order["product_title"] = $p["product_title"];
             $order["qty"] = $p["p_qty"];
             $order["item_price"] = $p["item_price"];
+            $order["image"] = $p["image"];
             $this->db->insert("orders", $order);
           }
            return true;

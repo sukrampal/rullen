@@ -13,7 +13,7 @@
     <thead>
       <tr>
 
-        <th class="product-name">Product Id</th>
+        <th class="product-name">Order No.</th>
         <th class="product-price">Product Name</th>
         <th class="product-quantity">Quantity</th>
         <!-- <th class="product-quantity">Shipping<small>(per quantity)</small></th> -->
@@ -30,8 +30,9 @@
       <?php foreach ($my_order as $order) { ?>
       <tr>
         <!-- <td class="product-thumbnail"><a href="#"><img src="<?php echo base_url(); ?>assets/img/<?php echo $items['image']; ?>" alt="" /></a></td> -->
-        <td class="product-name"><?php echo $order['product_id']; ?></td>
-        <td class="product-name text-capitalize"><?php echo $order['product_title']; ?></td>
+        <td class="product-name"><?php echo $order['order_id']; ?></td>
+        <!-- <td class="product-name text-capitalize"><?php echo $order['product_title']; ?></td> -->
+        <td><img style="height:70px;" src="<?php echo base_url(); ?>assets/img/<?php echo $order['image']; ?>" width="70" height="333" alt=""><br><?php echo $order['product_title']; ?></td>
         <td class="product-name"><?php echo $order['qty']; ?></td>
         <td class="product-name"><?php echo $order['item_price']; ?></td>
         <td class="product-name"><?php echo $order['price']; ?></td>

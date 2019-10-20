@@ -56,8 +56,8 @@
        return $result->num_rows();
      }
      public function delete_product($id){
-       $res = $this->db->select('product_image,product_image1,product_image2,product_image3')->where('product_id', $id)->get('products')->row_array();
-       unlink('./assets/img/'.$res['product_image']);
+       $res = $this->db->select('product_image1,product_image2,product_image3')->where('product_id', $id)->get('products')->row_array();
+       // unlink('./assets/img/'.$res['product_image']);
        unlink('./assets/img/'.$res['product_image1']);
        unlink('./assets/img/'.$res['product_image2']);
        unlink('./assets/img/'.$res['product_image3']);
@@ -70,7 +70,7 @@
      //   $this->db->insert('new_products', $data);
      // }
      public function get_product_cat($id){
-       $result= $this->db->where('product_id', $id)->get('products')->result_array();
+       $result= $this->db->where('product_id', $id)->join('categories', 'product_cat = cat_id')->get('products')->result_array();
        return $result;
      }
      public function update_product($data, $id){

@@ -97,6 +97,7 @@
 												<input type ="hidden" name= "product_id[]" value="<?php echo $items['product_id']; ?>" />
 												<input type ="hidden" name= "item_price[]" value="<?php echo $items['item_price']; ?>" />
 												<input type ="hidden" name= "price[]" value="<?php echo $items['price']; ?>" />
+												<input type ="hidden" name= "image[]" value="<?php echo $items['image']; ?>" />
 										  	<input type="hidden" name="user_id" value="<?php echo $user = $this->session->userdata('id');  ?>" />
 												<input type="hidden" name="username" value="<?php echo $user = $this->session->userdata('username');  ?>" />
 											</td>

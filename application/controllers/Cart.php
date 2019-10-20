@@ -150,13 +150,14 @@ public function update(){
     'product_title' => implode(", ", $this->input->post('product_title')),
     'qty' => implode(", ", $this->input->post('p_qty')),
     'item_price' => implode(", ", $this->input->post('item_price')),
+    'image' => implode(", ", $this->input->post('image')),
     'price' => $this->input->post('price'),
     'user_id' => $this->input->post('user_id'),
     'delivery_status' => 'Pending',
     'cancel_button' => 'Cancel',
-    'delivery_button' => 'Delivered',
+    // 'delivery_button' => 'Delivered',
     'payment_method' => 'Cash on Delivery',
-    'shipping_btn'   => 'Ready to Ship',
+    // 'shipping_btn'   => 'Ready to Ship',
     'date' => date('y-d-m',NOW()),
 
   );
@@ -177,13 +178,18 @@ public function update(){
   {
     $order["products"][$key]["item_price"] = $p;
   }
+  foreach($this->input->post('image') as $key => $p)
+  {
+    $order["products"][$key]["image"] = $p;
+  }
   unset($order["product_id"]);
   unset($order["product_title"]);
   unset($order["p_qty"]);
   unset($order["qty"]);
   unset($order["item_price"]);
+  unset($order["image"]);
   //prd($order);
-  $this->session->set_userdata('order',$order);  // prd($order);
+  $this->session->set_userdata('order',$order);   //prd($order);
   // $this->session->set_flashdata($order);
 
   // $this->session->set_flashdata('price', $this->input->post('price'));
@@ -270,9 +276,9 @@ $order = array(
 'user_id' => $this->input->post('user_id'),
 'delivery_status' => 'Pending',
 'cancel_button' => 'Cancel',
-'delivery_button' => 'Delivered',
+// 'delivery_button' => 'Delivered',
 'payment_method' => 'In Bank Account',
-'shipping_btn'   => 'Ready to Ship',
+// 'shipping_btn'   => 'Ready to Ship',
 'date' => date('Y-m-d',NOW()),
 
 );
@@ -293,11 +299,17 @@ foreach($this->input->post('item_price') as $key => $p)
 {
 $order["products"][$key]["item_price"] = $p;
 }
+foreach($this->input->post('image') as $key => $p)
+{
+$order["products"][$key]["image"] = $p;
+}
 unset($order["product_id"]);
 unset($order["product_title"]);
 unset($order["p_qty"]);
 unset($order["qty"]);
 unset($order["item_price"]);
+
+unset($order["image"]);
 //prd($order);
 $this->session->set_userdata('order',$order);//prd($this->session->userdata('product_id'));
 

@@ -1,6 +1,7 @@
 
 <form method ="post" action="<?php echo base_url(); ?>admin/home/generate_report">
-  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Get Your Report</button></h3>
+  <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Get Your Report</button></h3> -->
+  <div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">GET YOUR REPORT</p></div>
     <div class="col-8">
     <div class="form-group">
     <label>From:</label>

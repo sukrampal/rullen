@@ -1,5 +1,6 @@
 <div class="container">
-  <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Captions</button></h3>
+  <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Captions</button></h3> -->
+  <div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">CAPTIONS</p></div>
   <?php if($error = $this->session->flashdata('msg')){ ?>
     <p style="color:green"><b>Success,</b><?php echo $error; ?></p>
   <?php } ?>

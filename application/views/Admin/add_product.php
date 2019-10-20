@@ -5,7 +5,8 @@
   if(isset($single_product)){
   foreach($single_product as $prd){ ?>
     <form method="post" action="<?php echo base_url(); ?>admin/home/product_updated" enctype="multipart/form-data">
-       <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Details</button></h3>
+       <!-- <h3 align="center"><button type="button" class="btn btn-outline-secondary">Update Product Details</button></h3> -->
+       <div class="abc" align="center"><p align="center" style="width:450px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">UPDATE YOUR PRODUCT DETAILS HERE</p></div>
         <div class="col-8">
           <div class="form-group">
             <label>Product Name</label>
@@ -15,10 +16,10 @@
         </div>
         <div class="col-8">
           <div class="form-group">
-            <label>Category Number/Name</label>
+            <label>Category </label>
             <select class="form-control category_list" name="product_cat" id="product_cat" >
               <?php foreach($product_cat as $prc){ ?>
-              <option value = '<?php echo $prc['product_cat']; ?>'><?php echo $prc['product_cat']; ?></option>
+              <option value = '<?php echo $prc['product_cat']; ?>'><?php echo $prc['cat_title']; ?></option>
             <?php } ?>
               <?php if(isset($category))
                foreach($category as $cat){ ?>
@@ -123,7 +124,7 @@
 
 
   <form method="post" action="<?php echo base_url(); ?>admin/home/do_upload" enctype="multipart/form-data">
-     <h3 align="center" class="text-success">Please Enter Your Product Details Here</h3>
+     <h5 align="center" class="text-success">Please Enter Your Product Details Here</h5>
       <div class="col-8">
         <div class="form-group">
           <label>Product Name</label>
