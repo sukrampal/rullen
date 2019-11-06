@@ -25,7 +25,7 @@
 </div>
 <p style="text-align:right">  <input type="submit" name="insert" value="Send Email" class="btn btn-info"></p>
 <p> Total Number Of Subscribers On Our Website Are:  <strong><?php echo $total_sbscribe; ?></strong>.</p>
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
 <tr>
   <th></th>
   <th>Select Email </th>

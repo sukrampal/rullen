@@ -224,6 +224,7 @@ class Home extends CI_Controller {
                          $data['shipping'] = $this->input->post('shipping');
                          $data['qty'] = $this->input->post('quantity');
                          $data['in_stk'] = 'IN STOCK';
+                         $data['set_stk'] = 'Yes';
                          $data['date'] =  date('y-d-m',NOW());
                          $data['product_keywords'] = $this->input->post('product_keywords');
                          $config['upload_path']  = './assets/img/';
@@ -874,24 +875,26 @@ class Home extends CI_Controller {
                           $id = $this->uri->segment(4);
                           $this->load->model('admin/mdl_admin');
                           $data = array(
-                            'in_stk' => 'IN STOCK',
-                            'out_stk' => ' ',
-                            'qty' => '1',
+                            'in_stk' => ' ',
+                            'out_stk' => 'OUT OF STOCK',
+                            'set_stk' => 'No',
+                            'qty' => '0',
                           );
                           $this->mdl_admin->out_of_stock($id, $data);
-                          $this->session->set_flashdata('out', 'Congratulation, Your Product Is In Stock Now.');
+                          $this->session->set_flashdata('out', 'Selected Product Is Out Of Stock Now.');
                             return  redirect ($_SERVER["HTTP_REFERER"]);
                         }
                         public function in_stock(){
                           $id = $this->uri->segment(4);
                           $this->load->model('admin/mdl_admin');
                           $data = array(
-                            'out_stk' => 'OUT OF STOCK',
-                            'in_stk' => ' ',
-                            'qty' => '0',
+                            'out_stk' => ' ',
+                            'in_stk' => 'IN STOCK',
+                            'set_stk' => 'Yes',
+                            'qty' => '1',
                           );
                           $this->mdl_admin->in_stock($id, $data);
-                          $this->session->set_flashdata('in', 'Selected Product Is Out Of Stock Now.');
+                          $this->session->set_flashdata('in', 'Congratulation, Your Product Is In Stock Now.');
                           redirect ('admin/home/product');
                         }
                         public function out_of_stock_item_list(){
@@ -949,4 +952,31 @@ class Home extends CI_Controller {
                             $this->footer_context();
                           }
                         }
+                        public function delete_multiple_record(){
+                         $id = $this->input->post('id');
+                         if(!empty($id)){
+                          $this->load->model('admin/mdl_admin');
+                          foreach ($_POST['id'] as $id){
+                            $this->mdl_admin->delete_multiple_record($id);
+                          }
+                          $this->session->set_flashdata('selected', 'Selected items has been deleted successfully');
+                          redirect ('admin/home/product');
+                        }
+                        $this->session->set_flashdata('deselected', 'Please select atleast one product to delete');
+                        redirect ('admin/home/product');
+                      }
+                      public function get_desc(){
+                        $this->load->model('admin/mdl_admin');
+                        $id = $this->input->get('id');
+                        $data = $this->mdl_admin->get_desc($id);
+                        echo json_encode($data);
+                        exit();
+                      }
+                      public function get_profile(){
+                        $this->load->model('admin/mdl_admin');
+                        $id = $this->input->get('id');
+                        $data = $this->mdl_admin->get_profile($id);
+                        echo json_encode($data);
+                        exit();
+                      }
                       }

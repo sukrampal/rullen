@@ -213,4 +213,16 @@
     public function update_footer_context($data){
       $this->db->where('id', 1)->update('footer_context', $data);
     }
+    public function delete_multiple_record($id){
+      $this->db->where('product_id', $id)->delete('products');
+    }
+    public function get_desc($id){
+      $result = $this->db->where('product_id', $id)->get('products')->row_array();
+      return $result;
+    }
+    public function get_profile($id){
+      $result = $this->db->where('order_id', $id)->get('orders')->row_array();
+      return $result;
+    }
+
  }

@@ -37,7 +37,7 @@
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="<?php echo base_url(); ?>admin/home/search" method ="post">
       <div class="input-group">
 
-        <input type="text" name="search" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" required />
+        <input type="text" name="search" class="form-control" placeholder="Search for Product..." aria-label="Search" aria-describedby="basic-addon2" required />
         <div class="input-group-append">
           <button class="btn btn-primary" >
             <i class="fas fa-search" type=""></i>

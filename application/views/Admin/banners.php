@@ -6,7 +6,7 @@ if(isset($update_bnr)){
        <div class="abc" align="center"><p align="center" style="width:250px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">UPDATE BANNER</p></div>
     <form method ="post" action="<?php echo base_url(); ?>admin/home/update_banner" enctype="multipart/form-data">
       <div class="table-responsive">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <tr>
         <th>Banner Location</th>
       </tr>
@@ -54,7 +54,7 @@ if(isset($update_bnr)){
     echo '<p class="text-success">Your banner has been updated successfully</p>';
     } ?>
 <div class="table-responsive">
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
     <tr>
     <!-- <th>Banner Id</th> -->
     <th>Banner Name</th>

@@ -11,47 +11,32 @@
 
 
           <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered table-striped">
               <tr>
-              <th>Product id</th>
-              <th>Category</th>
-              <th>Name</th>
+              <th></th>
+
+              <th>Product</th>
               <th>Price</th>
-              <th>Old Price</th>
-              <th>Shipping Cost</th>
-              <th>Description</th>
-              <th>Image</th>
-              <th>Keywords</th>
+              <!-- <th>Description</th> -->
               <th>Delete</th>
               <th>Update</th>
             </tr>
 
-            <?php foreach($products as $prdct){ ?>
+            <?php $i =1; foreach($products as $prdct){ ?>
             <tr>
-              <td><?php echo $prdct['product_id']; ?></td>
-              <td><?php echo $prdct['cat_title']; ?></td>
-              <td><?php echo $prdct['product_title']; ?></td>
+              <td><?php echo $i; ?></td>
+              <td><img style="height:70px; width:90px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" ><br><?php echo $prdct['product_title']; ?></td>
               <td><?php echo $prdct['product_price']; ?></td>
-              <td><?php echo $prdct['old_price']; ?></td>
-              <td><?php echo $prdct['shipping']; ?></td>
-              <td><?php echo $prdct['product_desc']; ?></td>
-              <td><img style="height:70px; width:90px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" ></td>
-              <td><?php echo $prdct['product_keywords']; ?></td>
+              <!-- <td><?php echo $prdct['shipping']; ?></td> -->
               <td><a href="<?php echo base_url(); ?>admin/home/delete_new_product/<?php echo $prdct['product_id']; ?>" class="delete_data"  onclick="return myConfirm();" id="<?php echo $prdct['product_id']; ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
               <td><a href="<?php echo base_url(); ?>admin/home/update_product/<?php echo $prdct['product_id']; ?>" class="update _data" id="<?php echo $prdct['product_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
             </tr>
-          <?php } ?>
+          <?php $i ++; } ?>
 
             </tabel>
           </div>
       </div>
 
-      <!-- <ul class="pagination">
-        <li><a href=""><</a></li>
-      </ul> -->
-      <!-- /.container-fluid -->
-
-      <!-- Sticky Footer -->
 
 <script>
 function myConfirm(){

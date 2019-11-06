@@ -22,13 +22,15 @@
           </form>
           <br></br>
                   <div class="table-responsive">
-                  <table class="table table-bordered">
+                  <table class="table table-bordered table-striped">
+                    <thead>
                   <tr>
-                    <th style="width:1px">Category Number</th>
-                    <th>Category Name</th>
-                    <th>Delete</th>
-                    <th>Update</th>
+                    <td style="width:1px">Category No.</td>
+                    <td>Category Name</td>
+                    <td>Delete</td>
+                    <td>Update</td>
                   </tr>
+                </thead>
                   <?php $i = 1; foreach($category as $cat){  ?>
                     <tr>
 
@@ -51,7 +53,7 @@
           } ?>
           <?php
             if($this->uri->segment(3)=="deleted"){
-              echo '<p class="text-success">Category deleted successfully</p>';
+              echo '<p class="text-danger">Category deleted successfully</p>';
             } ?>
             <?php
               if($this->uri->segment(3)=="updated"){
@@ -68,13 +70,15 @@
         </form>
 <br></br>
         <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped">
+          <thead>
         <tr>
-          <th style="width:1px;">Category Number</th>
-          <th>Category Name</th>
-          <th>Delete</th>
-          <th>Update</th>
+          <td style="width:1px;">Category No.</td>
+          <td>Category Name</td>
+          <td>Delete</td>
+          <td>Update</td>
         </tr>
+      </thead>
         <?php $i = 1; foreach($category as $cat){  ?>
           <tr>
           <td><?php echo $i; ?></td>

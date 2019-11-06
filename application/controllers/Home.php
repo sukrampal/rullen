@@ -344,7 +344,7 @@ class Home extends CI_Controller {
               $this->load->model('mdl_home');
               $pass= $this->mdl_home->retrieve_password($emailto); //prd($pass);
               if(!empty($pass)){
-                $to = 'sukramror0001@gmail.com';
+                $to = $emailto;
                 $subject = 'Rullen-Furniture';
                 $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 5);
                 $from = 'info@rullenantiques.co.nz';

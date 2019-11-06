@@ -1,8 +1,6 @@
 
         <!-- sukram -->
-        <h1 align="center"><button type="button" class="btn btn-outline-secondary">Product Page</button></h1><br></br>
-        <a href="<?php echo base_url(); ?>admin/home/add_product"><input type="submit" name="insert" value="Add Product" class="btn btn-info"></a><br>
-
+<div class="abc" align="center"><p align="center" style="width:350px;background-color:#DDDDDD;color:BLACK;font-size: 20px;border-radius: 12px;">SEARCHED ITEM(s)</p></div><br></br>
         <?php
         if($this->uri->segment(3)=="delete"){
           echo '<p class="text-success">Your product has been deleted successfully</p>';
@@ -18,32 +16,36 @@
           <div class="table-responsive">
           <table class="table table-bordered">
               <tr>
-              <th>Product id</th>
+              <th></th>
+             <th>Product</th>
               <th>Category</th>
-              <th>Name</th>
               <th>Price</th>
               <th>Old Price</th>
               <th>Description</th>
-              <th>Image</th>
-              <th>keywords</th>
+              <th>Availability</th>
               <th>Delete</th>
               <th>Update</th>
             </tr>
 
-            <?php foreach($products as $prdct){ ?>
+            <?php $i = 1; foreach($products as $prdct){ ?>
             <tr>
-              <td><?php echo $prdct['product_id']; ?></td>
+              <td><?php echo $i; ?></td>
+              <td><img style="height:70px; width:90px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" ><br><?php echo $prdct['product_title']; ?></td>
               <td><?php echo $prdct['cat_title']; ?></td>
-              <td><?php echo $prdct['product_title']; ?></td>
               <td><?php echo $prdct['product_price']; ?></td>
               <td><?php echo $prdct['old_price']; ?></td>
               <td><?php echo $prdct['product_desc']; ?></td>
-              <td><img style="height:70px; width:90px" src="<?php echo base_url(); ?>assets/img/<?php echo $prdct['product_image']; ?>" ></td>
-              <td><?php echo $prdct['product_keywords']; ?></td>
+              <td>
+                <select id="selectbox" name="" onchange="javascript:location.href = this.value;">
+              <option  value="" selected><?php echo $prdct['set_stk']; ?></option>
+              <option value="<?php echo base_url(); ?>admin/home/in_stock/<?php echo $prdct['product_id']; ?>">Yes</option>
+              <option value="<?php echo base_url(); ?>admin/home/out_of_stock/<?php echo $prdct['product_id']; ?>">No</option>
+              </select>
+              </td>
               <td><a href="<?php echo base_url(); ?>admin/home/delete_product/<?php echo $prdct['product_id']; ?>" class="delete_data"  onclick="return myConfirm();" id="<?php echo $prdct['product_id']; ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
               <td><a href="<?php echo base_url(); ?>admin/home/update_product/<?php echo $prdct['product_id']; ?>" class="update _data" id="<?php echo $prdct['product_id']; ?>"><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
             </tr>
-          <?php } ?>
+          <?php $i++; } ?>
 
             </tabel>
           </div>
